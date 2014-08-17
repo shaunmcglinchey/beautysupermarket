@@ -5,8 +5,6 @@ angular.module('beautyApp')
             $scope.itemsPerPage = 10;
             $scope.currentPage = 1;
             $scope.maxSize = 5;
-            var brands = new Array();
-            var merchants = new Array();
             var filterSelection = new Array();
             var selectedFilter;
 
@@ -96,8 +94,11 @@ angular.module('beautyApp')
                     $scope.totalItems = res.results.products.count;
                     $scope.merchants = res.resources.merchants.merchant;
                     $scope.brands = res.resources.brands.brand;
-                    //$scope.currentPage = 1;
-                    //$scope.currentPage = res.parameters[0].value;
+                    
+                    console.log('res merchants:'+JSON.stringify(res.resources.merchants.merchant));
+                    //pass the merchants to our product service so that other controllers may access them
+                    productService.setMerchants(res.resources.merchants.merchant);
+                    
                     console.log('res.parameters[0].value:' + res.parameters[0].value);
                     console.log('num results:' + $scope.total);
                 });
@@ -150,11 +151,25 @@ angular.module('beautyApp')
 }])
 .controller('ProductDetailController', ['$scope', '$routeParams','productService',
   function($scope, $routeParams, productService) {
+      var filterSelection = new Array();
       $scope.productId = $routeParams.productId;
       console.log('reached product detail page for product: '+$scope.productId);
       
       //fetch the product from the product service
       $scope.product = productService.getSelectedProduct();
-      console.log('description: '+$scope.product.description);
+      //console.log('description: '+$scope.product.description);
+      //console.log('merchants:'+JSON.stringify(productService.getMerchants()));
+      $scope.merchants = productService.getMerchants();
+      //console.log('merchants length:'+JSON.stringify($scope.merchants));
+      $scope.min_merchant_name = getMerchantName($scope.merchants,$scope.product.price_min_merchant);
+      //SearchParams.filterId = getName($scope.merchants,filter.name);  
+      
+      
+      
+       function getMerchantName(filterArray, filterProperty){
+                filterSelection = _.where(filterArray, {id:filterProperty});
+                selectedFilterIdList = _.pluck(filterSelection,"name"); 
+                return selectedFilterIdList[0];
+            }
       
   }]);;

@@ -43,7 +43,7 @@ Offer
 
                             </div>
                             <div class="best-store">
-                                from {{product.price_min_merchant}}
+                                from {{min_merchant_name}}
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,11 @@ Offer
                     <strong><span style="font-size:16px;">OFFERS</span></strong> 
                 </div>
             </div>
+            <div ng-repeat="offer in product.offers.offer">
+                {{offer.description}} {{offer.name}} {{offer.merchant}} {{offer.price_retail}} {{offer.price_merchant}} {{offer.currency_iso}}
+            </div>
 
+            <!--
             <div ng-repeat="product in products.products.product" class="row top-buffer">
                 <div class="col-md-2">
                     <a href="#/products/{{product.id}}">
@@ -95,20 +99,10 @@ Offer
                     </div>
                 </div>
             </div>
-
+            -->
         </div>
     </div>
     <!--
-    <div class="row">
-        <div class="col-md-1">.col-md-1</div>
-        <div class="col-md-1">.col-md-1</div>
-        <div class="col-md-1">.col-md-1</div>
-        <div class="col-md-1">.col-md-1</div>
-        <div class="col-md-1">.col-md-1</div>
-        <div class="col-md-1">.col-md-1</div>
-        <div class="col-md-1">.col-md-1</div>
-        <div class="col-md-1">.col-md-1</div>
-        <div class="col-md-1">.col-md-1</div>
-    </div>
+    
     -->
 </div>

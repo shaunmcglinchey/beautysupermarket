@@ -1,7 +1,9 @@
 angular.module("beautyApp")
 .service('productService', function(){
   var selectedProduct;
-   
+  var brands = new Array();
+  var merchants = new Array();
+    
   var selectProduct = function(newObj){
     selectedProduct = newObj;
   }
@@ -10,9 +12,21 @@ angular.module("beautyApp")
    return selectedProduct;   
   }
   
+  var setMerchants = function(newObj){
+    //console.log('setting merchants:'+JSON.stringify(newObj));
+    merchants = newObj;
+    //console.log('pservice merchants length:'+merchants.length);
+  }
+  
+  var getMerchants = function(){
+   return merchants;   
+  }
+  
   return {
       selectProduct : selectProduct,
-      getSelectedProduct : getSelectedProduct
+      getSelectedProduct : getSelectedProduct,
+      setMerchants : setMerchants,
+      getMerchants : getMerchants
   }
 })
 .factory("productAPI", function($resource, $q) {
