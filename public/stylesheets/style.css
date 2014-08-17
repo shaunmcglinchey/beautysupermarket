@@ -4480,3 +4480,67 @@ em {
     float: left; }
     .navbar-nav > li > a {
       padding: 15px; }
+
+/* my styles */
+.top-buffer { margin-top:20px; }
+
+.product-title {
+font-weight: bold;
+font-size:22px;
+color: #333;
+}
+
+.results-summary {
+font-weight: bold;
+font-size:14px;
+}
+
+.best-offer {
+float: right;
+border: 1px solid #bbb;
+background: #f7f7f7;
+border-radius: 4px;
+padding: 9px;
+margin: 0 0 9px 9px;
+font-size: 18px;
+}
+
+.best-price {
+font-weight: bold;
+font-size: 150%;
+color: #333;
+float: left;
+padding-right: 18px;
+}
+
+.best-price h3 {
+font-size: 90%;
+margin: 0;
+padding: 0;
+font-weight: bold;
+color: #cc0000;
+}
+
+.merchant-price {
+padding-top: 9px;
+padding-bottom: 3px;
+}
+
+.best-store {
+clear: both;
+font-style: italic;
+color: #444;
+}
+
+.aside h4 {
+color: #CE5C00;
+margin: 0;
+padding: 0 0 3px 0;
+font-weight: bold;
+/*font-size: 1em;*/
+font-size: 18px;
+}
+
+.filter {
+   color: black; 
+}

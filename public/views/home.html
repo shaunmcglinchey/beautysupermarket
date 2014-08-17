@@ -1,66 +1,91 @@
 <div class="jumbotron">
     <div class="container">
-        <div class="row" >
+        <div class="row">
             <div class="col-md-10">
-                             
                 <form ng-submit="search()">
-                    <input type="text" ng-model="form.query" size="20" />
-                    <input type="submit" value="Search" />
-                     <!--<button ng-click="subtract(1)" class="button">Search</button>-->
+                    <input type="text" ng-model="form.query" size="70%" style="height:40px;" />
+                    <input type="submit" value="Search" style="height:40px;" />
                 </form>
             </div>
         </div>
-
-
     </div>
 </div>
-
-
-<div class="container">
-<div class="panel panel-default panel-order">
-    <div class="panel-heading"> <strong>Showing page {{currentPage}} of {{num_results}} results from {{num_merchants}} merchants</strong>
+<div class="row">
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-5 aside">
+               
+                <!-- merchants -->
+                <h4>Store</h4>
+                <div ng-repeat="merchant in merchants">
+                    <a ng-click="filter(merchant,'merchant')"><span class="filter">{{merchant.name}} ({{merchant.count}})</span></a>
+                </div>
+                
+                <!-- brands -->
+                <div class="top-buffer"></div>
+                <h4>Brand</h4>
+                <div ng-repeat="brand in brands">
+                    <a ng-click="filter(brand,'brand')"><span class="filter">{{brand.name}} ({{brand.count}})</span></a>
+                </div>
+                
+                <!-- prices -->
+                <!--
+                <div class="top-buffer"></div>
+                <div>Price</div>
+                <div ng-repeat="brand in brands">
+                    {{brand.name}} ({{brand.count}})
+                </div>
+                -->
+            </div>
+            <div class="col-md-1"></div>
+        </div>
     </div>
-    <div class="panel-body">
-        <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size=5 items-per-page=10 boundary-links="true"></pagination>
-        <div ng-repeat="product in products.products.product" class="row">
-            <div class="col-md-2">
-                <img ng-src="{{product.image_url_large}}"/>
-             
+    <div class="col-md-9 container">
+        <div class="panel panel-default panel-order">
+            <div class="panel-heading">
+                <div class="results-summary">
+                    <div ng-show="checkSomething()">You searched for: {{keyword}}.</div>Showing page {{currentPage}} of {{total}} results from {{num_merchants}} stores</div>
             </div>
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-12">
-                        <span><strong>{{product.name}}</strong></span>
+            <div class="panel-body">
+                <div ng-repeat="product in products.products.product" class="row top-buffer">
+                    <div class="col-md-2">
+                        <a ng-click="selectItem(product);">
+                            <img ng-src="{{product.image_url_large}}" />
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row top-buffer">
+                            <div class="col-md-12">
+                                <span><strong><a style="text-decoration:underline; color:#FF6699;" ng-click="selectItem(product);">{{product.name}}<a/></strong></span>
+                            </div>
+                            <div class="col-md-12">
+                                <span>{{ product.description | characters:400 }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row top-buffer">
+                            <div class="col-md-12">
+                                £ {{product.price_min}} - {{product.price_max}}
+                            </div>
+                            <div class="col-md-12">
+                                <a ng-click="selectItem(product);">
+                                    <button type="button" class="btn btn-success" style="background-color:#FF6699; border-color:#FF6699;">Compare prices</button>
+                                </a>
+                            </div>
+                            <div class="col-md-12">
+                                {{product.offers.count}} stores
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    </div>
-                    <div class="col-md-12">
-                        <span>{{product.description}}</span>
-                    </div>
-                </div>
             </div>
-            <div class="col-md-2">
-                <div class="col-md-12">
-                   £ {{product.price_min}} - {{product.price_max}}
-                </div>
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-success">Compare prices</button>
-                </div>
-                <div class="col-md-12">
-                    {{product.offers.count}} merchants
-                </div>
+
+            <div class="panel-footer">
+                <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size=5 items-per-page=10 boundary-links="true"></pagination>
             </div>
         </div>
-        
-    </div>
-    <div class="panel-footer">
-     <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size=5 items-per-page=10 boundary-links="true"></pagination>
     </div>
 </div>
-</div>
-<!--
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6"><h4><center>Save money on beauty products</center></h4></div>
-    <div class="col-md-3"></div>
-</div>
--->

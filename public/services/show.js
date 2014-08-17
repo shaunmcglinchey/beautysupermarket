@@ -1,17 +1,39 @@
-angular.module('beautyApp')
-    .factory('apiService', function ($http, $resource, $q) {
-        var resource = $resource('/api/search/', {
+angular.module("beautyApp")
+.service('productService', function(){
+  var selectedProduct;
+   
+  var selectProduct = function(newObj){
+    selectedProduct = newObj;
+  }
+  
+  var getSelectedProduct = function(){
+   return selectedProduct;   
+  }
+  
+  return {
+      selectProduct : selectProduct,
+      getSelectedProduct : getSelectedProduct
+  }
+})
+.factory("productAPI", function($resource, $q) {
+
+   var resource = $resource('/api/search/', {
             page: '@page',
             rpp: '@rpp',
-            keyword: '@keyword'
+            keyword: '@keyword',
+            filterId: '@filterId',
+            filterType: '@filterType'
         });
-        return {
-            getProds: function (SearchParams) {
-                var deferred = $q.defer();
+
+  return {
+    fetchPage: function(SearchParams) {
+    	 var deferred = $q.defer();
                 resource.get({
                         page: SearchParams.page,
                         rpp: SearchParams.rpp,
-                        keyword: SearchParams.keyword
+                        keyword: SearchParams.keyword,
+                        filterId: SearchParams.filterId,
+                        filterType: SearchParams.filterType
                     },
                     function (event) {
                         deferred.resolve(event);
@@ -19,7 +41,7 @@ angular.module('beautyApp')
                     function (response) {
                         deferred.reject(response);
                     });
-                return deferred.promise;
-            }
-        }
-    });
+      return deferred.promise;
+    }
+  };
+});

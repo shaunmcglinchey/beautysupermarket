@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var log = require('npmlog');
+var _ = require('underscore')._;
 //var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var superagent = require('superagent')
@@ -24,31 +25,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 //app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-/* Extra -- CORS stuff */
-
-
-// Enables CORS
-
-
-var enableCORS = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
- 
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-      res.send(200);
-    }
-    else {
-      next();
-    }
-};
-
-// enable CORS!
-app.use(enableCORS);
-
 
 // get an instance of router
 var beauty = express.Router()
@@ -85,23 +61,40 @@ beauty.param('rpp', function(req, res, next, rpp) {
 })
 
 beauty.get('/api/search', function(req, res, next) {
-//beauty.get('/api/search/:page/:rpp/:keyword?', function(req, res, next) {   
-    //console.log('parameters: '+req.kw)
     results = null;
     
     if(req.query.keyword){
-     console.log('got keyword query param:'+req.query.keyword); 
      search_params.keyword = req.query.keyword;
+     console.log('searching for keyword:'+req.query.keyword);
+    }else{
+    console.log('old kw:'+search_params.keyword);
+    search_params.keyword = '';
     }
     
     if(req.query.page){
-     console.log('got page query param'+req.query.page);
      search_params.page = req.query.page;
+     console.log('searching for page:'+req.query.page);
     }
     
     if(req.query.rpp){
-     console.log('got rpp query param'+req.query.rpp);
      search_params.results_per_page = req.query.rpp;
+     console.log('searching for rpp:'+req.query.rpp);
+    }
+    
+    if(req.query.filterId){
+        console.log('searching with filter Id:'+req.query.filterId+',of type:'+req.query.filterType);
+        if(req.query.filterType == 'merchant'){
+            console.log('filterType:merchant, filterId:'+req.query.filterId);
+            search_params.merchant = req.query.filterId;
+        }else if(req.query.filterType == 'brand'){
+            console.log('filterType:brand, filterId:'+req.query.filterId);
+            search_params.brand = req.query.filterId;
+        }
+    }else{
+        console.log('resetting filters');
+        //reset the filters
+        delete search_params.filterId;
+        delete search_params.filterType;
     }
     
     search_params.account = account;
@@ -124,37 +117,11 @@ beauty.get('/api/search', function(req, res, next) {
                results = '';
               }
              //console.log('\n\n\n\n\n\n\nYOYOYO sending these results over the wire: '+JSON.stringify(results))
+             //count the number of products returned
+             //console.log('num products:'+ _.pluck(result.body.results.products, 'count'))    ; 
              res.send(result.body) 
         }); 
 })
-
-/*
-beauty.get('/api/search/:page/:rpp/:keyword?', function(req, res, next) {
-    
-    //console.log('parameters: '+req.kw)
-    
-    search_params.account = account;
-    search_params.catalog = catalog;
-    search_params.keyword = req.kw;
-    search_params.page = req.page;
-    search_params.results_per_page = req.rpp;
-
-    superagent.post(popShopsUrl)
-        .send(search_params)
-        .end(function(e,res){
-             // console.log(res.body)
-              if (res.body.results) {
-               console.log('results returned from popshops')
-               results = new SearchResult(res.body)
-               console.log(results)
-              }else{
-               console.log('no results returned from popshops');
-               results = '';
-              }
-        });
-    res.send(results) 
-})
-*/
 
 // handle errors
 beauty.use(function(err, req, res, next) { 
@@ -184,3 +151,26 @@ app.listen(app.get('port'), function() {
 })
 
 
+/* Extra -- CORS stuff */
+
+
+// Enables CORS
+
+/*
+var enableCORS = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+ 
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
+
+// enable CORS!
+app.use(enableCORS);
+*/

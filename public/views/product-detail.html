@@ -1,0 +1,114 @@
+<!--
+
+<img ng-src="{{product.image_url_large}}" />
+
+
+{{product.brand}}
+
+
+Offers:
+
+
+ <div ng-repeat="offer in product.offers.offer">
+Offer 
+     {{offer.description}}
+     {{offer.name}}
+     {{offer.merchant}}
+     {{offer.price_retail}}
+     {{offer.price_merchant}}
+     {{offer.currency_iso}}
+</div>
+
+-->
+<div class="container">
+    <div class="panel panel-default panel-order">
+        <div class="panel-heading">
+            <div class="product-title">{{product.name}}</div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <img ng-src="{{product.image_url_large}}" />
+                </div>
+                <div class="col-md-7">{{product.description}}</div>
+                <!-- Do I need to replace currency with var? -->
+
+                <div class="col-md-3">
+                    <!-- <div class="col-md-1"></div>-->
+                    <div class="col-md-12">
+                        <div class="best-offer">
+                            <div class="best-price">
+                                <h3>Best Offer:</h3>
+                                <div class="merchant-price">£{{product.price_min}}</div>
+
+                            </div>
+                            <div class="best-store">
+                                from {{product.price_min_merchant}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-1"></div> -->
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-md-2">
+                    <strong><span style="font-size:16px;">BRAND {{product.brand}}</span></strong> 
+                </div>
+            </div>
+            <div class="row top-buffer">
+                <div class="col-md-2">
+                    <strong><span style="font-size:16px;">OFFERS</span></strong> 
+                </div>
+            </div>
+
+            <div ng-repeat="product in products.products.product" class="row top-buffer">
+                <div class="col-md-2">
+                    <a href="#/products/{{product.id}}">
+                        <img ng-src="{{product.image_url_large}}" />
+                    </a>
+
+                </div>
+                <div class="col-md-8">
+                    <div class="row top-buffer">
+                        <div class="col-md-12">
+                            <span><strong><a style="text-decoration:underline; color:#FF6699;" ng-click="selectItem(product);">{{product.name}}<a/></strong></span>
+
+                        </div>
+                        <div class="col-md-12">
+                            <span>{{product.description}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="row top-buffer">
+                        <div class="col-md-12">
+                            £ {{product.price_min}} - {{product.price_max}}
+                        </div>
+                        <div class="col-md-12">
+                            <a href="#/products/{{product.id}}">
+                                <button type="button" class="btn btn-success" style="background-color:#FF6699; border-color:#FF6699;">Compare prices</button>
+                            </a>
+                        </div>
+                        <div class="col-md-12">
+                            {{product.offers.count}} merchants
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--
+    <div class="row">
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+        <div class="col-md-1">.col-md-1</div>
+    </div>
+    -->
+</div>
