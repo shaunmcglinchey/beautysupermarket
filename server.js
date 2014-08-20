@@ -63,6 +63,9 @@ beauty.param('rpp', function(req, res, next, rpp) {
 beauty.get('/api/search', function(req, res, next) {
     results = null;
     
+    if(search_params.merchant)
+         delete search_params.merchant;
+    
     if(req.query.keyword){
      search_params.keyword = req.query.keyword;
      console.log('searching for keyword:'+req.query.keyword);
@@ -93,13 +96,14 @@ beauty.get('/api/search', function(req, res, next) {
     }else{
         console.log('resetting filters');
         //reset the filters
-        delete search_params.filterId;
-        delete search_params.filterType;
+       // delete search_params.filterId;
+        //delete search_params.filterType;
     }
     
     search_params.account = account;
     search_params.catalog = catalog;
    
+    console.log('search params: '+JSON.stringify(search_params));
     superagent.post(popShopsUrl)
         .send(search_params)
         .end(function(e,result){
@@ -118,7 +122,7 @@ beauty.get('/api/search', function(req, res, next) {
               }
              //console.log('\n\n\n\n\n\n\nYOYOYO sending these results over the wire: '+JSON.stringify(results))
              //count the number of products returned
-             //console.log('num products:'+ _.pluck(result.body.results.products, 'count'))    ; 
+            // console.log('num products:'+ _.pluck(result.body.results.products, 'count').indexOf(0); 
              res.send(result.body) 
         }); 
 })

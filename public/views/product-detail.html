@@ -61,7 +61,7 @@ Offer
                 </div>
             </div>
             <div ng-repeat="offer in product.offers.offer">
-                {{offer.description}} {{offer.name}} {{offer.merchant}} {{offer.price_retail}} {{offer.price_merchant}} {{offer.currency_iso}}
+               <img src="getMerchantLogoUrl({{offer.merchant}})" /> {{offer.description}} {{offer.name}} {{offer.merchant}} {{offer.price_retail}} {{offer.price_merchant}} {{offer.currency_iso}}
             </div>
 
             <!--

@@ -13,22 +13,29 @@
 <div class="row">
     <div class="col-md-3">
         <div class="row">
-            <div class="col-md-6"></div>
-            <div class="col-md-5 aside">
-               
+            <div class="col-md-5"></div>
+            <div class="col-md-6 aside">
+
                 <!-- merchants -->
                 <h4>Store</h4>
-                <div ng-repeat="merchant in merchants">
-                    <a ng-click="filter(merchant,'merchant')"><span class="filter">{{merchant.name}} ({{merchant.count}})</span></a>
+                <div ng-repeat="merchant in merchants |orderBy:'count':true">
+
+                    <input id="{{merchant.name}}" type="checkbox" value="{{merchant.id}}" ng-checked="selection.indexOf(merchant.id) > -1" ng-click="toggleSelection(merchant.id)" />
+                    <label for="{{merchant.name}}"></label>
+                    <a ng-click="toggleSelection(merchant.id)"><span class="filter">{{merchant.name}} ({{merchant.count}})</span></a>
+
+
+                    <!-- <input type="checkbox" ng-model="selections.ids[merchant]" name="group" id="{{merchant.id}}" /><span class="filter">{{merchant.name}} ({{merchant.count}})</span> -->
+                    <!--    <input type="checkbox" name="stores" ng-model="formData.stores.merchant.id"> Red {{merchant.id}} <a ng-click="filter(merchant,'merchant')"><span class="filter">{{merchant.name}} ({{merchant.count}})</span></a>-->
                 </div>
-                
+
                 <!-- brands -->
                 <div class="top-buffer"></div>
                 <h4>Brand</h4>
-                <div ng-repeat="brand in brands">
+                <div ng-repeat="brand in brands |orderBy:'count':true">
                     <a ng-click="filter(brand,'brand')"><span class="filter">{{brand.name}} ({{brand.count}})</span></a>
                 </div>
-                
+
                 <!-- prices -->
                 <!--
                 <div class="top-buffer"></div>
@@ -44,14 +51,20 @@
     <div class="col-md-9 container">
         <div class="panel panel-default panel-order">
             <div class="panel-heading">
+                <!--
+                <div ng-repeat="name in selection" class="selected-item">
+                    {{name}}
+                </div>
+                -->
                 <div class="results-summary">
                     <div ng-show="checkSomething()">You searched for: {{keyword}}.</div>Showing page {{currentPage}} of {{total}} results from {{num_merchants}} stores</div>
+
             </div>
             <div class="panel-body">
                 <div ng-repeat="product in products.products.product" class="row top-buffer">
                     <div class="col-md-2">
                         <a ng-click="selectItem(product);">
-                            <img ng-src="{{product.image_url_large}}" />
+                            <img ng-src="{{product.image_url_large}}" height="60%" width="60%" />
                         </a>
                     </div>
                     <div class="col-md-8">
