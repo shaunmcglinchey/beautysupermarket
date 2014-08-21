@@ -298,4 +298,24 @@ angular.module('beautyApp')
 
             //TODO alter the scope data loaded into the view to include all the details it needs - so image urls for logos etc
 
+  }])
+.controller('TermsController', ['$scope', '$routeParams',
+  function ($scope, $routeParams) {
+      
+  }])
+.controller('AboutController', ['$scope', '$routeParams',
+  function ($scope, $routeParams) {
+      
+  }])
+.controller('PrivacyController', ['$scope', '$routeParams',
+  function ($scope, $routeParams) {
+      
+  }])
+.controller('CookiesController', ['$scope', '$routeParams',
+  function ($scope, $routeParams) {
+      
+  }])
+.controller('ContactController', ['$scope', '$routeParams',
+  function ($scope, $routeParams) {
+      
   }]);
