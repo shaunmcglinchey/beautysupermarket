@@ -5,9 +5,11 @@ angular.module('beautyApp')
             $scope.itemsPerPage = 10;
             $scope.currentPage = 1;
             $scope.maxSize = 5;
+            $scope.storeLimit = 10;
+            $scope.brandLimit = 10;
+            var limitStep = 5;
             var filterSelection = new Array();
             var selectedFilter;
-
             var SearchParams = {};
             SearchParams.keyword = '';
             SearchParams.page = 1;
@@ -15,31 +17,96 @@ angular.module('beautyApp')
             SearchParams.filterId = null;
             SearchParams.filterType = null;
 
-            $scope.selection = [];
+            $scope.storeSelection = [];
+            $scope.brandSelection = [];
+
+
+
+            $scope.incrementStoreLimit = function () {
+                $scope.storeLimit += limitStep;
+            };
+            $scope.decrementStoreLimit = function () {
+                $scope.storeLimit -= limitStep;
+            };
+
+            $scope.storeFullyExpanded = function () {
+                if ($scope.storeLimit < $scope.merchants.length)
+                    return false;
+                return true;
+            };
+
+            $scope.storePartiallyExpanded = function () {
+                if ($scope.storeLimit > 10)
+                    return true;
+                return false;
+            };
+
+            $scope.incrementBrandLimit = function () {
+                $scope.brandLimit += limitStep;
+            };
+            $scope.decrementBrandLimit = function () {
+                $scope.brandLimit -= limitStep;
+            };
+
+            $scope.brandFullyExpanded = function () {
+                if ($scope.brandLimit < $scope.brands.length)
+                    return false;
+                return true;
+            };
+
+            $scope.brandPartiallyExpanded = function () {
+                if ($scope.brandLimit > 10)
+                    return true;
+                return false;
+            };
 
             // toggle selection for a given employee by name
 
-            $scope.toggleSelection = function toggleSelection(storeId) {
-                var idx = $scope.selection.indexOf(storeId);
+            $scope.toggleStoreSelection = function toggleStoreSelection(storeId) {
+                var idx = $scope.storeSelection.indexOf(storeId);
                 // is currently selected
                 if (idx > -1) {
-                    $scope.selection.splice(idx, 1);
+                    $scope.storeSelection.splice(idx, 1);
                     //store unselected, fetch results for all stores
                     delete SearchParams.filterId;
                     delete SearchParams.filterType;
                 }
                 // is newly selected
                 else {
-                    $scope.selection.push(storeId);
+                    $scope.storeSelection.push(storeId);
                     //make a request to the API to update the results      
                     SearchParams.filterId = storeId;
-                    SearchParams.filterType = 'merchant';         
+                    SearchParams.filterType = 'merchant';
                 }
-                 if($scope.keyword)
+                if ($scope.keyword)
                     SearchParams.keyword = $scope.keyword;
-                 SearchParams.page = 1;
-                 SearchParams.rpp = 10;
-                 doSearch(SearchParams);
+                SearchParams.page = 1;
+                SearchParams.rpp = 10;
+                doSearch(SearchParams);
+            };
+
+
+            $scope.toggleBrandSelection = function toggleBrandSelection(brandId) {
+                var idx = $scope.brandSelection.indexOf(brandId);
+                // is currently selected
+                if (idx > -1) {
+                    $scope.brandSelection.splice(idx, 1);
+                    //store unselected, fetch results for all stores
+                    delete SearchParams.filterId;
+                    delete SearchParams.filterType;
+                }
+                // is newly selected
+                else {
+                    $scope.brandSelection.push(brandId);
+                    //make a request to the API to update the results      
+                    SearchParams.filterId = brandId;
+                    SearchParams.filterType = 'brand';
+                }
+                if ($scope.keyword)
+                    SearchParams.keyword = $scope.keyword;
+                SearchParams.page = 1;
+                SearchParams.rpp = 10;
+                doSearch(SearchParams);
             };
 
 

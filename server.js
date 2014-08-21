@@ -66,6 +66,9 @@ beauty.get('/api/search', function(req, res, next) {
     if(search_params.merchant)
          delete search_params.merchant;
     
+    if(search_params.brand)
+         delete search_params.brand;
+    
     if(req.query.keyword){
      search_params.keyword = req.query.keyword;
      console.log('searching for keyword:'+req.query.keyword);

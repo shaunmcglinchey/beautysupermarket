@@ -206,7 +206,8 @@ body {
   font-size: 14px;
   line-height: 1.42857;
   color: #333333;
-  background-color: #e4e7ec; }
+  /*background-color: #e4e7ec;*/
+}
 
 input, button, select, textarea {
   font-family: inherit;
@@ -3120,8 +3121,10 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
   .pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
     z-index: 2;
     color: #fff;
-    background-color: #1d7cf4;
-    border-color: #1d7cf4;
+   /* background-color: #1d7cf4;*/
+    background-color: #ff6699;
+   /* border-color: #1d7cf4;*/
+    border-color: #ff6699;
     cursor: default; }
   .pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
     color: #999999;
@@ -4382,7 +4385,7 @@ em {
 
 .jumbotron {
   margin-top: -20px;
-  border-bottom: 1px solid #dae2e4; }
+  border-bottom: 0px solid #dae2e4; }
 
 .media-object {
   max-width: 200px;
@@ -4471,7 +4474,9 @@ em {
 .navbar-brand {
   background-color: #ffe939;
   transition: 0.25s all;
-  margin-left: -15px; }
+  margin-left: -15px; 
+  color:#fff;
+}
 
 .navbar-nav {
   float: left;
@@ -4544,3 +4549,40 @@ font-size: 18px;
 .filter {
    color: black; 
 }
+
+.navbar-default {
+  background-color: #000;
+}
+
+.navbar-brand {
+background-color: #ff6699;
+transition: 0.25s all;
+margin-left: -15px;
+height: 100%;
+}
+
+.sub-header {
+line-height: normal;
+clear: both;
+background-color: #eee;
+text-align: center;
+font-size: 1em;
+color: #1a191b;
+padding: 1.2em;
+}
+
+.navbar-header {
+height: 71px;
+}
+
+.navbar-default .navbar-brand {
+color: #fff;
+}
+
+.footer {
+  height: 70px;
+  background-color: #eee;  
+}
+
+body {
+  padding-bottom: 0px; }
