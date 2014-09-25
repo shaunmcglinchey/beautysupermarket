@@ -2,12 +2,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-               
-               
-               <div class="sub-header"><div>Find beauty products at an affordable price.</div></div>
-               
+
+
+                <div class="sub-header">
+                    <div>Find beauty products at an affordable price.</div>
+                </div>
+
                 <form ng-submit="search()">
-                    <input type="text" ng-model="form.query" style="width:401px; height:40px;"/>
+                    <input type="text" ng-model="form.query" style="width:401px; height:40px;" />
                     <input type="submit" value="Search" style="height:40px;" />
                 </form>
             </div>
@@ -24,9 +26,9 @@
                 <h4>Store</h4>
                 <div ng-repeat="merchant in merchants |orderBy:'count':true | limitTo:storeLimit">
 
-                    <input id="{{merchant.name}}" type="checkbox" value="{{merchant.id}}" ng-checked="storeSelection.indexOf(merchant.id) > -1" ng-click="toggleStoreSelection(merchant.id)" />
+                    <input id="{{merchant.name}}" type="checkbox" value="{{merchant.id}}" ng-checked="storeSelection.indexOf(merchant.id) > -1" ng-click="filter(merchant.id,'merchant')" />
                     <label for="{{merchant.name}}"></label>
-                    <a ng-click="toggleStoreSelection(merchant.id)"><span class="filter">{{merchant.name}} ({{merchant.count}})</span></a>
+                    <a ng-click="filter(merchant.id,'merchant')"><span class="filter">{{merchant.name}} ({{merchant.count}})</span></a>
 
 
                     <!-- <input type="checkbox" ng-model="selections.ids[merchant]" name="group" id="{{merchant.id}}" /><span class="filter">{{merchant.name}} ({{merchant.count}})</span> -->
@@ -38,19 +40,19 @@
                 <div ng-show="storePartiallyExpanded()">
                     <a href style="text-decoration:underline;" ng-click="decrementStoreLimit()">less</a>
                 </div>
-                
+
 
                 <!-- brands -->
                 <div class="top-buffer"></div>
                 <h4>Brand</h4>
                 <div ng-repeat="brand in brands | orderBy:'count':true | limitTo:brandLimit">
-                   
-                   
-                   <input id="{{brand.name}}" type="checkbox" value="{{brand.id}}" ng-checked="brandSelection.indexOf(brand.id) > -1" ng-click="toggleBrandSelection(brand.id)" />
+
+
+                    <input id="{{brand.name}}" type="checkbox" value="{{brand.id}}" ng-checked="brandSelection.indexOf(brand.id) > -1" ng-click="filter(brand.id,'brand')" />
                     <label for="{{brand.name}}"></label>
-                    <a ng-click="toggleBrandSelection(brand.id)"><span class="filter">{{brand.name}} ({{brand.count}})</span></a>
-                    
-                    
+                    <a ng-click="filter(brand.id,'brand')"><span class="filter">{{brand.name}} ({{brand.count}})</span></a>
+
+
                     <!--
                     <a ng-click="filter(brand,'brand')"><span class="filter">{{brand.name}} ({{brand.count}})</span></a>
                     -->

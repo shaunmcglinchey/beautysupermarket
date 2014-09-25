@@ -1,0 +1,57 @@
+ //Fake search data
+
+                /* search for products that have the keyword britney */
+                var params = {
+                    "query": {
+                        "term": "britney",
+                        "page": 1,
+                        "rpp": 10
+                    }
+                };
+
+                /* filter for products from merchant 4249 - CultBeauty */
+                var params2 = {
+                    "query": {
+                        "term": "",
+                        "page": 1,
+                        "rpp": 10,
+                        "filters": [
+                            {
+                                "filter": "4249",
+                                "filterType": "merchant"
+                            }
+                        ]
+                    }
+                };
+
+                /* filter for products from merchant 4249 - CultBeauty AND brand 30068 - Christian Dior */
+                var params3 = {
+                    "query": {
+                        "page": 1,
+                        "rpp": 10,
+                        "filters": [
+                            {
+                                "filter": "4249",
+                                "filterType": "merchant"
+                            },
+                            {
+                                "filter": "30257",
+                                "filterType": "brand"
+                            }
+                        ]
+                    }
+                };
+
+                /* filter for products from merchant 4249 - CultBeauty AND brand 30068 - Christian Dior */
+                var params4 = {
+                    "query": {
+                        "page": 1,
+                        "rpp": 10,
+                        "filters": [
+                            {
+                                "filter": "4249",
+                                "filterType": "merchant"
+                            }
+                        ]
+                    }
+                };
