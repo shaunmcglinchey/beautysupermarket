@@ -105,7 +105,7 @@ beauty.post('/api/products', function (req, res, next) {
         console.log('query object found:' + JSON.stringify(req.body.query));
 
         if (req.body.query.term) {
-            console.log('query object term found:' + JSON.stringify(req.body.query.term))
+            //console.log('query object term found:' + JSON.stringify(req.body.query.term))
             search_params.keyword = req.body.query.term;
         } else {
             console.log('query object term not found');
@@ -114,24 +114,24 @@ beauty.post('/api/products', function (req, res, next) {
         }
 
         if (req.body.query.page) {
-            console.log('query object page found:' + req.body.query.page)
+            //console.log('query object page found:' + req.body.query.page)
             search_params.page = req.body.query.page;
         } else {
-            console.log('query object page not found')
+            //console.log('query object page not found')
             //TODO if page not set, set page to page 1
         }
 
         if (req.body.query.rpp) {
-            console.log('query object rpp found:' + req.body.query.rpp)
+            //console.log('query object rpp found:' + req.body.query.rpp)
             search_params.results_per_page = req.body.query.rpp;
         } else {
-            console.log('query object rpp not found')
+            //console.log('query object rpp not found')
             //TODO if rpp not set, set rpp to 10
         }
 
         if (req.body.query.filters) {
 
-            console.log('query object filter map found:')
+            //console.log('query object filter map found:')
 
             _.each(req.body.query.filters, function (f) {
                 console.log('filter val: ' + f.filter);
@@ -171,11 +171,21 @@ beauty.post('/api/products', function (req, res, next) {
         .end(function (e, result) {
 
             if (result.body.results) {
-                console.log('results returned from popshops')
+                //console.log('results returned from popshops')
+                //console.log('response:' + JSON.stringify(result.body));
             } else {
-                console.log('no results returned from popshops');
+                //console.log('no results returned from popshops');
                 results = '';
             }
+            //remove popshops API credentials
+            result.body.parameters = _.without(result.body.parameters, _.findWhere(result.body.parameters, {
+                name: 'account'
+            }));
+            result.body.parameters = _.without(result.body.parameters, _.findWhere(result.body.parameters, {
+                name: 'catalog'
+            }));
+            //console.log('wta val:' + JSON.stringify(result.body.parameters));
+            //result.body = _.without(result.body, _.findWhere(result.body, {n: 3}));
             res.send(result.body)
         });
 

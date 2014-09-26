@@ -13,9 +13,7 @@ angular.module("beautyApp")
         }
 
         var setMerchants = function (newObj) {
-            //console.log('setting merchants:'+JSON.stringify(newObj));
             merchants = newObj;
-            //console.log('pservice merchants length:'+merchants.length);
         }
 
         var getMerchants = function () {
@@ -32,16 +30,6 @@ angular.module("beautyApp")
     .factory("productAPI", function ($http, $resource, $q) {
 
         var base_url = '/api/products/';
-
-        var resource = $resource('/api/search/', {
-            page: '@page',
-            rpp: '@rpp',
-            keyword: '@keyword'
-            /*,
-            filterId: '@filterId',
-            filterType: '@filterType'
-            */
-        });
 
         return {
 
@@ -60,25 +48,6 @@ angular.module("beautyApp")
                     .error(function () {
                         console.log('fetchProducts call resulted in an error');
                     });
-            },
-            fetchPage: function (SearchParams) {
-                var deferred = $q.defer();
-                resource.get({
-                        page: SearchParams.page,
-                        rpp: SearchParams.rpp,
-                        keyword: SearchParams.keyword
-                        /*,
-                        filterId: SearchParams.filterId,
-                        filterType: SearchParams.filterType
-                        */
-                    },
-                    function (event) {
-                        deferred.resolve(event);
-                    },
-                    function (response) {
-                        deferred.reject(response);
-                    });
-                return deferred.promise;
             }
         };
     });
