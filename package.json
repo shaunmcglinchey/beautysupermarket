@@ -2,11 +2,9 @@
     "name": "beautysuggest",
     "version": "0.0.1",
     "private": true,
-    /* 
- "scripts": {
-    "start": "node ./bin/www"
-  },
-  */
+    "scripts": {
+        "start": "node ./bin/www"
+    },
     "dependencies": {
         "body-parser": "^1.6.5",
         "cookie-parser": "~1.0.1",
@@ -22,7 +20,6 @@
         "gulp-plumber": "^0.6.3",
         "gulp-sass": "^0.7.2",
         "mocha": "^1.18.2",
-        "restangular": "^1.4.0",
         "superagent": "^0.17.0"
     }
 }
