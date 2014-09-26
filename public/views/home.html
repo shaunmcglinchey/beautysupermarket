@@ -23,7 +23,12 @@
             <div class="col-md-7">
 
                 <!-- merchants -->
-                <h4>Store</h4>
+                <div>
+                    <h4>Store</h4>
+                    <div ng-show="storeSelection.length > 0"><a ng-click="clearFilter('merchant')" style="font-size:13px; text-decoration:underline;">Clear      </a>
+                    </div>
+                </div>
+
                 <div ng-repeat="merchant in merchants |orderBy:'count':true | limitTo:storeLimit">
 
                     <input id="{{merchant.name}}" type="checkbox" value="{{merchant.id}}" ng-checked="storeSelection.indexOf(merchant.id) > -1" ng-click="filter(merchant.id,'merchant')" />
@@ -45,6 +50,8 @@
                 <!-- brands -->
                 <div class="top-buffer"></div>
                 <h4>Brand</h4>
+                <div ng-show="brandSelection.length > 0"><a ng-click="clearFilter('brand')" style="font-size:13px; text-decoration:underline;">Clear</a>
+                </div>
                 <div ng-repeat="brand in brands | orderBy:'count':true | limitTo:brandLimit">
 
 
@@ -92,19 +99,25 @@
                 <div ng-repeat="product in products.products.product" class="row top-buffer">
                     <div class="col-md-2">
                         <a ng-click="selectItem(product);">
-                            <img ng-src="{{product.image_url_large}}" height="60%" width="60%" />
+                            <img ng-src="{{product.image_url_large}}" height="80%" width="80%" />
                         </a>
                     </div>
                     <div class="col-md-8">
                         <div class="row top-buffer">
                             <div class="col-md-12">
-                                <span><strong><a style="text-decoration:underline; color:#FF6699;" ng-click="selectItem(product);">{{product.name}}<a/></strong></span>
+                                <span><a style="text-decoration:underline; color:#1a0dab; font-size:16px; font-family: arial,sans-serif;" ng-click="selectItem(product);">{{product.name}}<a/></span>
                             </div>
+                            <div class="col-md-12">
+                                <strong>£{{product.price_min}}</strong> from {{product.offers.count}} stores
+                            </div>
+                            <!--
                             <div class="col-md-12">
                                 <span>{{ product.description | characters:400 }}</span>
                             </div>
+                            -->
                         </div>
                     </div>
+                    <!--
                     <div class="col-md-2">
                         <div class="row top-buffer">
                             <div class="col-md-12">
@@ -120,6 +133,7 @@
                             </div>
                         </div>
                     </div>
+                    -->
                 </div>
 
             </div>

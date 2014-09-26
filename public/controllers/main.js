@@ -75,6 +75,29 @@ angular.module('beautyApp')
                 return false;
             };
 
+            $scope.clearFilter = function (filterType) {
+                if (filterType == 'merchant') {
+                    console.log('removing merchant filters');
+                    $scope.storeSelection.length = 0;
+                    console.log('store selection:' + JSON.stringify($scope.storeSelection));
+                    //rebuildFilters
+                    rebuildFilters();
+                    //run new search
+                    if ($scope.keyword)
+                        query.term = $scope.keyword;
+                    doSearch(SearchQuery);
+                } else if (filterType == 'brand') {
+                    console.log('removing brand filters');
+                    $scope.brandSelection.length = 0;
+                    console.log('brand selection:' + JSON.stringify($scope.brandSelection));
+                    rebuildFilters();
+                    //run new search
+                    if ($scope.keyword)
+                        query.term = $scope.keyword;
+                    doSearch(SearchQuery);
+                }
+            };
+
             $scope.filter = function (filterId, filterType) {
 
                 console.log('filter function called');
@@ -102,6 +125,7 @@ angular.module('beautyApp')
                 if ($scope.keyword)
                     query.term = $scope.keyword;
 
+                /*
                 filters.length = 0;
 
                 if ($scope.storeSelection.length > 0)
@@ -115,11 +139,28 @@ angular.module('beautyApp')
                         'filter': $scope.brandSelection.join(),
                         'filterType': 'brand'
                     });
+                */
+                rebuildFilters();
                 //SearchQuery.filters = filters;
                 console.log('Filter SearchQuery:' + JSON.stringify(SearchQuery));
                 doSearch(SearchQuery);
             }
 
+            function rebuildFilters() {
+                filters.length = 0;
+
+                if ($scope.storeSelection.length > 0)
+                    filters.push({
+                        'filter': $scope.storeSelection.join(),
+                        'filterType': 'merchant'
+                    });
+
+                if ($scope.brandSelection.length > 0)
+                    filters.push({
+                        'filter': $scope.brandSelection.join(),
+                        'filterType': 'brand'
+                    });
+            }
 
             $scope.search = function () {
                 console.log('searching for: ' + $scope.form.query);
@@ -196,7 +237,7 @@ angular.module('beautyApp')
                     //console.log('productAPI.fetchProducts returned data:' + JSON.stringify(res));
                     console.log('productAPI.fetchProducts returned data');
                     $scope.products = res.data.results;
-                    //$scope.num_merchants = res.data.resources.merchants.count;
+                    $scope.num_merchants = res.data.resources.merchants.count;
                     $scope.total = res.data.results.products.count;
                     $scope.totalItems = res.data.results.products.count;
                     $scope.merchants = res.data.resources.merchants.merchant;
