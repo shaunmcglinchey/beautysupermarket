@@ -79,7 +79,7 @@ beauty.param('rpp', function (req, res, next, rpp) {
 
 //how to post a map to node.js express 4
 beauty.post('/api/products', function (req, res, next) {
-    console.log('running test endpoint');
+    console.log('running product endpoint');
     merchants.length = 0;
     brands.length = 0;
 
@@ -169,12 +169,19 @@ beauty.post('/api/products', function (req, res, next) {
     superagent.post(popShopsUrl)
         .send(search_params)
         .end(function (e, result) {
+            console.log('yoyoyoyo');
+            if (res.error) {
+                console.log('error:' + result.error.message);
+                //alert('oh no ' + res.error.message);
+            } else {
+                console.log('no error');
+            }
 
             if (result.body.results) {
-                //console.log('results returned from popshops')
+                console.log('results returned from popshops')
                 //console.log('response:' + JSON.stringify(result.body));
             } else {
-                //console.log('no results returned from popshops');
+                console.log('no results returned from popshops');
                 results = '';
             }
             //remove popshops API credentials

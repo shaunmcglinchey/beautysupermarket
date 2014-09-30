@@ -39,10 +39,10 @@
                     <!--    <input type="checkbox" name="stores" ng-model="formData.stores.merchant.id"> Red {{merchant.id}} <a ng-click="filter(merchant,'merchant')"><span class="filter">{{merchant.name}} ({{merchant.count}})</span></a>-->
                 </div>
                 <div ng-show="!storeFullyExpanded()">
-                    <a href style="text-decoration:underline;" ng-click="incrementStoreLimit()">more</a>
+                    <a href style="text-decoration:none;" ng-click="incrementStoreLimit()">+ See more</a>
                 </div>
                 <div ng-show="storePartiallyExpanded()">
-                    <a href style="text-decoration:underline;" ng-click="decrementStoreLimit()">fewer</a>
+                    <a href style="text-decoration:none;" ng-click="decrementStoreLimit()">- See less</a>
                 </div>
 
 
@@ -59,10 +59,10 @@
                     </div>
                 </div>
                 <div ng-show="!brandFullyExpanded()">
-                    <a href style="text-decoration:underline;" ng-click="incrementBrandLimit()">more</a>
+                    <a href style="text-decoration:none;" ng-click="incrementBrandLimit()">+ See more</a>
                 </div>
                 <div ng-show="brandPartiallyExpanded()">
-                    <a href style="text-decoration:underline;" ng-click="decrementBrandLimit()">fewer</a>
+                    <a href style="text-decoration:none;" ng-click="decrementBrandLimit()">- See less</a>
                 </div>
 
                 <!-- prices -->
@@ -81,14 +81,14 @@
         <div>
             <div class="panel-heading">
                 <div class="results-summary">
-                    <div ng-show="checkSomething()">You searched for: {{keyword}}.</div>Showing page <strong>{{currentPage}}</strong> of <strong>{{total}}</strong> results from <strong>{{num_merchants}}</strong> stores</div>
+                    <div ng-show="checkSomething()">You searched for: {{keyword}}.</div>Showing page <strong>{{currentPage}}</strong> of <strong>{{total}}</strong> products from <strong>{{num_merchants}}</strong> stores</div>
 
             </div>
             <div class="panel-bodsy">
                 <div ng-repeat="product in products.products.product" class="row top-buffer">
                     <div class="col-md-2">
                         <a ng-click="selectItem(product);">
-                            <img ng-src="{{product.image_url_large}}" height="80%" width="80%" />
+                            <img ng-src="{{product.image_url_large}}" height="100%" width="100%" />
                         </a>
                     </div>
                     <div class="col-md-8">

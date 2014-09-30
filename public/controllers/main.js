@@ -236,6 +236,14 @@ angular.module('beautyApp')
                 productAPI.fetchProducts(searchQuery).then(function (res) {
                     //console.log('productAPI.fetchProducts returned data:' + JSON.stringify(res));
                     console.log('productAPI.fetchProducts returned data');
+
+                    //check whether the API returned any results
+                    check = _.some(res, function (el) {
+                        console.log('el val:' + el);
+                        return el === 'results';
+                    });
+                    console.log('check val:' + check);
+
                     $scope.products = res.data.results;
                     $scope.num_merchants = res.data.resources.merchants.count;
                     $scope.total = res.data.results.products.count;
