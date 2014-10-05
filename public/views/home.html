@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col-md-3">
         <div class="row">
-            <div class="col-md-4"></div>
+            <div class="col-md-1"></div>
             <div class="col-md-7">
 
                 <!-- merchants -->
@@ -33,10 +33,6 @@
                     <input id="{{merchant.name}}" type="checkbox" value="{{merchant.id}}" ng-checked="storeSelection.indexOf(merchant.id) > -1" ng-click="filter(merchant.id,'merchant')" />
                     <label for="{{merchant.name}}"></label>
                     <a ng-click="filter(merchant.id,'merchant')"><span class="filter">{{merchant.name}} ({{merchant.count}})</span></a>
-
-
-                    <!-- <input type="checkbox" ng-model="selections.ids[merchant]" name="group" id="{{merchant.id}}" /><span class="filter">{{merchant.name}} ({{merchant.count}})</span> -->
-                    <!--    <input type="checkbox" name="stores" ng-model="formData.stores.merchant.id"> Red {{merchant.id}} <a ng-click="filter(merchant,'merchant')"><span class="filter">{{merchant.name}} ({{merchant.count}})</span></a>-->
                 </div>
                 <div ng-show="!storeFullyExpanded()">
                     <a href style="text-decoration:none;" ng-click="incrementStoreLimit()">+ See more</a>
@@ -44,11 +40,6 @@
                 <div ng-show="storeFullyExpanded()">
                     <a href style="text-decoration:none;" ng-click="decrementStoreLimit()">- See less</a>
                 </div>
-                <!--
-                <div ng-show="storePartiallyExpanded()">
-                    <a href style="text-decoration:none;" ng-click="decrementStoreLimit()">- See less</a>
-                </div>
-                -->
 
                 <!-- brands -->
                 <div class="top-buffer"></div>
@@ -78,10 +69,10 @@
                 </div>
                 -->
             </div>
-            <div class="col-md-1"></div>
+            <!-- <div class="col-md-1"></div> -->
         </div>
     </div>
-    <div class="col-md-9 container">
+    <div class="col-md-9">
         <div>
             <div class="panel-heading">
                 <div class="results-summary">
@@ -103,11 +94,6 @@
                             <div class="col-md-12">
                                 <strong>£{{product.price_min}}</strong> from {{product.offer_count}} store<span ng-show="product.offer_count > 1">s</span>
                             </div>
-                            <!--
-                            <div class="col-md-12">
-                                <span>{{ product.description | characters:400 }}</span>
-                            </div>
-                            -->
                         </div>
                     </div>
                 </div>

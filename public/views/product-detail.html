@@ -30,7 +30,7 @@
                 <td data-title="'Seller'" sortable="'seller'">{{offer.merchant}}</td>
                 <td data-title="'Base Price'" sortable="'bprice'">£{{offer.price_retail}}</td>
                 <td data-title="'Total Price'" sortable="'tprice'">£{{offer.price_retail}}
-                    <button type="button" class="btn btn-primary" ng-click="addSlide()" style="margin-left:40px;">Go to store</button>
+                    <button type="button" class="btn btn-primary" ng-click="visitStore(offer.id)" style="margin-left:40px;">Go to store</button>
                 </td>
             </tr>
         </table>

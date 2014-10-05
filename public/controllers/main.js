@@ -268,12 +268,13 @@ angular.module('beautyApp')
                 $location.path(url);
             }
         }])
-    .controller('ProductDetailController', ['$scope', '$location', '$routeParams', 'productAPI', 'productService',
-  function ($scope, $location, $routeParams, productAPI, productService) {
+    .controller('ProductDetailController', ['$scope', '$location', '$routeParams', '$window', 'productAPI', 'productService',
+  function ($scope, $location, $routeParams, $window, productAPI, productService) {
 
             var SearchQuery = {};
             //var filters = [];
             var query = {};
+            var url = [];
             query.term = '';
             query.page = 1;
             query.rpp = 10;
@@ -282,6 +283,7 @@ angular.module('beautyApp')
 
             var filterSelection = new Array();
             var merchant = {};
+            var offer = {};
             $scope.productId = $routeParams.productId;
             query.product = $scope.productId;
             console.log('reached product detail page for product: ' + $scope.productId);
@@ -302,7 +304,28 @@ angular.module('beautyApp')
                 $scope.lowest_price = res.data.results.products.product[0].price_min;
                 console.log('merchants: ' + JSON.stringify($scope.merchants));
                 console.log('There are ' + $scope.offers.length + ' offers for this product ID');
+
+                /*
+                $scope.tableParams = new ngTableParams({
+                    sorting: {
+                        tprice: 'asc' // initial sorting
+                    }
+                });
+                */
+
             });
+
+            $scope.visitStore = function (offer_id) {
+                console.log('user selected to visit the store offering offer:' + offer_id);
+                offer = _.where($scope.offers, {
+                    id: offer_id
+                });
+                console.log('offer:' + JSON.stringify(offer));
+                //redirect to the offer url
+                url = _.pluck(offer, 'url');
+                console.log('redirecting to the offer url:' + url[0]);
+                $window.location.href = url[0];
+            }
             /* end fetch */
 
 
@@ -379,6 +402,7 @@ angular.module('beautyApp')
                 return logoUrl;
             };
             */
+            /*
             $scope.getMerchantLogoUrl = function (merchant_id) {
                 merchant = _.where($scope.merchants, {
                     id: merchant_id
@@ -386,6 +410,7 @@ angular.module('beautyApp')
                 console.log('merchant:' + JSON.stringify(merchant));
                 return merchant.logo_url;
             }
+            */
 
             //TODO alter the scope data loaded into the view to include all the details it needs - so image urls for logos etc
   }])
