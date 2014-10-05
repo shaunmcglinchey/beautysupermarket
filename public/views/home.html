@@ -41,10 +41,14 @@
                 <div ng-show="!storeFullyExpanded()">
                     <a href style="text-decoration:none;" ng-click="incrementStoreLimit()">+ See more</a>
                 </div>
+                <div ng-show="storeFullyExpanded()">
+                    <a href style="text-decoration:none;" ng-click="decrementStoreLimit()">- See less</a>
+                </div>
+                <!--
                 <div ng-show="storePartiallyExpanded()">
                     <a href style="text-decoration:none;" ng-click="decrementStoreLimit()">- See less</a>
                 </div>
-
+                -->
 
                 <!-- brands -->
                 <div class="top-buffer"></div>
@@ -61,7 +65,7 @@
                 <div ng-show="!brandFullyExpanded()">
                     <a href style="text-decoration:none;" ng-click="incrementBrandLimit()">+ See more</a>
                 </div>
-                <div ng-show="brandPartiallyExpanded()">
+                <div ng-show="brandFullyExpanded()">
                     <a href style="text-decoration:none;" ng-click="decrementBrandLimit()">- See less</a>
                 </div>
 

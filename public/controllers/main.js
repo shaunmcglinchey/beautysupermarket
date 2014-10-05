@@ -29,10 +29,10 @@ angular.module('beautyApp')
 
 
             $scope.incrementStoreLimit = function () {
-                $scope.storeLimit += limitStep;
+                $scope.storeLimit = $scope.merchants.length;
             };
             $scope.decrementStoreLimit = function () {
-                $scope.storeLimit -= limitStep;
+                $scope.storeLimit = 10;
             };
 
             $scope.storeFullyExpanded = function () {
@@ -46,17 +46,11 @@ angular.module('beautyApp')
                 }
             };
 
-            $scope.storePartiallyExpanded = function () {
-                if ($scope.storeLimit > 10)
-                    return true;
-                return false;
-            };
-
             $scope.incrementBrandLimit = function () {
-                $scope.brandLimit += limitStep;
+                $scope.brandLimit = $scope.brands.length;
             };
             $scope.decrementBrandLimit = function () {
-                $scope.brandLimit -= limitStep;
+                $scope.brandLimit = 10;
             };
 
             $scope.brandFullyExpanded = function () {
@@ -69,11 +63,6 @@ angular.module('beautyApp')
                 }
             };
 
-            $scope.brandPartiallyExpanded = function () {
-                if ($scope.brandLimit > 10)
-                    return true;
-                return false;
-            };
 
             $scope.clearFilter = function (filterType) {
                 if (filterType == 'merchant') {
