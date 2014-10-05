@@ -307,9 +307,12 @@ angular.module('beautyApp')
                 $scope.products = res.data.results;
                 $scope.offers = res.data.results.products.product[0].offers.offer;
                 $scope.merchants = res.data.resources.merchants.merchant;
+                $scope.big_product_img = res.data.results.products.product[0].image_url_large;
+                $scope.product_name = res.data.results.products.product[0].name;
+                $scope.product_description = res.data.results.products.product[0].description;
+                $scope.lowest_price = res.data.results.products.product[0].price_min;
                 console.log('merchants: ' + JSON.stringify($scope.merchants));
                 console.log('There are ' + $scope.offers.length + ' offers for this product ID');
-
             });
             /* end fetch */
 

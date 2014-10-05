@@ -6177,3 +6177,9 @@ body {
 .legal {
     font-family: Arial, Helvetica, sans-serif;
 }
+.ng-table-pager {
+    display: none;
+}
+.ng-table {
+    border: 1px solid #DEDEDE;
+}

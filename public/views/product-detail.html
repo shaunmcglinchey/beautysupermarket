@@ -1,120 +1,41 @@
-<!--
-
-<img ng-src="{{product.image_url_large}}" />
-
-
-{{product.brand}}
-
-
-Offers:
-
-
- <div ng-repeat="offer in product.offers.offer">
-Offer 
-     {{offer.description}}
-     {{offer.name}}
-     {{offer.merchant}}
-     {{offer.price_retail}}
-     {{offer.price_merchant}}
-     {{offer.currency_iso}}
-</div>
-
--->
-<div class="product-title">{{product.name}}</div>
-
-<table ng-table class="table">
-    <tr ng-repeat="offer in offers">
-        <td data-title="">
-            <img ng-src="{{ getMerchantLogoUrl(offer.merchant) }}" />
-        </td>
-        <td data-title="'Seller'" sortable="'seller'">{{offer.merchant}}</td>
-        <td data-title="'Base Price'" sortable="'bprice'">{{offer.price_retail}}</td>
-    </tr>
-</table>
-
-<div class="container">
-    <div class="panel panel-default panel-order">
-        <div class="panel-heading">
-            <div class="product-title">{{product.name}}</div>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <img ng-src="{{product.image_url_large}}" height="100%" width="100%" />
-                </div>
-                <div class="col-md-7">{{product.description}}</div>
-                <!-- Do I need to replace currency with var? -->
-
-                <div class="col-md-3">
-                    <!-- <div class="col-md-1"></div>-->
-                    <div class="col-md-12">
-                        <div class="best-offer">
-                            <div class="best-price">
-                                <h3>Best Offer:</h3>
-                                <div class="merchant-price">£{{product.price_min}}</div>
-
-                            </div>
-                            <div class="best-store">
-                                from {{min_merchant_name}}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="col-md-1"></div> -->
-                </div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <img ng-src="{{big_product_img}}" />
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-title">{{product_name}}</div>
             </div>
-            <div class="row top-buffer">
-                <div class="col-md-2">
-                    <strong><span style="font-size:16px;">BRAND {{product.brand}}</span></strong> 
-                </div>
+            <div class="col-md-12">
+                <!-- need to replace/test we have the correct currency type -->
+                <div class="product-title">£{{lowest_price}}</div>
             </div>
-            <div class="row top-buffer">
-                <div class="col-md-2">
-                    <strong><span style="font-size:16px;">OFFERS</span></strong> 
-                </div>
+            <div class="col-md-12">
+                <div class="product-description">{{product_description | characters:400}}</div>
             </div>
-            <div ng-repeat="offer in product.offers.offer">
-                <img src="getMerchantLogoUrl({{offer.merchant}})" />{{offer.description}} {{offer.name}} {{offer.merchant}} {{offer.price_retail}} {{offer.price_merchant}} {{offer.currency_iso}}
-            </div>
-
-            <!--
-            <div ng-repeat="product in products.products.product" class="row top-buffer">
-                <div class="col-md-2">
-                    <a href="#/products/{{product.id}}">
-                        <img ng-src="{{product.image_url_large}}" />
-                    </a>
-
-                </div>
-                <div class="col-md-8">
-                    <div class="row top-buffer">
-                        <div class="col-md-12">
-                            <span><strong><a style="text-decoration:underline; color:#FF6699;" ng-click="selectItem(product);">{{product.name}}<a/></strong></span>
-
-                        </div>
-                        <div class="col-md-12">
-                            <span>{{product.description}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="row top-buffer">
-                        <div class="col-md-12">
-                            £ {{product.price_min}} - {{product.price_max}}
-                        </div>
-                        <div class="col-md-12">
-                            <a href="#/products/{{product.id}}">
-                                <button type="button" class="btn btn-success" style="background-color:#FF6699; border-color:#FF6699;">Compare prices</button>
-                            </a>
-                        </div>
-                        <div class="col-md-12">
-                            {{product.offers.count}} merchants
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
         </div>
     </div>
-    <!--
-    
-    -->
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <div class="product-title">Shops</div>
+        <table ng-table class="table">
+            <tr ng-repeat="offer in offers">
+                <td data-title="">
+                    <img ng-src="{{ getMerchantLogoUrl(offer.merchant) }}" />
+                </td>
+                <td data-title="'Seller'" sortable="'seller'">{{offer.merchant}}</td>
+                <td data-title="'Base Price'" sortable="'bprice'">£{{offer.price_retail}}</td>
+                <td data-title="'Total Price'" sortable="'tprice'">£{{offer.price_retail}}
+                    <button type="button" class="btn btn-primary" ng-click="addSlide()" style="margin-left:40px;">Go to store</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+</div>
 </div>
