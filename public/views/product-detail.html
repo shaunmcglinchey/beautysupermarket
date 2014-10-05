@@ -20,6 +20,18 @@ Offer
 </div>
 
 -->
+<div class="product-title">{{product.name}}</div>
+
+<table ng-table class="table">
+    <tr ng-repeat="offer in offers">
+        <td data-title="">
+            <img ng-src="{{ getMerchantLogoUrl(offer.merchant) }}" />
+        </td>
+        <td data-title="'Seller'" sortable="'seller'">{{offer.merchant}}</td>
+        <td data-title="'Base Price'" sortable="'bprice'">{{offer.price_retail}}</td>
+    </tr>
+</table>
+
 <div class="container">
     <div class="panel panel-default panel-order">
         <div class="panel-heading">
@@ -28,7 +40,7 @@ Offer
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-2">
-                    <img ng-src="{{product.image_url_large}}" height="100%" width="100%"/>
+                    <img ng-src="{{product.image_url_large}}" height="100%" width="100%" />
                 </div>
                 <div class="col-md-7">{{product.description}}</div>
                 <!-- Do I need to replace currency with var? -->
@@ -61,7 +73,7 @@ Offer
                 </div>
             </div>
             <div ng-repeat="offer in product.offers.offer">
-               <img src="getMerchantLogoUrl({{offer.merchant}})" /> {{offer.description}} {{offer.name}} {{offer.merchant}} {{offer.price_retail}} {{offer.price_merchant}} {{offer.currency_iso}}
+                <img src="getMerchantLogoUrl({{offer.merchant}})" />{{offer.description}} {{offer.name}} {{offer.merchant}} {{offer.price_retail}} {{offer.price_merchant}} {{offer.currency_iso}}
             </div>
 
             <!--

@@ -33,6 +33,8 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 // get an instance of router
 var beauty = express.Router()
 
@@ -98,6 +100,9 @@ beauty.post('/api/products', function (req, res, next) {
     if (search_params.page)
         delete search_params.page;
 
+    if (search_params.product)
+        delete search_params.product;
+
     console.log('checking for filter params');
 
     if (req.body.query) {
@@ -127,6 +132,12 @@ beauty.post('/api/products', function (req, res, next) {
         } else {
             //console.log('query object rpp not found')
             //TODO if rpp not set, set rpp to 10
+        }
+
+        //check for a product ID
+        if (req.body.query.product) {
+            //should check it is a valid id, at least a number
+            search_params.product = req.body.query.product;
         }
 
         if (req.body.query.filters) {
@@ -300,6 +311,9 @@ app.listen(app.get('port'), function () {
 })
 
 
+app.use(function (req, res) {
+    res.sendfile(__dirname + '/public/index.html');
+});
 /* Extra -- CORS stuff */
 
 

@@ -279,16 +279,91 @@ angular.module('beautyApp')
                 $location.path(url);
             }
         }])
-    .controller('ProductDetailController', ['$scope', '$routeParams', 'productService',
-  function ($scope, $routeParams, productService) {
+    .controller('ProductDetailController', ['$scope', '$location', '$routeParams', 'productAPI', 'productService',
+  function ($scope, $location, $routeParams, productAPI, productService) {
+
+            var SearchQuery = {};
+            //var filters = [];
+            var query = {};
+            query.term = '';
+            query.page = 1;
+            query.rpp = 10;
+            SearchQuery.query = query;
+            //SearchQuery.query.filters = filters;
+
             var filterSelection = new Array();
+            var merchant = {};
             $scope.productId = $routeParams.productId;
+            query.product = $scope.productId;
             console.log('reached product detail page for product: ' + $scope.productId);
+            console.log('fetching product details from the API');
+
+
+            /* start fetch */
+            //build search query 
+            productAPI.fetchProducts(SearchQuery).then(function (res) {
+                //console.log('productAPI.fetchProducts returned data:' + JSON.stringify(res));
+                console.log('productAPI.fetchProducts returned data');
+                $scope.products = res.data.results;
+                $scope.offers = res.data.results.products.product[0].offers.offer;
+                $scope.merchants = res.data.resources.merchants.merchant;
+                console.log('merchants: ' + JSON.stringify($scope.merchants));
+                console.log('There are ' + $scope.offers.length + ' offers for this product ID');
+
+            });
+            /* end fetch */
+
 
             //fetch the product from the product service
+            /*
             $scope.product = productService.getSelectedProduct();
             $scope.merchants = productService.getMerchants();
             $scope.min_merchant_name = getMerchantName($scope.merchants, $scope.product.price_min_merchant);
+
+          
+            $scope.users = [{
+                    name: "Moroni",
+                    age: 50
+                },
+                {
+                    name: "Tiancum",
+                    age: 43
+                },
+                {
+                    name: "Jacob",
+                    age: 27
+                },
+                {
+                    name: "Nephi",
+                    age: 29
+                },
+                {
+                    name: "Enos",
+                    age: 34
+                }];
+                */
+
+            /*
+            $scope.tableParams = new ngTableParams({
+                page: 1, // show first page
+                count: 10, // count per page
+                sorting: {
+                    name: 'asc' // initial sorting
+                }
+            }, {
+                total: data.length, // length of data
+                getData: function ($defer, params) {
+                    // use build-in angular filter
+                    var orderedData = params.sorting() ?
+                        $filter('orderBy')(data, params.orderBy()) :
+                        data;
+
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            });
+            
+            */
+            /* end dummy ng-table test data */
 
             function getMerchantName(filterArray, filterProperty) {
                 filterSelection = _.where(filterArray, {
@@ -305,12 +380,20 @@ angular.module('beautyApp')
                 selectedFilterIdList = _.pluck(filterSelection, "logo_url");
                 return selectedFilterIdList[0];
             }
-
+            /*
             function getMerchantLogoUrl(merchant_id) {
                 logoUrl = getMerchantLogo($scope.merchants, merchant_id);
                 console.log('logo url:' + logoUrl);
                 return logoUrl;
             };
+            */
+            $scope.getMerchantLogoUrl = function (merchant_id) {
+                merchant = _.where($scope.merchants, {
+                    id: merchant_id
+                });
+                console.log('merchant:' + JSON.stringify(merchant));
+                return merchant.logo_url;
+            }
 
             //TODO alter the scope data loaded into the view to include all the details it needs - so image urls for logos etc
   }])
