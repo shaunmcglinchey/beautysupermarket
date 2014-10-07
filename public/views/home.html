@@ -1,3 +1,4 @@
+<!--
 <div class="jumbotron sub-header">
     <div class="container">
         <div class="row">
@@ -16,15 +17,16 @@
         </div>
     </div>
 </div>
+-->
 <div class="row">
     <div class="col-md-3">
         <div class="row">
             <div class="col-md-1"></div>
-            <div class="col-md-7">
+            <div class="col-md-8">
 
                 <!-- merchants -->
                 <div>
-                    <h4>Store</h4>
+                    <h4 class="filter-header">Store</h4>
                     <span ng-show="storeSelection.length > 0"><a ng-click="clearFilter('merchant')" style="font-size:13px; text-decoration:underline;">Clear</a></span>
                 </div>
 
@@ -42,8 +44,8 @@
                 </div>
 
                 <!-- brands -->
-                <div class="top-buffer"></div>
-                <h4>Brand</h4><span ng-show="brandSelection.length > 0"><a ng-click="clearFilter('brand')" style="font-size:13px; text-decoration:underline;">Clear</a></span>
+                <div class="top-spacer"></div>
+                <h4 class="filter-header">Brand</h4><span ng-show="brandSelection.length > 0"><a ng-click="clearFilter('brand')" style="font-size:13px; text-decoration:underline;">Clear</a></span>
                 <div ng-repeat="brand in brands | orderBy:'count':true | limitTo:brandLimit">
 
                     <div ng-hide="brand.name =='Unknown'">
@@ -80,7 +82,7 @@
 
             </div>
             <div class="panel-bodsy">
-                <div ng-repeat="product in products.products.product" class="row top-buffer">
+                <div ng-repeat="product in products.products.product" class="row bottom-spacer">
                     <div class="col-md-2">
                         <a ng-click="selectItem(product);">
                             <img ng-src="{{product.image_url_large}}" height="100%" width="100%" />
