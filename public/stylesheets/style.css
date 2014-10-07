@@ -6117,6 +6117,7 @@ body {
 .filter-header {
     color: #ff6699;
     color: #333;
+    margin-left: -10px;
 }
 .top-spacer {
     padding-top: 30px;
@@ -6126,4 +6127,15 @@ body {
 }
 .pink-text {
     color: #ff6699;
+}
+.label {
+    display: display: inline-block;
+}
+.label a {
+    color: #ff6699;
+}
+.filter-links {
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-size: 13px;
 }
