@@ -161,6 +161,9 @@ angular.module('beautyApp')
                 doSearch(SearchQuery);
             };
 
+            $scope.test = function () {
+                console.log('yoyo');
+            };
 
             $scope.range = function () {
                 var rangeSize = 5;

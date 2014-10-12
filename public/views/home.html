@@ -1,54 +1,12 @@
-<!--
-<div class="jumbotron sub-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-
-
-                <div class="sub-header">
-                    <div>Find beauty products at an affordable price.</div>
-                </div>
-
-                <form ng-submit="search()">
-                    <input type="text" ng-model="form.query" style="width:401px; height:40px;" />
-                    <input type="submit" value="Search" style="height:40px;" />
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
--->
 <div class="row">
     <div class="col-md-3">
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-8">
 
-                <!-- merchants -->
-                <div>
-                    <span class="label"><h4 class="filter-header">Store</h4></span>
-                    <span class="label" ng-show="storeSelection.length > 0"><a ng-click="clearFilter('merchant')" style="font-size:12px; text-decoration:underline;">Clear</a></span>
-                </div>
-
-                <div ng-repeat="merchant in merchants |orderBy:'count':true | limitTo:storeLimit">
-
-                    <input id="{{merchant.name}}" type="checkbox" value="{{merchant.id}}" ng-checked="storeSelection.indexOf(merchant.id) > -1" ng-click="filter(merchant.id,'merchant')" />
-                    <label for="{{merchant.name}}"></label>
-                    <a ng-click="filter(merchant.id,'merchant')"><span class="filter filter-links">{{merchant.name}} ({{merchant.count}})</span></a>
-                </div>
-                <span class="label">
-                    <div ng-show="!storeFullyExpanded()">
-                        <a href style="text-decoration:none;" ng-click="incrementStoreLimit()">+ See more</a>
-                    </div>
-                    <div ng-show="storeFullyExpanded()">
-                        <a href style="text-decoration:none;" ng-click="decrementStoreLimit()">- See less</a>
-                    </div>
-                </span>
-
-
                 <!-- brands -->
                 <div class="top-spacer"></div>
-                <span class="label"><h4 class="filter-header">Brand</h4></span>
+                <span class="label"><h4 class="filter-header">Refine By Brand</h4></span>
                 <span class="label filter-links" ng-show="brandSelection.length > 0"><a ng-click="clearFilter('brand')" style="font-size:12px; text-decoration:underline;">Clear</a></span>
                 <div ng-repeat="brand in brands | orderBy:'count':true | limitTo:brandLimit">
 
@@ -67,16 +25,29 @@
                         <a href style="text-decoration:none;" ng-click="decrementBrandLimit()">- See less</a>
                     </div>
                 </span>
-                <!-- prices -->
-                <!--
-                <div class="top-buffer"></div>
-                <div>Price</div>
-                <div ng-repeat="brand in brands">
-                    {{brand.name}} ({{brand.count}})
+
+                <!-- merchants -->
+                <div>
+                    <span class="label"><h4 class="filter-header">Refine By Store</h4></span>
+                    <span class="label" ng-show="storeSelection.length > 0"><a ng-click="clearFilter('merchant')" style="font-size:12px; text-decoration:underline;">Clear</a></span>
                 </div>
-                -->
+
+                <div ng-repeat="merchant in merchants |orderBy:'count':true | limitTo:storeLimit">
+
+                    <input id="{{merchant.name}}" type="checkbox" value="{{merchant.id}}" ng-checked="storeSelection.indexOf(merchant.id) > -1" ng-click="filter(merchant.id,'merchant')" />
+                    <label for="{{merchant.name}}"></label>
+                    <a ng-click="filter(merchant.id,'merchant')"><span class="filter filter-links">{{merchant.name}} ({{merchant.count}})</span></a>
+                </div>
+                <span class="label">
+                    <div ng-show="!storeFullyExpanded()">
+                        <a href style="text-decoration:none;" ng-click="incrementStoreLimit()">+ See more</a>
+                    </div>
+                    <div ng-show="storeFullyExpanded()">
+                        <a href style="text-decoration:none;" ng-click="decrementStoreLimit()">- See less</a>
+                    </div>
+                </span>
+
             </div>
-            <!-- <div class="col-md-1"></div> -->
         </div>
     </div>
     <div class="col-md-9">
