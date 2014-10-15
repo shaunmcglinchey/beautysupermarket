@@ -6,6 +6,11 @@ var _ = require('underscore')._;
 //var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var superagent = require('superagent')
+var Analytics = require('analytics-node');
+var analytics = new Analytics('k9pY4FSNyL', {
+    flushAt: 1
+});
+
 var SearchResult = require('./public/javascripts/searchresult');
 
 var account = '5ftkmyi63draxm60tz3rlah2q'
@@ -177,6 +182,16 @@ beauty.post('/api/products', function (req, res, next) {
         console.log('no query object found')
     }
     console.log('popshops search params:' + JSON.stringify(search_params))
+
+    //track the API call - move this later
+    analytics.track({
+        userId: 'jock',
+        event: 'invoked the search API',
+        properties: {
+     revenue: 39.95,
+     shippingMethod: '2-day'
+ }
+    });
     superagent.post(popShopsUrl)
         .send(search_params)
         .end(function (e, result) {

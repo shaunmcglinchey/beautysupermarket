@@ -1,3 +1,37 @@
+<!-- start new searchbar -->
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" rel="home" ng-href="/" ng-click="search()" title="Save money and time sourcing your favourite beauty products">BeautySuggest</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <!--<div ng-controller="ProductListController" class="col-sm-6 col-md-6">-->
+        <div class="col-sm-6 col-md-6">
+            <form ng-submit="search()" class="navbar-form" role="search" name="search-form">
+
+                <div class="input-group">
+                    <input type="text" size="80" ng-model="form.query" class="form-control search-box" placeholder="Chanel, L'Oreal, Calvin Klein ..." id="query" name="query" value="">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-search"><span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <ul class="nav navbar-nav navbar-right" style="padding-right:20px;">
+            <li class=""><a data-toggle="modal" href="#" data-target="#">Login</a>
+            </li>
+            <li><a data-toggle="modal" href="#" data-target="#">Register</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- end new searchbar -->
 <div class="row">
     <div class="col-md-3">
         <div class="row">

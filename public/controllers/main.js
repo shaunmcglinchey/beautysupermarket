@@ -26,8 +26,6 @@ angular.module('beautyApp')
             $scope.storeSelection = [];
             $scope.brandSelection = [];
 
-
-
             $scope.incrementStoreLimit = function () {
                 $scope.storeLimit = $scope.merchants.length;
             };
@@ -161,9 +159,11 @@ angular.module('beautyApp')
                 doSearch(SearchQuery);
             };
 
+            /*
             $scope.test = function () {
                 console.log('yoyo');
             };
+            */
 
             $scope.range = function () {
                 var rangeSize = 5;
@@ -230,11 +230,13 @@ angular.module('beautyApp')
                     console.log('productAPI.fetchProducts returned data');
 
                     //check whether the API returned any results
+                    /*
                     check = _.some(res, function (el) {
                         console.log('el val:' + el);
                         return el === 'results';
                     });
                     console.log('check val:' + check);
+                    */
 
                     $scope.products = res.data.results;
                     $scope.num_merchants = res.data.resources.merchants.count;
