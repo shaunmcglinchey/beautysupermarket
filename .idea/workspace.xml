@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b83b0565-4623-456a-ba9b-22e539fa5e3d" name="Default" comment="test codeship">
+    <list default="true" id="b83b0565-4623-456a-ba9b-22e539fa5e3d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="4a1b6218-d5b7-4fe5-8b9c-1318ad376294" name="Rejected commit: Default" comment="test codeship">
@@ -9,6 +9,7 @@
     </list>
     <ignored path="beautysuggest.iws" />
     <ignored path=".idea/workspace.xml" />
+    <file path="$PROJECT_DIR$/public/views/terms.html" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +52,8 @@
       <file leaf-file-name="terms.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/views/terms.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8366013" vertical-offset="636" max-vertical-offset="1110">
-              <caret line="68" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.74654377" vertical-offset="636" max-vertical-offset="1110">
+              <caret line="64" column="36" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -292,7 +293,11 @@
       <created>1413766519212</created>
       <updated>1413766519212</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="test codeship integration">
+      <created>1413767165002</created>
+      <updated>1413767165002</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -317,7 +322,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Dilbert" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -361,7 +366,8 @@
     <MESSAGE value="test bb integration" />
     <MESSAGE value="yo issue #BEAUT-57" />
     <MESSAGE value="test codeship" />
-    <option name="LAST_COMMIT_MESSAGE" value="test codeship" />
+    <MESSAGE value="test codeship integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="test codeship integration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -737,12 +743,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/views/terms.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8366013" vertical-offset="636" max-vertical-offset="1110">
-          <caret line="68" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.74654377" vertical-offset="636" max-vertical-offset="1110">
+          <caret line="64" column="36" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
   </component>
 </project>
-
