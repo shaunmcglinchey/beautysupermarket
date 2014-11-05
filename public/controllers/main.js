@@ -166,63 +166,6 @@ angular.module('beautyApp')
                 console.log('finished doSearch');
             }
 
-            $scope.range = function () {
-                var rangeSize = 5;
-                var ret = [];
-                var start;
-                console.log('page count:' + $scope.pageCount());
-                start = $scope.currentPage;
-                console.log('start:' + start);
-                if (start > $scope.pageCount() - rangeSize) {
-                    start = $scope.pageCount() - rangeSize;
-                    console.log('start:' + start);
-                }
-
-                if (start < 1) {
-                    start = 1;
-                }
-
-                if (rangeSize > $scope.pageCount()) {
-                    rangeSize = $scope.pageCount();
-                }
-                for (var i = start; i < start + rangeSize; i++) {
-                    ret.push(i);
-                }
-                return ret;
-            };
-
-
-            $scope.prevPage = function () {
-                if ($scope.currentPage > 1) {
-                    $scope.currentPage--;
-                }
-            };
-
-            $scope.prevPageDisabled = function () {
-                return $scope.currentPage === 1 ? "disabled" : "";
-            };
-
-            $scope.nextPage = function () {
-                if ($scope.currentPage < $scope.pageCount()) {
-                    $scope.currentPage++;
-                }
-            };
-
-            $scope.nextPageDisabled = function () {
-                return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
-            };
-
-            $scope.pageCount = function () {
-                return Math.ceil($scope.total / $scope.itemsPerPage);
-            };
-
-
-            $scope.setPage = function (n) {
-                if (n > 0 && n < $scope.pageCount() + 1) {
-                    $scope.currentPage = n;
-                }
-                console.log('set current page to:' + $scope.currentPage);
-            };
 
 
             function getCategories(){
@@ -280,14 +223,6 @@ angular.module('beautyApp')
                 })
             }
 
-            $scope.$watch("currentPage", function (newValue, oldValue) {
-                console.log('requesting page:' + newValue)
-                query.page = newValue;
-                console.log('requesting rpp:' + query.rpp)
-                console.log('requesting keyword:' + query.term)
-                doSearch(SearchQuery);
-                //getCategories();
-            });
 
             $scope.selectItem = function (product) {
                 //use the productService to select the item
@@ -305,6 +240,89 @@ angular.module('beautyApp')
                 doSearch(SearchQuery);
             }
 
+            /* Pagination logic */
+            $scope.range = function () {
+                var rangeSize = 5;
+                var ret = [];
+                var start;
+                console.log('page count:' + $scope.pageCount());
+                start = $scope.currentPage;
+                console.log('start:' + start);
+                if (start > $scope.pageCount() - rangeSize) {
+                    start = $scope.pageCount() - rangeSize;
+                    console.log('start:' + start);
+                }
+
+                if (start < 1) {
+                    start = 1;
+                }
+
+                if (rangeSize > $scope.pageCount()) {
+                    rangeSize = $scope.pageCount();
+                }
+                for (var i = start; i < start + rangeSize; i++) {
+                    ret.push(i);
+                }
+                return ret;
+            };
+
+
+            $scope.prevPage = function () {
+                if ($scope.currentPage > 1) {
+                    $scope.currentPage--;
+                }
+            };
+
+            $scope.prevPageDisabled = function () {
+                return $scope.currentPage === 1 ? "disabled" : "";
+            };
+
+            $scope.nextPage = function () {
+                if ($scope.currentPage < $scope.pageCount()) {
+                    $scope.currentPage++;
+                }
+            };
+
+            $scope.nextPageDisabled = function () {
+                return $scope.currentPage === $scope.pageCount() ? "disabled" : "";
+            };
+
+            $scope.pageCount = function () {
+                return Math.ceil($scope.total / $scope.itemsPerPage);
+            };
+
+
+            $scope.setPage = function (pageNo) {
+                console.log('new page:'+pageNo);
+                $scope.currentPage = pageNo;
+            };
+
+            /*
+
+            $scope.setPage = function (n) {
+                if (n > 0 && n < $scope.pageCount() + 1) {
+                    $scope.currentPage = n;
+                }
+                console.log('set current page to:' + $scope.currentPage);
+            };
+            */
+
+            $scope.pageChanged = function() {
+                console.log('Page changed to: ' + $scope.currentPage);
+            };
+
+            $scope.$watch("currentPage", function (newValue, oldValue) {
+                console.log('requesting page:' + newValue)
+
+                query.page = newValue;
+                console.log('requesting rpp:' + query.rpp)
+                console.log('requesting keyword:' + query.term)
+                doSearch(SearchQuery);
+
+                //getCategories();
+            });
+
+            /* End pagination logic */
 
         }])
     .controller('ProductDetailController', ['$scope', 'product',

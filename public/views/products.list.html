@@ -15,6 +15,5 @@
         </div>
     </div>
 </div>
-<div>
-    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size=5 items-per-page=10 boundary-links="true"></pagination>
+<div><pagination page="currentPage" total-items="totalItems" items-per-page="itemsPerPage" on-select-page="setPage(page)" max-size=5 items-per-page=10 boundary-links="true"></pagination>
 </div>
