@@ -1,4 +1,4 @@
-var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessages','ui.router', 'truncate'])
+var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessages','ui.router', 'truncate','ui.bootstrap'])
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -63,16 +63,3 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                     }
                 })
         }]);
-
-
-
-beautyApp.controller('RootCtrl', function($scope) {
-
-    $scope.processForm = function (q) {
-        console.log('searching for term:'+q);
-        //products array from parent state is available to this controller, and thus any state that uses this controller
-        $scope.product_arr.push({ id:2, name: "Jock" });
-
-        //$state.go('products.list');
-    }
-});
