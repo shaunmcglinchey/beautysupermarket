@@ -56,6 +56,11 @@ angular.module('beautyApp')
                 }
             };
 
+            $scope.clearFilters = function () {
+                $scope.storeSelection.length = 0;
+                $scope.brandSelection.length = 0;
+                filters.length = 0;
+            }
 
             $scope.clearFilter = function (filterType) {
                 if (filterType == 'merchant') {
@@ -139,14 +144,6 @@ angular.module('beautyApp')
                 doSearch(SearchQuery);
             };
 
-            /*
-            $scope.processForm = function (q) {
-                console.log('searching for term:'+q)
-                //products array from parent state is available to this controller, and thus any state that uses this controller
-                console.log('product arr contents:'+JSON.stringify($scope.product_arr));
-                $scope.product_arr.push({ id:2, name: "Jock" });
-            }
-            */
 
             function doSearch(searchQuery) {
                 console.log('hitting productAPI with query:' + JSON.stringify(searchQuery));
@@ -164,6 +161,7 @@ angular.module('beautyApp')
                     $scope.prices = res.data.filters.filter
                     productService.setMerchants(res.data.resources.merchants.merchant);
                     //$scope.product_arr = [{name:'rosina'}];
+                    $state.go('products.list');
                 });
                 console.log('finished doSearch');
             }
@@ -225,13 +223,6 @@ angular.module('beautyApp')
                 }
                 console.log('set current page to:' + $scope.currentPage);
             };
-
-            $scope.boom = function () {
-                console.log('boom')
-                console.log('current products are:'+JSON.stringify($scope.product_arr));
-                $scope.product_arr = [{name:'rosina'}];
-            };
-
 
 
             function getCategories(){
@@ -305,6 +296,15 @@ angular.module('beautyApp')
                 var url = '/products/' + product.id;
                 $location.path(url);
             }
+
+            $scope.reset = function () {
+                query.term = '';
+                query.page = 1;
+                query.rpp = 10;
+                $scope.clearFilters();
+                doSearch(SearchQuery);
+            }
+
 
         }])
     .controller('ProductDetailController', ['$scope', 'product',
