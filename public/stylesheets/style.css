@@ -6139,3 +6139,14 @@ body {
     color: #333;
     font-size: 13px;
 }
+
+
+.product-name {
+    color: #ff6699;
+    font-weight: bold;
+}
+
+.product-price {
+    color: #ff6699;
+    font-weight: bold;
+}

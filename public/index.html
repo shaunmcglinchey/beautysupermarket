@@ -1,61 +1,28 @@
 <!DOCTYPE html>
 <html ng-app="beautyApp">
-
 <head>
     <base href="/index.html">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Beauty Suggest</title>
-    <link rel="icon" type="image/png" href="favicon.png" />
-
-    <!-- Bootstrap core CSS -->
-    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-
-    <link href="stylesheets/bootstrap/_pagination.scss" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link href="stylesheets/ng-table.min.css" rel="stylesheet">
     <link href="stylesheets/style.css" rel="stylesheet">
-</head>
-
-<body>
-
-    <div ng-view></div>
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <!--<a href style="text-decoration:underline;" ng-href="/about">About Us</a>-->
-                    <!-- <a ng-href="/contact">Contact Us</a> -->
-                    <!--<a href style="text-decoration:underline;" ng-href="/cookies">Cookies</a>-->
-                    <a style="margin-left:15px; font-size: small;" ng-href="/terms">Terms & Conditions</a>
-                    <a style="margin-left:15px; font-size: small;" ng-href="/privacy">Privacy Policy</a>
-                </div>
-                <div class="col-md-3"></div>
-            </div>
-        </div>
-    </div>
     <script src="vendor/angular.js"></script>
+    <script src="vendor/angular-ui-router.min.js"></script>
     <script src="vendor/angular-strap.js"></script>
     <script src="vendor/angular-strap.tpl.js"></script>
     <script src="vendor/angular-messages.js"></script>
     <script src="vendor/angular-resource.js"></script>
-    <script src="vendor/angular-route.js"></script>
     <script src="vendor/angular-cookies.js"></script>
-    <script src="vendor/underscore.js"></script>
+    <script src="vendor/lodash.min.js"></script>
     <script src="vendor/checklist-model.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="vendor/ui-bootstrap-tpls-0.11.0.js"></script>
     <script src="vendor/moment.min.js"></script>
     <script src="vendor/truncate.js"></script>
     <script src="vendor/ng-table.min.js"></script>
     <script src="app.js"></script>
     <script src="controllers/main.js"></script>
     <script src="services/show.js"></script>
-    <!--
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/bower_components/bootstrap/js/button.js"></script>
-    -->
+</head>
+<body ng-controller="ProductListController">
+<div ui-view></div>
 </body>
-
 </html>
