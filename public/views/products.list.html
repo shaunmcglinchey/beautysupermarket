@@ -1,0 +1,20 @@
+<div ng-repeat="product in product_arr" class="row bottom-spacer">
+    <div class="col-md-2">
+        <a ng-click="selectItem(product);">
+            <img ng-src="{{product.image_url_large}}" height="100%" width="100%" />
+        </a>
+    </div>
+    <div class="col-md-8">
+        <div class="row top-buffer">
+            <div class="col-md-12">
+               <span><a ng-href="#/products/{{product.id}}" style="text-decoration:underline; color:#1a0dab; font-size:16px; font-family: arial,sans-serif;">{{product.name}}</a></span>
+            </div>
+            <div class="col-md-12">
+                <strong>£{{product.price_min}}</strong> from {{product.offer_count}} store<span ng-show="product.offer_count > 1">s</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" max-size=5 items-per-page=10 boundary-links="true"></pagination>
+</div>

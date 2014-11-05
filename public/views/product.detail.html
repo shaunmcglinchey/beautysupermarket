@@ -1,0 +1,42 @@
+<a href="#/products/list">Go Back to List</a>
+<div class="col-md-9">
+<div class="row">
+    <div class="col-md-3">
+        <img ng-src="{{product.img_url_large}}" />
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-name">{{product.name}}</div>
+            </div>
+            <!--
+            <div class="col-md-12">
+                <div class="product-price">£{{lowest_price}}</div>
+            </div>
+            -->
+            <div class="col-md-12">
+                <div class="product-description">{{product.description | characters:400}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="row col-md-9">
+        <div ng-repeat="offer in product.offers.offer" class="row bottom-spacer">
+            <div class="col-md-12">
+                <div>Retail price: {{offer.price_retail}}</div>
+            </div>
+            <div class="col-md-12">
+                <div>Merchant price: {{offer.price_merchant}}</div>
+            </div>
+            <div class="col-md-12">
+                <div>Merchant: <a ng-href="{{offer.merchant.url}}">{{offer.merchant.name}}</a></div>
+            </div>
+            <div class="col-md-12">
+                <div><a ng-href="{{offer.url}}">Buy Now</a></div>
+            </div>
+            <div><img src="{{offer.merchant.logo_url}}"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-3"></div>
