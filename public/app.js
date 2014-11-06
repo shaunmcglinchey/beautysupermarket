@@ -14,12 +14,6 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                     abstract: true,
                     url: '/products',
                     templateUrl: './views/products.html',
-                   /* controller: 'ProductListController',*/
-                    /*
-                    controller: function($scope){
-                      $scope.product_arr = [{name:'jock'}];
-                    },
-                    */
                     onEnter: function(){
                         console.log("enter products");
                     }
@@ -38,7 +32,8 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                         // for column two, we'll define a separate controller
                         'results@products.list': {
                             templateUrl: './views/products.list.html'
-                        }
+                        },
+                        'footer@products.list': { templateUrl: './views/footer.html' }
                     },
                     onEnter: function(){
                         console.log("enter products.list");

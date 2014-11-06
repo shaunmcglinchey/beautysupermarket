@@ -9,7 +9,6 @@ angular.module('beautyApp')
             $scope.brandLimit = 10;
             $scope.brands = [];
             $scope.merchants = [];
-           // var filterSelection = new Array();
             var SearchQuery = {};
             var filters = [];
             var query = {};
@@ -20,6 +19,7 @@ angular.module('beautyApp')
             SearchQuery.query.filters = filters;
             $scope.storeSelection = [];
             $scope.brandSelection = [];
+            $scope.categorySelection = [];
 
             $scope.incrementStoreLimit = function () {
                 $scope.storeLimit = $scope.merchants.length;
@@ -59,6 +59,7 @@ angular.module('beautyApp')
             $scope.clearFilters = function () {
                 $scope.storeSelection.length = 0;
                 $scope.brandSelection.length = 0;
+                $scope.categorySelection.length = 0;
                 filters.length = 0;
             }
 
@@ -71,6 +72,8 @@ angular.module('beautyApp')
                     //run new search
                     if ($scope.keyword)
                         query.term = $scope.keyword;
+                    resetQuery();
+                    $scope.storeLimit = 10;
                     doSearch(SearchQuery);
                 } else if (filterType == 'brand') {
                     console.log('removing brand filters');
@@ -80,6 +83,8 @@ angular.module('beautyApp')
                     //run new search
                     if ($scope.keyword)
                         query.term = $scope.keyword;
+                    resetQuery();
+                    $scope.brandLimit = 10;
                     doSearch(SearchQuery);
                 }
             };
@@ -106,6 +111,20 @@ angular.module('beautyApp')
                     } else { // else is not selected so select it
                         $scope.storeSelection.push(filterId);
                     }
+                } else if (filterType == 'category') {
+                    //check if merchant filter already selected
+                    //idx = $scope.categorySelection.indexOf(filterId);
+
+                    $scope.categorySelection.length = 0;
+                    $scope.categorySelection.push(filterId);
+
+                    /*
+                    if (idx > -1) {
+                        $scope.categorySelection.splice(idx, 1);
+                    } else { // else is not selected so select it
+
+                    }
+                    */
                 }
 
                 if ($scope.keyword)
@@ -113,7 +132,6 @@ angular.module('beautyApp')
 
 
                 rebuildFilters();
-                //SearchQuery.filters = filters;
                 console.log('Filter SearchQuery:' + JSON.stringify(SearchQuery));
                 doSearch(SearchQuery);
             }
@@ -132,6 +150,12 @@ angular.module('beautyApp')
                         'filter': $scope.brandSelection.join(),
                         'filterType': 'brand'
                     });
+
+                if ($scope.categorySelection.length > 0)
+                    filters.push({
+                        'filter': $scope.categorySelection.join(),
+                        'filterType': 'category'
+                    });
             }
 
             $scope.search = function (q) {
@@ -149,6 +173,7 @@ angular.module('beautyApp')
                 console.log('hitting productAPI with query:' + JSON.stringify(searchQuery));
                 productAPI.fetchProducts(searchQuery).then(function (res) {
                     //console.log('productAPI.fetchProducts returned data:' + JSON.stringify(res));
+                    console.log('scope id:'+$scope.$id);
                     console.log('productAPI.fetchProducts returned data');
                     $scope.products = res.data.results.products;
                     $scope.product_arr = res.data.results.products.product;
@@ -160,7 +185,6 @@ angular.module('beautyApp')
                     $scope.brands = res.data.resources.brands.brand;
                     $scope.prices = res.data.filters.filter
                     productService.setMerchants(res.data.resources.merchants.merchant);
-                    //$scope.product_arr = [{name:'rosina'}];
                     $state.go('products.list');
                 });
                 console.log('finished doSearch');
@@ -175,51 +199,6 @@ angular.module('beautyApp')
                     console.log('productAPI.fetchCategories returned data');
                     $scope.top_level_categories = res.data.categories.category.categories.categories.category;
                     console.log('These are the top level categories:'+JSON.stringify($scope.top_level_categories));
-
-                    $scope.list = [
-                        {
-                            "id": 1,
-                            "title": "1. dragon-breath",
-                            "items": []
-                        },
-                        {
-                            "id": 2,
-                            "title": "2. moiré-vision",
-                            "items": [
-                                {
-                                    "id": 21,
-                                    "title": "2.1. tofu-animation",
-                                    "items": [
-                                        {
-                                            "id": 211,
-                                            "title": "2.1.1. spooky-giraffe",
-                                            "items": []
-                                        },
-                                        {
-                                            "id": 212,
-                                            "title": "2.1.2. bubble-burst",
-                                            "items": []
-                                        }
-                                    ]
-                                },
-                                {
-                                    "id": 22,
-                                    "title": "2.2. barehand-atomsplitting",
-                                    "items": []
-                                }
-                            ]
-                        },
-                        {
-                            "id": 3,
-                            "title": "3. unicorn-zapper",
-                            "items": []
-                        },
-                        {
-                            "id": 4,
-                            "title": "4. romantic-transclusion",
-                            "items": []
-                        }
-                    ];
                 })
             }
 
@@ -233,12 +212,65 @@ angular.module('beautyApp')
             }
 
             $scope.reset = function () {
-                query.term = '';
-                query.page = 1;
-                query.rpp = 10;
+                resetQuery();
                 $scope.clearFilters();
                 doSearch(SearchQuery);
             }
+
+            function resetQuery(){
+                query.term = '';
+                query.page = 1;
+                query.rpp = 10;
+                $scope.setPage(1);
+            }
+
+            $scope.tree = [{name: "All", id: 13000, nodes: [
+                {name: "Cosmetics & Makeup", id: 13250, nodes: [
+                    {name: "Concealers", id: 13276},
+                    {name: "Cosmetic & Makeup Sets", id: 13251},
+                    {name: "Cosmetic Mirrors", id: 13261},
+                    {name: "Exfoliants", id: 13281},
+                    {name: "Eyebrow", id: 32536},
+                    {name: "EyeLash/Mascara", id: 13461},
+                    {name: "Eye Liner", id: 13471},
+                    {name: "Eye Shadow", id: 13471},
+                    {name: "Facial Care Blush", id: 13271},
+                    {name: "Facial Cleansers", id: 13318},
+                    {name: "Facial Masks", id: 13296},
+                    {name: "Facial Treatments", id: 13324},
+                    {name: "Lip Liners", id: 13678},
+                    {name: "Lipsticks & Gloss", id: 13698},
+                    {name: "Makeup Remover", id: 13291},
+                    {name: "Makeup Brushes & Applicators", id: 13256},
+                    {name: "Makeup Foundations & Primers", id: 13286},
+                    {name: "Other Cosmetics & Makeup", id: 13301},
+                    {name: "Powders", id: 13306},
+                    {name: "Skin Moisturisers", id: 13331},
+                    {name: "Toners", id: 13311}
+                ]},
+                {name: "Fragrances", id: 13001, nodes: [
+                    {name: "Fragrance Gift Sets", id: 13012},
+                    {name: "Men's Fragrances", id: 13022},
+                    {name: "Other Fragrances", id: 13002},
+                    {name: "Unisex Fragrances", id: 13042},
+                    {name: "Women's Fragrances", id: 13032}
+                ]},
+                {name: "Hair Care", id: 13050, nodes: [
+                    {name: "Coloring", id: 32551},
+                    {name: "Hair & Scalp Treatment", id: 32553},
+                    {name: "Hair Care Accessories", id: 32556},
+                    {name: "Hair Dryers, Stylers & Barber Tools", id: 32555},
+                    {name: "Hair Removal", id: 32554},
+                    {name: "Shampoos & Conditioners", id: 32557},
+                    {name: "Styling", id: 32558}
+                ]},
+            ]}];
+
+            /*
+            $scope.selectCategory = function (cat) {
+                console.log('category selected:'+cat);
+            }
+            */
 
             /* Pagination logic */
             $scope.range = function () {
@@ -266,7 +298,6 @@ angular.module('beautyApp')
                 return ret;
             };
 
-
             $scope.prevPage = function () {
                 if ($scope.currentPage > 1) {
                     $scope.currentPage--;
@@ -291,21 +322,10 @@ angular.module('beautyApp')
                 return Math.ceil($scope.total / $scope.itemsPerPage);
             };
 
-
             $scope.setPage = function (pageNo) {
                 console.log('new page:'+pageNo);
                 $scope.currentPage = pageNo;
             };
-
-            /*
-
-            $scope.setPage = function (n) {
-                if (n > 0 && n < $scope.pageCount() + 1) {
-                    $scope.currentPage = n;
-                }
-                console.log('set current page to:' + $scope.currentPage);
-            };
-            */
 
             $scope.pageChanged = function() {
                 console.log('Page changed to: ' + $scope.currentPage);

@@ -20,10 +20,9 @@ var popShopsUrl = 'http://popshops.com/v3/products.json'
 var results;
 var search_params = {};
 var product_info = {};
-var numResults;
-var rpp;
 var merchants = [];
 var brands = [];
+var categories = [];
 
 search_params.account = account;
 search_params.catalog = catalog;
@@ -40,49 +39,33 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 // get an instance of router
 var beauty = express.Router()
 
-// route middleware to check if :filters query param exists
 
-/*
-beauty.param('filters', function (req, res, next, filters) {
-    console.log('filters param set');
-    //req.kw = keyword;
-    next()
-})
-*/
+beauty.get('/api/products/:productId', function(req, res, next){
+    console.log('Looking for product:'+req.params.productId);
 
-// route middleware to validate :page
-/*
-beauty.param('page', function (req, res, next, page) {
-    console.log('page url param set: ' + page)
-    if (page > 100) {
-        var badRequest = new Error('Bad request: please specify a valid page number');
-        badRequest.status = 400;
-        return next(badRequest);
-    }
-    req.page = page;
-    next()
-})
-*/
+    search_params.product = req.params.productId;
+    superagent.post(popShopsUrl)
+        .send(search_params)
+        .end(function (e, result) {
+            console.log('found product');
 
-// route middleware to validate :rpp
-/*
-beauty.param('rpp', function (req, res, next, rpp) {
-    console.log('rpp url param set: ' + rpp)
-    if (rpp > 100) {
-        var badRequest = new Error('Bad request: please specify a valid rpp range');
-        badRequest.status = 400;
-        return next(badRequest);
-    }
-    req.rpp = rpp;
-    next()
-})
-*/
+            if (result.body.results) {
+                console.log('results returned from popshops')
+                console.log('response:' + JSON.stringify(result.body));
+                replaceMerchants(result);
+                product_info.product = result.body.results.products.product[0];
+                product_info.merchants = result.body.resources.merchants.merchant;
+                product_info.brands = result.body.resources.brands.brand;
 
+            } else {
+                console.log('no results returned from popshops');
+            }
+            res.send(product_info)
+        });
+});
 //need to accept a map of filters - in that map we specify brand (single), store (multi), price range selections 
 //and use the map to construct an appropriate popshops API call
 
@@ -91,6 +74,7 @@ beauty.post('/api/products', function (req, res, next) {
     console.log('running product endpoint');
     merchants.length = 0;
     brands.length = 0;
+    categories.length = 0;
 
     if (search_params.merchant)
         delete search_params.merchant;
@@ -109,6 +93,9 @@ beauty.post('/api/products', function (req, res, next) {
 
     if (search_params.product)
         delete search_params.product;
+
+    if (search_params.category)
+        delete search_params.category;
 
     console.log('checking for filter params');
 
@@ -149,8 +136,6 @@ beauty.post('/api/products', function (req, res, next) {
 
         if (req.body.query.filters) {
 
-            //console.log('query object filter map found:')
-
             _.each(req.body.query.filters, function (f) {
                 console.log('filter val: ' + f.filter);
                 console.log('filter type: ' + f.filterType);
@@ -164,6 +149,10 @@ beauty.post('/api/products', function (req, res, next) {
                     console.log('brand filter found')
                     brands.push(f.filter);
                     break;
+                case 'category':
+                    console.log('category filter found')
+                    categories.push(f.filter);
+                    break;
                 default:
                     console.log('no match found for filter type')
                 }
@@ -175,6 +164,10 @@ beauty.post('/api/products', function (req, res, next) {
             if (brands.length > 0) {
                 search_params.brand = brands.join();
                 console.log('brands:' + search_params.brand);
+            }
+            if (categories.length > 0) {
+                search_params.category = categories.join();
+                console.log('category:' + search_params.category);
             }
 
         } else {
@@ -213,18 +206,7 @@ beauty.post('/api/products', function (req, res, next) {
                 results = '';
             }
 
-            //remove popshops API credentials
             result = removeCredentials(result);
-            /*
-            result.body.parameters = _.without(result.body.parameters, _.findWhere(result.body.parameters, {
-                name: 'account'
-            }));
-            result.body.parameters = _.without(result.body.parameters, _.findWhere(result.body.parameters, {
-                name: 'catalog'
-            }));
-            */
-            //console.log('wta val:' + JSON.stringify(result.body.parameters));
-            //result.body = _.without(result.body, _.findWhere(result.body, {n: 3}));
             res.send(result.body)
         });
 
@@ -535,32 +517,8 @@ beauty.get('/api/tree', function (req, res, next) {
     ]});
 });
 
-beauty.get('/api/products/:productId', function(req, res, next){
-    console.log('Looking for product:'+req.params.productId);
 
-    search_params.product = req.params.productId;
-    superagent.post(popShopsUrl)
-        .send(search_params)
-        .end(function (e, result) {
-            console.log('found product');
-
-            if (result.body.results) {
-                console.log('results returned from popshops')
-                console.log('response:' + JSON.stringify(result.body));
-                replaceMerchants(result);
-                product_info.product = result.body.results.products.product[0];
-                product_info.merchants = result.body.resources.merchants.merchant;
-                product_info.brands = result.body.resources.brands.brand;
-
-            } else {
-                console.log('no results returned from popshops');
-                //results = '';
-            }
-            res.send(product_info)
-        });
-});
-
-
+/*
 beauty.get('/api/search', function (req, res, next) {
     results = null;
 
@@ -630,6 +588,7 @@ beauty.get('/api/search', function (req, res, next) {
             res.send(result.body)
         });
 })
+*/
 
 // handle errors
 beauty.use(function (err, req, res, next) {
@@ -688,6 +647,45 @@ function replaceMerchants(result){
 
         });
 }
+
+// route middleware to check if :filters query param exists
+
+/*
+ beauty.param('filters', function (req, res, next, filters) {
+ console.log('filters param set');
+ //req.kw = keyword;
+ next()
+ })
+ */
+
+// route middleware to validate :page
+/*
+ beauty.param('page', function (req, res, next, page) {
+ console.log('page url param set: ' + page)
+ if (page > 100) {
+ var badRequest = new Error('Bad request: please specify a valid page number');
+ badRequest.status = 400;
+ return next(badRequest);
+ }
+ req.page = page;
+ next()
+ })
+ */
+
+// route middleware to validate :rpp
+/*
+ beauty.param('rpp', function (req, res, next, rpp) {
+ console.log('rpp url param set: ' + rpp)
+ if (rpp > 100) {
+ var badRequest = new Error('Bad request: please specify a valid rpp range');
+ badRequest.status = 400;
+ return next(badRequest);
+ }
+ req.rpp = rpp;
+ next()
+ })
+ */
+
 /* Extra -- CORS stuff */
 
 
