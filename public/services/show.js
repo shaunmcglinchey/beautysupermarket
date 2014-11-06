@@ -56,7 +56,7 @@ angular.module("beautyApp")
                         'Content-Type': 'application/json'
                     },
                     url: base_url+'categories/',
-                    method: "POST"
+                    method: "GET"
                     })
                     .success(function () {
                         console.log('fetchCategories ran');
