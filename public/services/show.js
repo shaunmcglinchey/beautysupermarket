@@ -42,13 +42,17 @@ angular.module("beautyApp")
                         url: base_url+'products/',
                         method: "POST",
                         data: $params
-                    })
-                    .success(function () {
-                        console.log('fetchProducts ran');
-                    })
-                    .error(function () {
-                        console.log('fetchProducts call resulted in an error');
                     });
+            },
+            fetchProduct: function (){
+                console.log('fetching product:');
+                return $http({
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    url: base_url+'products/1466988',
+                    method: "GET"
+                });
             },
             fetchCategories: function () {
                 return $http({

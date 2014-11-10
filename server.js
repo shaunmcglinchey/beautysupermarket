@@ -2,17 +2,13 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var log = require('npmlog');
-//var _ = require('underscore')._;
 var _ = require('lodash')._;
-//var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var superagent = require('superagent')
 var Analytics = require('analytics-node');
 var analytics = new Analytics('k9pY4FSNyL', {
     flushAt: 1
 });
-
-var SearchResult = require('./public/javascripts/searchresult');
 
 var account = '5ftkmyi63draxm60tz3rlah2q'
 var catalog = 'byuklpjkivbpyfxcryx05rv0u'
@@ -44,7 +40,18 @@ var beauty = express.Router()
 
 
 beauty.get('/api/products/:productId', function(req, res, next){
+    res.set('Content-Type', 'application/json');
     console.log('Looking for product:'+req.params.productId);
+
+    /* test send 404 error */
+
+    /*
+    var notFound = new Error('Product Not Found');
+    notFound.status = 404;
+    return next(notFound);
+    */
+    /* end test 404 */
+
 
     search_params.product = req.params.productId;
     superagent.post(popShopsUrl)
@@ -61,9 +68,21 @@ beauty.get('/api/products/:productId', function(req, res, next){
 
             } else {
                 console.log('no results returned from popshops');
+                //console.log('Ex:' + e);
+                var notFound = new Error('Product Not Found');
+                notFound.status = 404;
+                return next(notFound);
+               // product_info.status = 404;
+
+                /*
+                if (result.error) {
+                    console.log('oh no ' + result.error.message);
+                }
+                */
             }
             res.send(product_info)
         });
+
 });
 //need to accept a map of filters - in that map we specify brand (single), store (multi), price range selections 
 //and use the map to construct an appropriate popshops API call
@@ -198,7 +217,6 @@ beauty.post('/api/products', function (req, res, next) {
             console.log('yoyoyoyo');
             if (res.error) {
                 console.log('error:' + result.error.message);
-                //alert('oh no ' + res.error.message);
             } else {
                 console.log('no error');
             }
@@ -212,226 +230,16 @@ beauty.post('/api/products', function (req, res, next) {
             }
 
             result = removeCredentials(result);
-            if (result.body.resources.categories.matches)
-                removeUndesiredCategories(result);
+           // if (result.body.resources.categories.matches)
+                //removeUndesiredCategories(result);
             res.send(result.body)
         });
 
 
 })
-/*
-beauty.post('/api/categories', function (req, res, next) {
-    console.log('running categories endpoint');
-    res.setHeader('Content-Type', 'application/json');
-    res.send({
-      "categories": {
-        "category": {
-            "id": 1,
-                "name": "All",
-                "categories": {
-                "id": 13000,
-                    "name": "Health&Beauty",
-                    "categories": {
-                    "category": [
-                        {
-                            "id": 13250,
-                            "name": "Cosmetics&Makeup",
-                            "categories": {
-                                "category": [
-                                    {
-                                        "id": 13276,
-                                        "name": "Concealers",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13251,
-                                        "name": "Cosmetic&MakeupSets",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13261,
-                                        "name": "CosmeticMirrors",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13281,
-                                        "name": "Exfoliants",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 32536,
-                                        "name": "EyeBrow",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13461,
-                                        "name": "EyeLash/Mascara",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13471,
-                                        "name": "EyeLiner",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13481,
-                                        "name": "EyeShadow",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13271,
-                                        "name": "FacialCareBlush",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13318,
-                                        "name": "FacialCleansers",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13296,
-                                        "name": "FacialMasks",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13324,
-                                        "name": "FacialTreatments",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13678,
-                                        "name": "LipLiners",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13698,
-                                        "name": "Lipsticks&Gloss",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13291,
-                                        "name": "Make-UpRemover",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13256,
-                                        "name": "MakeupBrushes&Applicators",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13286,
-                                        "name": "MakeupFoundationsandPrimers",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13301,
-                                        "name": "OtherCosmetics&Makeup",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13306,
-                                        "name": "Powders",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13331,
-                                        "name": "SkinMoisturizers",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13311,
-                                        "name": "Toners",
-                                        "leaf": true
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "id": 13001,
-                            "name": "Fragrances",
-                            "categories": {
-                                "category": [
-                                    {
-                                        "id": 13012,
-                                        "name": "FragranceGiftSets",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13022,
-                                        "name": "Men'sFragrances",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13002,
-                                        "name": "OtherFragrances",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13042,
-                                        "name": "UnisexFragrance",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 13032,
-                                        "name": "Women'sFragrances",
-                                        "leaf": true
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "id": 13050,
-                            "name": "Hair Care",
-                            "categories": {
-                                "category": [
-                                    {
-                                        "id": 32551,
-                                        "name": "Coloring",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 32553,
-                                        "name": "Hair & Scalp Treatment",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 32556,
-                                        "name": "Hair Care Accessories",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 32555,
-                                        "name": "Hair Dryers, Stylers & Barber Tools",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 32554,
-                                        "name": "Hair Removal",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 32557,
-                                        "name": "Shampoos & Conditioners",
-                                        "leaf": true
-                                    },
-                                    {
-                                        "id": 32558,
-                                        "name": "Styling",
-                                        "leaf": true
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            }
-        }
-    }
-    });
-});
-*/
+
 beauty.get('/api/categories', function (req, res, next) {
-    res.setHeader('Content-Type', 'application/json');
+    res.set('Content-Type', 'application/json');
     res.send([{name: "All", id: 13000, nodes: [
         {name: "Cosmetics & Makeup", id: 13250, nodes: [
             {name: "Concealers", id: 13276},
@@ -476,78 +284,6 @@ beauty.get('/api/categories', function (req, res, next) {
 });
 
 
-/*
-beauty.get('/api/search', function (req, res, next) {
-    results = null;
-
-    //should not delete filters on every request - what about existing filter selections?
-    if (search_params.merchant)
-        delete search_params.merchant;
-
-    if (search_params.brand)
-        delete search_params.brand;
-
-    if (req.query.keyword) {
-        search_params.keyword = req.query.keyword;
-        console.log('searching for keyword:' + req.query.keyword);
-    } else {
-        console.log('old kw:' + search_params.keyword);
-        search_params.keyword = '';
-    }
-
-    if (req.query.page) {
-        search_params.page = req.query.page;
-        console.log('searching for page:' + req.query.page);
-    }
-
-    if (req.query.rpp) {
-        search_params.results_per_page = req.query.rpp;
-        console.log('searching for rpp:' + req.query.rpp);
-    }
-
-    if (req.query.filterId) {
-        console.log('searching with filter Id:' + req.query.filterId + ',of type:' + req.query.filterType);
-        if (req.query.filterType == 'merchant') {
-            console.log('filterType:merchant, filterId:' + req.query.filterId);
-            search_params.merchant = req.query.filterId;
-        } else if (req.query.filterType == 'brand') {
-            console.log('filterType:brand, filterId:' + req.query.filterId);
-            search_params.brand = req.query.filterId;
-        }
-    } else {
-        console.log('resetting filters');
-        //reset the filters
-        // delete search_params.filterId;
-        //delete search_params.filterType;
-    }
-
-
-
-    console.log('GET search params: ' + JSON.stringify(search_params));
-    superagent.post(popShopsUrl)
-        .send(search_params)
-        .end(function (e, result) {
-
-            if (result.body.results) {
-                //console.log('results returned from popshops')
-                //console.log(result.body.results)
-                // results = new SearchResult(res.body)
-                //console.log('was transformed into SearchResult: '+JSON.stringify(results))
-                //console.log(JSON.stringify(res.body))
-                //results = res.body
-
-            } else {
-                //console.log('no results returned from popshops');
-                results = '';
-            }
-            //console.log('\n\n\n\n\n\n\nYOYOYO sending these results over the wire: '+JSON.stringify(results))
-            //count the number of products returned
-            // console.log('num products:'+ _.pluck(result.body.results.products, 'count').indexOf(0); 
-            res.send(result.body)
-        });
-})
-*/
-
 // handle errors
 beauty.use(function (err, req, res, next) {
     console.log('testing for 404')
@@ -563,7 +299,8 @@ beauty.use(function (err, req, res, next) {
         res.status(500)
         console.log('handling 500 Internal Server error')
     }
-    res.send(err.message);
+    //res.send(err.message);
+    res.json(err.message);
 });
 
 // apply the routes to our application

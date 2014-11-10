@@ -4,10 +4,12 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
 
 
             //$locationProvider.html5Mode(true);
-
+           // var product = [];
             $urlRouterProvider.when("", "/products/list");
             $urlRouterProvider.when("/", "/products/list");
-            $urlRouterProvider.otherwise('/products/list');
+          //  $urlRouterProvider.otherwise('/products/list');
+            // For any unmatched url, send to 404
+            $urlRouterProvider.otherwise('/404');
 
             $stateProvider
                 .state('products', {
@@ -20,7 +22,6 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                 })
                 .state('products.list', {
                     url: '/list',
-
                     views: {
 
                         // the main template will be placed here (relatively named)
@@ -45,16 +46,54 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                     templateUrl: './views/product.detail.html',
                     controller: 'ProductDetailController',
                     resolve: {
-                        // Let's fetch the product in question
-                        // so we can provide it directly to the controller.
-                        product:  function($http, $stateParams){
+                        "product": function($q,$http,$stateParams,$timeout){
+                           // productInfo.length = 0;
+                            var d = $q.defer();
+
                             var url = "/api/products/" + $stateParams.id;
-                            return $http.get(url)
-                                .then(function(res){ return res.data; });
+
+                            /* either return the data or reject the promise */
+                            $http.get(url).success(function(data) {
+                             //   $scope.product = data;
+                               // info: function productInfo(data){
+                                   // return data;
+                               // }
+
+                               // product.push(data);
+                                //console.log('data:'+JSON.stringify(data));
+                                d.resolve({
+                                        info: function( ) {
+                                            return data;
+                                        }
+                                }
+
+                                );
+                                //return data;
+                            }).error(function(data, status) {
+                                d.reject(status);
+                            });
+                            return d.promise;
                         }
                     },
                     onEnter: function(){
                         console.log("enter products.detail");
                     }
                 })
-        }]);
+
+                .state('products.404', {
+                    url: '/404',
+                    templateUrl: './views/404.html',
+                    onEnter: function(){
+                        console.log("404 page not found");
+                    }
+                });
+
+        }])
+    .run(function($state,$rootScope) {
+    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+        event.preventDefault();
+        console.log('caught stateChangeError');
+        //$location.path('/products/404/')
+        $state.go('products.404');
+    });
+});

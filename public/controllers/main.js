@@ -1,4 +1,4 @@
-angular.module('beautyApp')
+var beautyApp = angular.module('beautyApp')
     .controller('ProductListController', ['$scope', '$state','$location', 'productAPI', 'productService',
         function ($scope, $state, $location, productAPI, productService) {
 
@@ -21,6 +21,7 @@ angular.module('beautyApp')
             $scope.brandSelection = [];
             $scope.categorySelection = ['13000'];
 
+            //TODO fix filter expand logic --should be checked after data resolved
             $scope.incrementStoreLimit = function () {
                 $scope.storeLimit = $scope.merchants.length;
             };
@@ -28,9 +29,10 @@ angular.module('beautyApp')
                 $scope.storeLimit = 10;
             };
             $scope.storeFullyExpanded = function () {
+                //console.log('mercha length:'+$scope.merchants.count);
                 if (typeof ($scope.merchants) != 'undefined' && $scope.merchants.length) {
-
-                    if ($scope.storeLimit < $scope.merchants.length)
+                    console.log('mercha length:'+$scope.merchants.length);
+                    if ($scope.merchants.length > $scope.storeLimit)
                         return false;
                     return true;
                 } else {
@@ -161,7 +163,7 @@ angular.module('beautyApp')
                 console.log('hitting productAPI with query:' + JSON.stringify(searchQuery));
                 productAPI.fetchProducts(searchQuery).then(function (res) {
                     //console.log('productAPI.fetchProducts returned data:' + JSON.stringify(res));
-                    console.log('scope id:'+$scope.$id);
+                    //console.log('scope id:'+$scope.$id);
                     console.log('productAPI.fetchProducts returned data');
                     $scope.products = res.data.results.products;
                     $scope.product_arr = res.data.results.products.product;
@@ -174,8 +176,10 @@ angular.module('beautyApp')
                     $scope.prices = res.data.filters.filter
                     productService.setMerchants(res.data.resources.merchants.merchant);
                     $state.go('products.list');
+                }, function (result){
+                    console.log("The fetchProducts request failed with error " + result);
                 });
-                console.log('finished doSearch');
+                //console.log('finished doSearch');
             }
 
             function getCategories(){
@@ -282,13 +286,11 @@ angular.module('beautyApp')
         }])
     .controller('ProductDetailController', ['$scope', 'product',
         function ($scope, product) {
-            $scope.product_info = product;
-
-            console.log('name:'+$scope.product_info.product.name);
-
+            console.log('loaded product:'+JSON.stringify(product.info()));
+            $scope.product_info = product.info();
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
-
+            console.log('name:'+$scope.product_info.product.name);
   }])
     .controller('TermsController', ['$scope', '$routeParams',
   function ($scope, $routeParams) {
@@ -310,3 +312,4 @@ angular.module('beautyApp')
   function ($scope, $routeParams) {
 
   }]);
+
