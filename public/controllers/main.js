@@ -1,6 +1,6 @@
 var beautyApp = angular.module('beautyApp')
-    .controller('ProductListController', ['$scope', '$state','$location', 'productAPI', 'productService',
-        function ($scope, $state, $location, productAPI, productService) {
+    .controller('ProductListController', ['$scope', '$state','$location', 'productAPI', 'productService','usSpinnerService',
+        function ($scope, $state, $location, productAPI, productService, usSpinnerService) {
 
             $scope.itemsPerPage = 10;
             $scope.currentPage = 1;
@@ -157,12 +157,14 @@ var beautyApp = angular.module('beautyApp')
                 query.rpp = 10;
                 $scope.keyword = query.term;
                 $scope.currentPage = 1;
+                $scope.clearFilters();
                 doSearch(SearchQuery);
             };
 
 
             function doSearch(searchQuery) {
                 console.log('hitting productAPI with query:' + JSON.stringify(searchQuery));
+                $scope.startSpin();
                 productAPI.fetchProducts(searchQuery).then(function (res) {
                     //console.log('productAPI.fetchProducts returned data:' + JSON.stringify(res));
                     //console.log('scope id:'+$scope.$id);
@@ -177,9 +179,11 @@ var beautyApp = angular.module('beautyApp')
                     $scope.brands = res.data.resources.brands.brand;
                     $scope.prices = res.data.filters.filter
                     productService.setMerchants(res.data.resources.merchants.merchant);
+                    $scope.stopSpin();
                     $state.go('products.list');
                 }, function (result){
                     console.log("The fetchProducts request failed with error " + result);
+                    $scope.stopSpin();
                 });
                 //console.log('finished doSearch');
             }
@@ -204,6 +208,13 @@ var beautyApp = angular.module('beautyApp')
                 resetQuery();
                 $scope.clearFilters();
                 doSearch(SearchQuery);
+            }
+
+            $scope.startSpin = function(){
+                usSpinnerService.spin('spinner-1');
+            }
+            $scope.stopSpin = function(){
+                usSpinnerService.stop('spinner-1');
             }
 
             function resetQuery(){
@@ -294,6 +305,7 @@ var beautyApp = angular.module('beautyApp')
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
             console.log('name:'+$scope.product_info.product.name);
+
   }])
     .controller('TermsController', ['$scope', '$routeParams',
   function ($scope, $routeParams) {

@@ -1,7 +1,6 @@
-var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessages','ui.router', 'truncate','ui.bootstrap'])
+var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner'])
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         function ($stateProvider, $urlRouterProvider, $locationProvider) {
-
 
             //$locationProvider.html5Mode(true);
            // var product = [];
@@ -46,7 +45,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                     templateUrl: './views/product.detail.html',
                     controller: 'ProductDetailController',
                     resolve: {
-                        "product": function($q,$http,$stateParams,$timeout){
+                        "product": function($q,$http,$stateParams){
                            // productInfo.length = 0;
                             var d = $q.defer();
 
