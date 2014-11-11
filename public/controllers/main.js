@@ -120,6 +120,8 @@ var beautyApp = angular.module('beautyApp')
                 if ($scope.keyword)
                     query.term = $scope.keyword;
 
+                query.page = 1;
+                $scope.currentPage = 1;
 
                 rebuildFilters();
                 console.log('Filter SearchQuery:' + JSON.stringify(SearchQuery));
