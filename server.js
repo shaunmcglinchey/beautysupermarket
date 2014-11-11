@@ -51,36 +51,35 @@ beauty.get('/api/products/:productId', function(req, res, next){
     return next(notFound);
     */
     /* end test 404 */
-
+    resetParams();
 
     search_params.product = req.params.productId;
+
+    delete search_params['keyword'];
+    console.log('product endpoint search params:'+JSON.stringify(search_params));
     superagent.post(popShopsUrl)
         .send(search_params)
-        .end(function (e, result) {
-            if (result.body.results) {
-                console.log('found product');
-                console.log('results returned from popshops')
-                console.log('response:' + JSON.stringify(result.body));
-                replaceMerchants(result);
-                product_info.product = result.body.results.products.product[0];
-                product_info.merchants = result.body.resources.merchants.merchant;
-                product_info.brands = result.body.resources.brands.brand;
-
-            } else {
+        .end(function (result) {
+            if(result.ok){
+                if (result.body.results) {
+                    console.log('found product');
+                    console.log('results returned from popshops')
+                    //console.log('response:' + JSON.stringify(res.body));
+                    replaceMerchants(result);
+                    product_info.product = result.body.results.products.product[0];
+                    product_info.merchants = result.body.resources.merchants.merchant;
+                    product_info.brands = result.body.resources.brands.brand;
+                }
+                res.send(product_info)
+            }else{
+                console.log('error occurred:'+result.text);
                 console.log('no results returned from popshops');
+                //console.log('res:'+JSON.stringify(result));
                 //console.log('Ex:' + e);
                 var notFound = new Error('Product Not Found');
                 notFound.status = 404;
                 return next(notFound);
-               // product_info.status = 404;
-
-                /*
-                if (result.error) {
-                    console.log('oh no ' + result.error.message);
-                }
-                */
             }
-            res.send(product_info)
         });
 
 });
@@ -94,26 +93,7 @@ beauty.post('/api/products', function (req, res, next) {
     brands.length = 0;
     categories.length = 0;
 
-    if (search_params.merchant)
-        delete search_params.merchant;
-
-    if (search_params.brand)
-        delete search_params.brand;
-
-    if (search_params.rpp)
-        delete search_params.rpp;
-
-    if (search_params.keyword)
-        delete search_params.keyword;
-
-    if (search_params.page)
-        delete search_params.page;
-
-    if (search_params.product)
-        delete search_params.product;
-
-    if (search_params.category)
-        delete search_params.category;
+    resetParams();
 
     console.log('checking for filter params');
 
@@ -357,6 +337,32 @@ function replaceMerchants(result){
         });
 }
 
+function resetParams(){
+    if (search_params.merchant)
+        delete search_params.merchant;
+
+    if (search_params.brand)
+        delete search_params.brand;
+
+    if (search_params.results_per_page)
+        delete search_params.results_per_page;
+
+    if (search_params.keyword){
+        console.log('removing keyword');
+        delete search_params.keyword;
+    }
+
+
+
+    if (search_params.page)
+        delete search_params.page;
+
+    if (search_params.product)
+        delete search_params.product;
+
+    if (search_params.category)
+        delete search_params.category;
+}
 // route middleware to check if :filters query param exists
 
 /*

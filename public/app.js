@@ -54,19 +54,11 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
 
                             /* either return the data or reject the promise */
                             $http.get(url).success(function(data) {
-                             //   $scope.product = data;
-                               // info: function productInfo(data){
-                                   // return data;
-                               // }
-
-                               // product.push(data);
-                                //console.log('data:'+JSON.stringify(data));
                                 d.resolve({
                                         info: function( ) {
                                             return data;
                                         }
                                 }
-
                                 );
                                 //return data;
                             }).error(function(data, status) {

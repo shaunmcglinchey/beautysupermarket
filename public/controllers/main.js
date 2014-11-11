@@ -286,7 +286,8 @@ var beautyApp = angular.module('beautyApp')
         }])
     .controller('ProductDetailController', ['$scope', 'product',
         function ($scope, product) {
-            console.log('loaded product:'+JSON.stringify(product.info()));
+            //console.log('loaded product:'+JSON.stringify(product.info()));
+            console.log('loaded product');
             $scope.product_info = product.info();
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
