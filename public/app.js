@@ -78,8 +78,37 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                     onEnter: function(){
                         console.log("404 page not found");
                     }
-                });
+                })
+                .state('terms', {
+                    url: '/terms',
+                    views: {
 
+                        // the main template will be placed here (relatively named)
+                        '': { templateUrl: './views/legal.html' },
+
+                        // the child views will be defined here (absolutely named)
+                        'content@terms': { templateUrl: './views/terms.html' },
+                        'footer@terms': { templateUrl: './views/footer.html' }
+                    },
+                    onEnter: function(){
+                        console.log("enter products.list");
+                    }
+                })
+                .state('privacy', {
+                    url: '/privacy',
+                    views: {
+
+                        // the main template will be placed here (relatively named)
+                        '': { templateUrl: './views/legal.html' },
+
+                        // the child views will be defined here (absolutely named)
+                        'content@privacy': { templateUrl: './views/privacy.html' },
+                        'footer@privacy': { templateUrl: './views/footer.html' }
+                    },
+                    onEnter: function(){
+                        console.log("enter products.list");
+                    }
+                });
         }])
     .run(function($state,$rootScope) {
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
