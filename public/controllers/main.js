@@ -252,6 +252,7 @@ var beautyApp = angular.module('beautyApp')
 
                 var nodes = [];
                 //push the second element - removing the 'all' category
+                categories[1].name = 'All';
                 nodes.push(categories[1]);
                 //console.log('Category tree:'+JSON.stringify(nodes));
                 return nodes;
