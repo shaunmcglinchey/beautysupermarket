@@ -177,24 +177,27 @@ var beautyApp = angular.module('beautyApp')
                     $scope.merchants = res.data.resources.merchants;
                     $scope.merchant_arr = res.data.resources.merchants.merchant;
                     $scope.brands = res.data.resources.brands.brand;
-                    $scope.prices = res.data.filters.filter
+                    $scope.prices = res.data.filters.filter;
+
+                    if(res.data.resources.categories.matches){
+                        console.log('found matches');
+                        $scope.tree = buildCategoryTree(res.data.resources.categories.context.category,res.data.resources.categories.matches.category);
+                    }else{
+                        console.log('no matches found');
+                        $scope.tree = buildCategoryTree(res.data.resources.categories.context.category);
+                    }
+
+                    //console.log('Category tree:'+JSON.stringify($scope.tree));
                     productService.setMerchants(res.data.resources.merchants.merchant);
+
                     $scope.stopSpin();
                     $state.go('products.list');
                 }, function (result){
                     console.log("The fetchProducts request failed with error " + result);
                     $scope.stopSpin();
                 });
-                //console.log('finished doSearch');
             }
 
-            function getCategories(){
-                console.log('fetching categories from API');
-                productAPI.fetchCategories().then(function (res){
-                    console.log('productAPI.fetchCategories returned data');
-                    $scope.tree = res.data;
-                })
-            }
 
             $scope.selectItem = function (product) {
                 //use the productService to select the item
@@ -223,7 +226,37 @@ var beautyApp = angular.module('beautyApp')
                 query.rpp = 10;
                 $scope.setPage(1);
             }
-            getCategories();
+
+            function buildCategoryTree(categories,matches){
+
+                _.forEach(categories, function(category) {
+                    category.hId = category.order+1;
+                    category.pId = category.order;
+                    delete category.order;
+                });
+
+                _.forEach(categories,function(category){
+                    category.nodes = [];
+                    if(category != _.last(categories)){
+                        //category.nodes = [];
+                        category.nodes.push(_.find(categories, { 'pId': category.hId }));
+                    }else{
+                        if (matches != undefined){
+                            //console.log('adding matches');
+                            category.nodes = matches;
+                        }
+                    }
+                    delete category.pId;
+                    delete category.hId
+                });
+
+                var nodes = [];
+                //push the second element - removing the 'all' category
+                nodes.push(categories[1]);
+                //console.log('Category tree:'+JSON.stringify(nodes));
+                return nodes;
+            }
+            //getCategories();
 
             /* Pagination logic */
             $scope.range = function () {
