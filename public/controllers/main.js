@@ -21,23 +21,13 @@ var beautyApp = angular.module('beautyApp')
             $scope.brandSelection = [];
             $scope.categorySelection = ['13000'];
 
-            //TODO fix filter expand logic --should be checked after data resolved
             $scope.incrementStoreLimit = function () {
-                $scope.storeLimit = $scope.merchants.length;
+                //console.log('incrementing store limit');
+                $scope.storeLimit = $scope.merchant_arr.length;
             };
             $scope.decrementStoreLimit = function () {
+                //console.log('decrementing store limit');
                 $scope.storeLimit = 10;
-            };
-            $scope.storeFullyExpanded = function () {
-                //console.log('mercha length:'+$scope.merchants.count);
-                if (typeof ($scope.merchants) != 'undefined' && $scope.merchants.length) {
-                    console.log('mercha length:'+$scope.merchants.length);
-                    if ($scope.merchants.length > $scope.storeLimit)
-                        return false;
-                    return true;
-                } else {
-                    return true;
-                }
             };
 
             $scope.incrementBrandLimit = function () {
@@ -46,15 +36,7 @@ var beautyApp = angular.module('beautyApp')
             $scope.decrementBrandLimit = function () {
                 $scope.brandLimit = 10;
             };
-            $scope.brandFullyExpanded = function () {
-                if ($scope.brands) {
-                    if ($scope.brandLimit < $scope.brands.length)
-                        return false;
-                    return true;
-                } else {
-                    return true;
-                }
-            };
+
 
             $scope.clearFilters = function () {
                 $scope.storeSelection.length = 0;
@@ -166,8 +148,6 @@ var beautyApp = angular.module('beautyApp')
                 console.log('hitting productAPI with query:' + JSON.stringify(searchQuery));
                 $scope.startSpin();
                 productAPI.fetchProducts(searchQuery).then(function (res) {
-                    //console.log('productAPI.fetchProducts returned data:' + JSON.stringify(res));
-                    //console.log('scope id:'+$scope.$id);
                     console.log('productAPI.fetchProducts returned data');
                     $scope.products = res.data.results.products;
                     $scope.product_arr = res.data.results.products.product;
@@ -179,6 +159,7 @@ var beautyApp = angular.module('beautyApp')
                     $scope.brands = res.data.resources.brands.brand;
                     $scope.prices = res.data.filters.filter;
 
+                    console.log('merchant arr length:'+ $scope.merchant_arr.length);
                     if(res.data.resources.categories.matches){
                         console.log('found matches');
                         $scope.tree = buildCategoryTree(res.data.resources.categories.context.category,res.data.resources.categories.matches.category);
@@ -186,8 +167,6 @@ var beautyApp = angular.module('beautyApp')
                         console.log('no matches found');
                         $scope.tree = buildCategoryTree(res.data.resources.categories.context.category);
                     }
-
-                    //console.log('Category tree:'+JSON.stringify($scope.tree));
                     productService.setMerchants(res.data.resources.merchants.merchant);
 
                     $scope.stopSpin();
@@ -238,11 +217,9 @@ var beautyApp = angular.module('beautyApp')
                 _.forEach(categories,function(category){
                     category.nodes = [];
                     if(category != _.last(categories)){
-                        //category.nodes = [];
                         category.nodes.push(_.find(categories, { 'pId': category.hId }));
                     }else{
                         if (matches != undefined){
-                            //console.log('adding matches');
                             category.nodes = matches;
                         }
                     }
@@ -254,10 +231,8 @@ var beautyApp = angular.module('beautyApp')
                 //push the second element - removing the 'all' category
                 categories[1].name = 'All';
                 nodes.push(categories[1]);
-                //console.log('Category tree:'+JSON.stringify(nodes));
                 return nodes;
             }
-            //getCategories();
 
             /* Pagination logic */
             $scope.range = function () {
@@ -323,23 +298,18 @@ var beautyApp = angular.module('beautyApp')
                 query.page = newValue;
                 console.log('requesting rpp:' + query.rpp)
                 console.log('requesting keyword:' + query.term)
-                //console.log('category:'+)
                 doSearch(SearchQuery);
-
-                //getCategories();
             });
 
             /* End pagination logic */
         }])
     .controller('ProductDetailController', ['$scope', 'product',
         function ($scope, product) {
-            //console.log('loaded product:'+JSON.stringify(product.info()));
             console.log('loaded product');
             $scope.product_info = product.info();
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
             console.log('name:'+$scope.product_info.product.name);
-
   }])
     .controller('TermsController', ['$scope', '$routeParams',
   function ($scope, $routeParams) {

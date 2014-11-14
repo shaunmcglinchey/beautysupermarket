@@ -4,16 +4,10 @@
         <!-- categories -->
         <div class="top-spacer"></div>
         <span class="label"><h4 class="filter-header">Categories</h4></span>
-        <!--<ul ng-controller="ProductListController">-->
+
         <ul>
             <li style="list-style-type: none;" ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
         </ul>
-<!--
-        <ul>
-            <li ng-repeat="match in treeMatches"> <a ng-click="filter(match.id,'category')"><span class="filter filter-links">{{match.name}}</span></a></li>
-        </ul>
--->
-
 
         <!-- brands -->
         <div class="top-spacer"></div>
@@ -29,10 +23,10 @@
             </div>
         </div>
                 <span class="label filter-links">
-                    <div ng-show="!brandFullyExpanded()">
+                   <div ng-show="brands.length > brandLimit">
                         <a href style="text-decoration:none;" ng-click="incrementBrandLimit()">+ See more</a>
                     </div>
-                    <div ng-show="brandFullyExpanded()">
+                    <div ng-show="brandLimit >= brands.length">
                         <a href style="text-decoration:none;" ng-click="decrementBrandLimit()">- See less</a>
                     </div>
                 </span>
@@ -50,10 +44,11 @@
             <a ng-click="filter(merchant.id,'merchant')"><span class="filter filter-links">{{merchant.name}} ({{merchant.count}})</span></a>
         </div>
                 <span class="label">
-                    <div ng-show="!storeFullyExpanded()">
+                   <!-- <div ng-show="!storeFullyExpanded()"> -->
+                   <div ng-show="merchant_arr.length > storeLimit">
                         <a href style="text-decoration:none;" ng-click="incrementStoreLimit()">+ See more</a>
                     </div>
-                    <div ng-show="storeFullyExpanded()">
+                    <div ng-show="storeLimit >= merchant_arr.length">
                         <a href style="text-decoration:none;" ng-click="decrementStoreLimit()">- See less</a>
                     </div>
                 </span>
