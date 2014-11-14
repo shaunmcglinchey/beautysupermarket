@@ -1,3 +1,4 @@
+<div class="row">
 <div class="col-md-5">
     <div class="row">
         <a href="#/products/list" style="text-decoration: underline;color:#f66699;"><< Return to search results</a>
@@ -18,13 +19,15 @@
         </div>
     </div>
 </div>
+    <!-- need to remove hardcoding of currency -->
 <div>
     <table ng-table class="table">
         <tr ng-repeat="offer in product.offers.offer">
             <td data-title="'Seller'"><img src="{{offer.merchant.logo_url}}"/></td>
-            <td data-title="'Price'">{{offer.price_merchant}}</td>
+            <td data-title="'Price'">£{{offer.price_merchant}}</td>
             <td data-title="'Shop'"><a ng-href="{{offer.url}}" style="text-decoration: underline;color:#f66699;">Buy Now</a></td>
         </tr>
     </table>
+</div>
 </div>
 </div>

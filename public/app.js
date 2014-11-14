@@ -1,12 +1,10 @@
 var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable'])
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
-        function ($stateProvider, $urlRouterProvider, $locationProvider) {
+        function ($stateProvider, $urlRouterProvider) {
 
-            //$locationProvider.html5Mode(true);
-           // var product = [];
             $urlRouterProvider.when("", "/products/list");
             $urlRouterProvider.when("/", "/products/list");
-          //  $urlRouterProvider.otherwise('/products/list');
+
             // For any unmatched url, send to 404
             $urlRouterProvider.otherwise('/404');
 
@@ -17,7 +15,8 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                     views: {
                         'header@products': { templateUrl: './views/header.html' },
                         // the main template will be placed here (relatively named)
-                        '': { templateUrl: './views/products.html' }
+                        '': { templateUrl: './views/products.html' },
+                        'footer@products': { templateUrl: './views/footer.html' }
                     },
                     onEnter: function(){
                         console.log("enter products");
@@ -36,8 +35,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                         // for column two, we'll define a separate controller
                         'results@products.list': {
                             templateUrl: './views/products.list.html'
-                        },
-                        'footer@products.list': { templateUrl: './views/footer.html' }
+                        }
                     },
                     onEnter: function(){
                         console.log("enter products.list");
@@ -50,7 +48,6 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                     controller: 'ProductDetailController',
                     resolve: {
                         "product": function($q,$http,$stateParams){
-                           // productInfo.length = 0;
                             var d = $q.defer();
 
                             var url = "/api/products/" + $stateParams.id;
@@ -114,10 +111,9 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                 });
         }])
     .run(function($state,$rootScope) {
-    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+    $rootScope.$on('$stateChangeError', function(event) {
         event.preventDefault();
         console.log('caught stateChangeError');
-        //$location.path('/products/404/')
         $state.go('products.404');
     });
 });
