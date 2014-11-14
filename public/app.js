@@ -14,7 +14,11 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                 .state('products', {
                     abstract: true,
                     url: '/products',
-                    templateUrl: './views/products.html',
+                    views: {
+                        'header@products': { templateUrl: './views/header.html' },
+                        // the main template will be placed here (relatively named)
+                        '': { templateUrl: './views/products.html' }
+                    },
                     onEnter: function(){
                         console.log("enter products");
                     }
@@ -81,7 +85,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                 .state('terms', {
                     url: '/terms',
                     views: {
-
+                        'header@terms': { templateUrl: './views/header.html' },
                         // the main template will be placed here (relatively named)
                         '': { templateUrl: './views/legal.html' },
 
@@ -96,7 +100,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                 .state('privacy', {
                     url: '/privacy',
                     views: {
-
+                        'header@privacy': { templateUrl: './views/header.html' },
                         // the main template will be placed here (relatively named)
                         '': { templateUrl: './views/legal.html' },
 
