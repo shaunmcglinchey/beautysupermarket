@@ -1,4 +1,4 @@
-var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner'])
+var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable'])
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         function ($stateProvider, $urlRouterProvider, $locationProvider) {
 

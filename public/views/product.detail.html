@@ -1,8 +1,10 @@
-<a href="#/products/list">Go Back to List</a>
-<div class="col-md-9">
+<div class="col-md-5">
+    <div class="row">
+        <a href="#/products/list" style="text-decoration: underline;color:#f66699;"><< Return to search results</a>
+    </div>
 <div class="row">
     <div class="col-md-3">
-        <img ng-src="{{product.image_url_large}}" height="100%" width="100%" />
+        <img ng-src="{{product.image_url_large}}" />
     </div>
     <div class="col-md-9">
         <div class="row">
@@ -16,23 +18,13 @@
         </div>
     </div>
 </div>
-    <div class="row col-md-9">
-        <div ng-repeat="offer in product.offers.offer" class="row bottom-spacer">
-            <div class="col-md-12">
-                <div>Retail price: {{offer.price_retail}}</div>
-            </div>
-            <div class="col-md-12">
-                <div>Merchant price: {{offer.price_merchant}}</div>
-            </div>
-            <div class="col-md-12">
-                <div>Merchant: <a ng-href="{{offer.merchant.url}}">{{offer.merchant.name}}</a></div>
-            </div>
-            <div class="col-md-12">
-                <div><a ng-href="{{offer.url}}">Buy Now</a></div>
-            </div>
-            <div><img src="{{offer.merchant.logo_url}}"/>
-            </div>
-        </div>
-    </div>
+<div>
+    <table ng-table class="table">
+        <tr ng-repeat="offer in product.offers.offer">
+            <td data-title="'Seller'"><img src="{{offer.merchant.logo_url}}"/></td>
+            <td data-title="'Price'">{{offer.price_merchant}}</td>
+            <td data-title="'Shop'"><a ng-href="{{offer.url}}" style="text-decoration: underline;color:#f66699;">Buy Now</a></td>
+        </tr>
+    </table>
 </div>
-<div class="col-md-3"></div>
+</div>
