@@ -47,6 +47,7 @@ var beauty = express.Router()
  notFound.status = 404;
  return next(notFound);
  */
+/*fixed product fetch */
 /* end test 404 */
 
 beauty.get('/api/products/:productId', function(req, res, next){
