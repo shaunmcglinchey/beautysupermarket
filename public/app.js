@@ -92,9 +92,6 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                         // the child views will be defined here (absolutely named)
                         'content@terms': { templateUrl: './views/terms.html' },
                         'footer@terms': { templateUrl: './views/footer.html' }
-                    },
-                    onEnter: function(){
-                        console.log("enter products.list");
                     }
                 })
                 .state('privacy', {
@@ -107,9 +104,6 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                         // the child views will be defined here (absolutely named)
                         'content@privacy': { templateUrl: './views/privacy.html' },
                         'footer@privacy': { templateUrl: './views/footer.html' }
-                    },
-                    onEnter: function(){
-                        console.log("enter products.list");
                     }
                 });
         }])
