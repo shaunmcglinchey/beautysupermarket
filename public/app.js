@@ -1,6 +1,8 @@
 var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable'])
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
-        function ($stateProvider, $urlRouterProvider) {
+        function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+            $locationProvider.html5Mode(true);
 
             $urlRouterProvider.when("", "/products/list");
             $urlRouterProvider.when("/", "/products/list");
@@ -54,6 +56,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
 
                             /* either return the data or reject the promise */
                             $http.get(url).success(function(data) {
+                                console.log('checking whether we have a valid product record');
                                 d.resolve({
                                         info: function( ) {
                                             return data;
@@ -72,7 +75,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                     }
                 })
 
-                .state('products.404', {
+                .state('404', {
                     url: '/404',
                     templateUrl: './views/404.html',
                     onEnter: function(){
@@ -114,6 +117,6 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
     $rootScope.$on('$stateChangeError', function(event) {
         event.preventDefault();
         console.log('caught stateChangeError');
-        $state.go('products.404');
+        $state.go('404');
     });
 });

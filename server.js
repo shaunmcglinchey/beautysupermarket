@@ -39,49 +39,57 @@ app.use(express.static(path.join(__dirname, 'public')));
 var beauty = express.Router()
 
 
+
+/* test send 404 error */
+
+/*
+ var notFound = new Error('Product Not Found');
+ notFound.status = 404;
+ return next(notFound);
+ */
+/* end test 404 */
+
 beauty.get('/api/products/:productId', function(req, res, next){
     res.set('Content-Type', 'application/json');
     console.log('Looking for product:'+req.params.productId);
 
-    /* test send 404 error */
-
-    /*
-    var notFound = new Error('Product Not Found');
-    notFound.status = 404;
-    return next(notFound);
-    */
-    /* end test 404 */
     resetParams();
 
-    search_params.product = req.params.productId;
+    //TODO validate product id
+    if(isNaN(req.params.productId)){
+        console.log('supplied product ID is not a valid number:'+req.params.productId);
+        var notFound = new Error('Product Not Found');
+        notFound.status = 404;
+        return next(notFound);
+    }else{
+        console.log('supplied product ID is a valid number');
+        search_params.product = req.params.productId;
+        delete search_params['keyword'];
+        console.log('product endpoint search params:'+JSON.stringify(search_params));
+        superagent.post(popShopsUrl)
+            .send(search_params)
+            .end(function (result) {
+                if(result.ok){
+                    if (result.body.results) {
+                        console.log('found product');
+                        console.log('results returned from popshops')
+                        //console.log('response:' + JSON.stringify(res.body));
 
-    delete search_params['keyword'];
-    console.log('product endpoint search params:'+JSON.stringify(search_params));
-    superagent.post(popShopsUrl)
-        .send(search_params)
-        .end(function (result) {
-            if(result.ok){
-                if (result.body.results) {
-                    console.log('found product');
-                    console.log('results returned from popshops')
-                    //console.log('response:' + JSON.stringify(res.body));
-                    replaceMerchants(result);
-                    product_info.product = result.body.results.products.product[0];
-                    product_info.merchants = result.body.resources.merchants.merchant;
-                    product_info.brands = result.body.resources.brands.brand;
+                        replaceMerchants(result);
+                        product_info.product = result.body.results.products.product[0];
+                        product_info.merchants = result.body.resources.merchants.merchant;
+                        product_info.brands = result.body.resources.brands.brand;
+                    }
+                    res.send(product_info)
+                }else{
+                    console.log('error occurred:'+result.text);
+                    console.log('no results returned from popshops');
+                    var notFound = new Error('Product Not Found');
+                    notFound.status = 404;
+                    return next(notFound);
                 }
-                res.send(product_info)
-            }else{
-                console.log('error occurred:'+result.text);
-                console.log('no results returned from popshops');
-                //console.log('res:'+JSON.stringify(result));
-                //console.log('Ex:' + e);
-                var notFound = new Error('Product Not Found');
-                notFound.status = 404;
-                return next(notFound);
-            }
-        });
-
+            });
+    }
 });
 //need to accept a map of filters - in that map we specify brand (single), store (multi), price range selections 
 //and use the map to construct an appropriate popshops API call
