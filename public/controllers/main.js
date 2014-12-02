@@ -5,8 +5,8 @@ var beautyApp = angular.module('beautyApp')
             $scope.itemsPerPage = 10;
             $scope.currentPage = 1;
             $scope.maxSize = 5;
-            $scope.storeLimit = 10;
-            $scope.brandLimit = 10;
+            //$scope.storeLimit = 10;
+            //$scope.brandLimit = 10;
             $scope.brands = [];
             $scope.merchants = [];
             var SearchQuery = {};
@@ -19,8 +19,10 @@ var beautyApp = angular.module('beautyApp')
             SearchQuery.query.filters = filters;
             $scope.storeSelection = [];
             $scope.brandSelection = [];
-            $scope.categorySelection = ['13000'];
+            //$scope.categorySelection = ['13000'];
+            $scope.categorySelection = [];
 
+            /*
             $scope.incrementStoreLimit = function () {
                 //console.log('incrementing store limit');
                 $scope.storeLimit = $scope.merchant_arr.length;
@@ -36,7 +38,7 @@ var beautyApp = angular.module('beautyApp')
             $scope.decrementBrandLimit = function () {
                 $scope.brandLimit = 10;
             };
-
+            */
 
             $scope.clearFilters = function () {
                 $scope.storeSelection.length = 0;
@@ -229,9 +231,15 @@ var beautyApp = angular.module('beautyApp')
 
                 var nodes = [];
                 //push the second element - removing the 'all' category
-                categories[1].name = 'All';
-                nodes.push(categories[1]);
-                return nodes;
+                //categories[1].name = 'All';
+                //nodes.push(categories[1]);
+               // nodes.push(categories);
+                //nodes = categories;
+                console.log('category tree:'+JSON.stringify(categories));
+                //console.log('node tree:'+JSON.stringify(nodes));
+                //return nodes;
+
+                return categories;
             }
 
             /* Pagination logic */

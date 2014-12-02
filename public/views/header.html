@@ -1,32 +1,40 @@
-<div>
-    <nav class="navbar navbar-inverse" role="navigation" style="border-radius:0px;">
+<nav class="navbar navbar-default" role="navigation-demo" style="background-color:#000; margin-bottom: 0px; border-radius:0px;">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-default2">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ng-click="reset();"><span style="color:#fff;">My</span><span style="color:#f66699;">BeautySupermarket</span></a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <div class="col-sm-3 col-md-3 pull-left">
-                <form class="navbar-form" ng-submit="search(searchTerm)">
-                    <div class="input-group">
-                        <input type="text" placeholder="CK, Chanel, Rimmel ..." ng-model="searchTerm" class="form-control" style="border-bottom-left-radius:3px;border-top-left-radius:3px;width:380px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit" style="background-color:#f66699;border-color:#f66699;"><i class="glyphicon glyphicon-search" style="color: #fff;"></i></button>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-md-2">
+                <a ng-click="reset()">
+                <h1 class="logo cursive" style="font-family: 'Grand Hotel',cursive;font-size: 52px;">
+                    <span style="color:#ff6799;">Beauty</span><span style="color:#fff;">Price</span>
+                </h1>
+                    </a>
+            </div>
+            <div class="col-md-7" style="margin-top:27px;margin-left:25px;">
+                <form ng-submit="search(searchTerm)">
+                <div class="input-group">
+                    <!-- 	   Since the css properties cannot check the previous sibling of an element and for the design consistency we recommend to use the "input-group-addon" after the "form-control" like in this example -->
+                    <input type="text" value="" placeholder="Chanel, Rimmel, Shiseido, ..." class="form-control input-lg" ng-model="searchTerm">
+                    <span class="input-group-addon"><a href="#"><i class="fa fa-search" style="font-size: 20px;"></i></a></span>
+                </div>
                 </form>
             </div>
-            <!-- comment out deals etc - todo
-            <ul class="nav navbar-nav">
-                <li><a href="#">Offers</a></li>
-                <li><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
-            </ul>
-            -->
+            <div class="col-md-2">
+                <!-- fb -->
+                <div style="margin-top: 30px; margin-left: 20px;" class="fb-like" data-href="http://www.beautysupermarket.com" data-layout="standard" data-action="like" data-show-faces="false" data-share="true" data-color-scheme="dark"></div>
+                <!-- end fb -->
+            </div>
         </div>
-    </nav>
-</div>
+
+        <!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<!-- end navbar full -->
+<div class="separator" style="background-color:#EEEEEE;"></div>

@@ -177,7 +177,8 @@ beauty.post('/api/products', function (req, res, next) {
                 console.log('category:' + search_params.category);
             }else{
                 //if no category is set we specify the default category (Health & Beauty)
-                search_params.category = 13000;
+               search_params.category = 13000; //all beauty products, including hierarchy
+               // search_params.category = 13250; //cosmetics and makeup category
             }
 
         } else {
@@ -187,7 +188,7 @@ beauty.post('/api/products', function (req, res, next) {
         console.log('no query object found')
     }
     if (categories.length < 1) {
-        search_params.category = 13000;
+        //search_params.category = 13000;
     }
     console.log('popshops search params:' + JSON.stringify(search_params))
 
@@ -277,7 +278,9 @@ function removeUndesiredCategories(result){
 
     if (result.body.resources.categories.matches){
         _.remove(result.body.resources.categories.matches.category, function(category) {
-            return category.id == 14090 || category.id == 14029 || category.id == 32538 || category.id == 14091 || category.id == 1;
+            return category.id == 14090 || category.id == 14029 || category.id == 32538 || category.id == 14091 || category.id == 1 || category.id == 31000
+                 || category.id == 27000 || category.id == 23000 || category.id == 21000 || category.id == 12000 || category.id == 16000 || category.id == 32194
+                || category.id == 7000 || category.id == 15000 || category.id == 3000 || category.id == 10000;
         });
     }
 
