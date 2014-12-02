@@ -177,7 +177,7 @@ beauty.post('/api/products', function (req, res, next) {
                 console.log('category:' + search_params.category);
             }else{
                 //if no category is set we specify the default category (Health & Beauty)
-               search_params.category = 13000; //all beauty products, including hierarchy
+               //search_params.category = 13000; //all beauty products, including hierarchy
                // search_params.category = 13250; //cosmetics and makeup category
             }
 

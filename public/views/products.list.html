@@ -260,7 +260,7 @@
                                     </div>
                                 </td>
                                 <td class="td-name">
-                                    <a ng-href="#/products/{{product.id}}">{{product.name}}</a>
+                                    <a style="color:#333;" ng-href="#/products/{{product.id}}">{{product.name}}</a><br><span class="label label-default">{{product.offer_count}} offer<span ng-show="product.offer_count > 1">s</span></span>
                                 </td>
 
                                 <td class="td-number">
@@ -269,7 +269,7 @@
 
                                 <td class="td-actions">
                                     <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-success btn-buy" style="color:#ff6799;border-color:#ff6799; margin-bottom: 6px;">View Offers</button></a>
-                                    <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-info">{{product.offer_count}} Offer<span ng-show="product.offer_count > 1">s</span></button></a></td>
+                                    <!--<a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-info">{{product.offer_count}} Offer<span ng-show="product.offer_count > 1">s</span></button></a></td>-->
                                 </td>
                             </tr>
                             </tbody>
