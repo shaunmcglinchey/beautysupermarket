@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
                                     -->
-                                    <!--
+
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h6 class="panel-title">
@@ -52,20 +52,18 @@
                                                 </a>
                                             </h6>
                                         </div>
-                                        <div id="refineCategory" class="panel-collapse collapse">
+                                        <div id="refineCategory" class="panel-collapse collapse in">
                                             <div class="panel-body panel-scroll">
                                                 <div ng-repeat="category in categories | orderBy:'count':true">
-                                                    <div ng-hide="brand.name =='Unknown'">
                                                         <label class="checkbox">
                                                             <input type="checkbox" value="{{category.id}}" data-toggle="checkbox" checked="">
                                                             <a ng-click="filter(category.id,'category')" style="color: #333333;">{{category.name}} ({{category.count}})</a>
                                                         </label>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    -->
+
                                     <!--
                                                                              <label class="checkbox">
                                                                                  <input type="checkbox" value="" data-toggle="checkbox" checked="">
@@ -260,7 +258,7 @@
                                     </div>
                                 </td>
                                 <td class="td-name">
-                                    <a style="color:#333;" ng-href="#/products/{{product.id}}">{{product.name}}</a><br><span class="label label-default">{{product.offer_count}} offer<span ng-show="product.offer_count > 1">s</span></span>
+                                    <a style="color:#333;" ng-href="#/products/{{product.id}}">{{product.name}}</a><br><span class="label label-info">{{product.offer_count}} offer<span ng-show="product.offer_count > 1">s</span></span>
                                 </td>
 
                                 <td class="td-number">

@@ -57,7 +57,10 @@
                         <tbody>
                         <tr ng-repeat="offer in product.offers.offer | orderBy:'price_merchant'">
                             <td>{{offer.merchant.name}}</td>
-                            <td style="text-decoration: line-through;">{{offer.price_retail | currency:"&pound;"}}</td>
+
+                           <!-- <td style="text-decoration: line-through;">{{offer.price_retail | currency:"&pound;"}}</td> -->
+                            <td ng-class="{true: 'discount', false: ''}[offer.percent_off != null]">{{offer.price_retail | currency:"&pound;"}}</td>
+
                             <td>{{offer.percent_off ? '-£'+(offer.price_retail - offer.price_merchant | number:2) : ''}}
                             </td>
 

@@ -9,6 +9,7 @@ var beautyApp = angular.module('beautyApp')
             //$scope.brandLimit = 10;
             $scope.brands = [];
             $scope.merchants = [];
+            $scope.categories = [];
             var SearchQuery = {};
             var filters = [];
             var query = {};
@@ -58,7 +59,7 @@ var beautyApp = angular.module('beautyApp')
                     if ($scope.keyword)
                         query.term = $scope.keyword;
                     resetQuery();
-                    $scope.storeLimit = 10;
+                    //$scope.storeLimit = 10;
                     doSearch(SearchQuery);
                 } else if (filterType == 'brand') {
                     console.log('removing brand filters');
@@ -69,7 +70,7 @@ var beautyApp = angular.module('beautyApp')
                     if ($scope.keyword)
                         query.term = $scope.keyword;
                     resetQuery();
-                    $scope.brandLimit = 10;
+                    //$scope.brandLimit = 10;
                     doSearch(SearchQuery);
                 }
             };
@@ -161,13 +162,16 @@ var beautyApp = angular.module('beautyApp')
                     $scope.brands = res.data.resources.brands.brand;
                     $scope.prices = res.data.filters.filter;
 
+
                     console.log('merchant arr length:'+ $scope.merchant_arr.length);
                     if(res.data.resources.categories.matches){
                         console.log('found matches');
-                        $scope.tree = buildCategoryTree(res.data.resources.categories.context.category,res.data.resources.categories.matches.category);
+                        //$scope.tree = buildCategoryTree(res.data.resources.categories.context.category,res.data.resources.categories.matches.category);
+                        $scope.categories = res.data.resources.categories.matches.category;
                     }else{
                         console.log('no matches found');
-                        $scope.tree = buildCategoryTree(res.data.resources.categories.context.category);
+                        //$scope.tree = buildCategoryTree(res.data.resources.categories.context.category);
+                        $scope.categories.length = 0;
                     }
                     productService.setMerchants(res.data.resources.merchants.merchant);
 
