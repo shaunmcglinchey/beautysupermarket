@@ -322,6 +322,7 @@ var beautyApp = angular.module('beautyApp')
             $scope.product_info = product.info();
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
+            //$scope.context = res.data.resources.categories.context.category;
             console.log('name:'+$scope.product_info.product.name);
   }])
     .controller('TermsController', ['$scope', '$routeParams',

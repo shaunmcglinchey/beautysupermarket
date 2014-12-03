@@ -188,7 +188,7 @@ beauty.post('/api/products', function (req, res, next) {
         console.log('no query object found')
     }
     if (categories.length < 1) {
-        search_params.category = 13250;
+      //  search_params.category = 13250;
     }
     console.log('popshops search params:' + JSON.stringify(search_params))
 
