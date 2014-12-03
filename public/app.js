@@ -74,7 +74,25 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource', 'ngMessa
                         console.log("enter products.detail");
                     }
                 })
+                .state('products.nothing', {
+                    url: '/nothing',
+                    views: {
 
+                        // the main template will be placed here (relatively named)
+                        '': { templateUrl: './views/products.container.html' },
+
+                        // the child views will be defined here (absolutely named)
+                        'filters@products.nothing': { templateUrl: './views/filters.html' },
+
+                        // for column two, we'll define a separate controller
+                        'results@products.nothing': {
+                            templateUrl: './views/products.nothing.html'
+                        }
+                    },
+                    onEnter: function(){
+                        console.log("enter products.nothing");
+                    }
+                })
                 .state('404', {
                     url: '/404',
                     templateUrl: './views/404.html',

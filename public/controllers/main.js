@@ -152,30 +152,36 @@ var beautyApp = angular.module('beautyApp')
                 $scope.startSpin();
                 productAPI.fetchProducts(searchQuery).then(function (res) {
                     console.log('productAPI.fetchProducts returned data');
-                    $scope.products = res.data.results.products;
-                    $scope.product_arr = res.data.results.products.product;
-                    $scope.num_merchants = res.data.resources.merchants.count;
-                    $scope.total = res.data.results.products.count;
-                    $scope.totalItems = res.data.results.products.count;
-                    $scope.merchants = res.data.resources.merchants;
-                    $scope.merchant_arr = res.data.resources.merchants.merchant;
-                    $scope.brands = res.data.resources.brands.brand;
-                    $scope.prices = res.data.filters.filter;
+                    //need to check that some results were actually set before passing them to the scope
+                    if(res.data.results){
+                        $scope.products = res.data.results.products;
+                        $scope.product_arr = res.data.results.products.product;
+                        $scope.num_merchants = res.data.resources.merchants.count;
+                        $scope.total = res.data.results.products.count;
+                        $scope.totalItems = res.data.results.products.count;
+                        $scope.merchants = res.data.resources.merchants;
+                        $scope.merchant_arr = res.data.resources.merchants.merchant;
+                        $scope.brands = res.data.resources.brands.brand;
+                        $scope.prices = res.data.filters.filter;
 
 
-                    console.log('merchant arr length:'+ $scope.merchant_arr.length);
-                    $scope.context = res.data.resources.categories.context.category;
-                    $scope.current = _.last($scope.context);
-                    if(res.data.resources.categories.matches){
-                        $scope.categories = res.data.resources.categories.matches.category;
+                        console.log('merchant arr length:'+ $scope.merchant_arr.length);
+                        $scope.context = res.data.resources.categories.context.category;
+                        $scope.current = _.last($scope.context);
+                        if(res.data.resources.categories.matches){
+                            $scope.categories = res.data.resources.categories.matches.category;
+                        }else{
+                            //console.log('no matches found');
+                            $scope.categories.length = 0;
+                        }
+                        productService.setMerchants(res.data.resources.merchants.merchant);
+
+                        $scope.stopSpin();
+                        $state.go('products.list');
                     }else{
-                        //console.log('no matches found');
-                        $scope.categories.length = 0;
+                        $scope.stopSpin();
+                        //$state.go('404');
                     }
-                    productService.setMerchants(res.data.resources.merchants.merchant);
-
-                    $scope.stopSpin();
-                    $state.go('products.list');
                 }, function (result){
                     console.log("The fetchProducts request failed with error " + result);
                     $scope.stopSpin();
@@ -205,9 +211,13 @@ var beautyApp = angular.module('beautyApp')
             }
 
             function resetQuery(){
+                console.log('resetting query');
                 query.term = '';
                 query.page = 1;
                 query.rpp = 10;
+                $scope.searchTerm = '';
+                $scope.my_object = {};
+                angular.copy($scope.my_object, $scope.searchTerm);
                 $scope.setPage(1);
             }
 

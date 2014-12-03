@@ -178,7 +178,7 @@ beauty.post('/api/products', function (req, res, next) {
             }else{
                 //if no category is set we specify the default category (Health & Beauty)
                //search_params.category = 13000; //all beauty products, including hierarchy
-               search_params.category = 13250; //cosmetics and makeup category
+               //search_params.category = 13250; //cosmetics and makeup category
             }
 
         } else {
@@ -188,7 +188,7 @@ beauty.post('/api/products', function (req, res, next) {
         console.log('no query object found')
     }
     if (categories.length < 1) {
-      //  search_params.category = 13250;
+        search_params.category = 13250;
     }
     console.log('popshops search params:' + JSON.stringify(search_params))
 
@@ -213,19 +213,16 @@ beauty.post('/api/products', function (req, res, next) {
 
             if (result.body.results) {
                 console.log('results returned from popshops')
-                //console.log('response:' + JSON.stringify(result.body));
+                if(result.body.resources.categories){
+                    removeUndesiredCategories(result);
+                }
             } else {
                 console.log('no results returned from popshops');
                 results = '';
             }
-
             result = removeCredentials(result);
-           //
-            removeUndesiredCategories(result);
             res.send(result.body)
         });
-
-
 })
 
 
