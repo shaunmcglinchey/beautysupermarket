@@ -54,99 +54,20 @@
                                         </div>
                                         <div id="refineCategory" class="panel-collapse collapse in">
                                             <div class="panel-body panel-scroll">
-                                                <div ng-repeat="category in categories | orderBy:'count':true">
+                                                <div style="margin-bottom: 10px;">
+                                                <div ng-repeat="item in context" ng-style="{'margin-left': 8*$index+'px'}">
+                                                    <a ng-click="filter(item.id,'category')" style="color: #333333;">{{item.name}}</a>
+                                                </div>
+                                                </div>
+                                                <div ng-repeat="category in categories">
                                                         <label class="checkbox">
-                                                            <input type="checkbox" value="{{category.id}}" data-toggle="checkbox" checked="">
-                                                            <a ng-click="filter(category.id,'category')" style="color: #333333;">{{category.name}} ({{category.count}})</a>
+                                                            <a ng-click="filter(category.id,'category')" style="color: #333333;" ng-class="{true: 'link', false: ''}[category.leaf == true]"><span ng-show="category.leaf != true">&#43; </span><span ng-show="category.leaf == true">&#32;</span>{{category.name}}</a>
                                                         </label>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!--
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox" checked="">
-                                                                                 Concealers
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Makeup & Gift Sets
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Cosmetic Mirrors
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Exfoliants
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Eye Brow
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Eye Lash/Mascara
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Eye Liner
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Eye Shadow
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Facial Care Blush
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Facial Cleansers
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Facial Masks
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Facial Treatments
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Lip Liners
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Lipsticks & Gloss
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Make-up Remover
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Makeup Brushes & Applicators
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Foundations and Primers
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Other Cosmetics & Makeup
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Powders
-                                                                             </label>
-                                                                             <label class="checkbox">
-                                                                                 <input type="checkbox" value="" data-toggle="checkbox">
-                                                                                 Toners
-                                                                             </label>
-                                                                             -->
-
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h6 class="panel-title">
@@ -281,9 +202,10 @@
     </div>
 </div>
 <script type="text/ng-template"  id="tree_item_renderer.html">
+
     <div class="categories">
-        <a ng-click="filter(data.id,'category')"><span class="filter filter-links">{{data.name}}</span></a>
-        <ul><li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
+        <a ng-click="filter(data.id,'category')">{{data.name}}</a>
+        <ul><li style="list-style-type: none;" ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
         </ul>
     </div>
 

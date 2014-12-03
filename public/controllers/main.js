@@ -164,13 +164,11 @@ var beautyApp = angular.module('beautyApp')
 
 
                     console.log('merchant arr length:'+ $scope.merchant_arr.length);
+                    $scope.context = res.data.resources.categories.context.category;
                     if(res.data.resources.categories.matches){
-                        console.log('found matches');
-                        //$scope.tree = buildCategoryTree(res.data.resources.categories.context.category,res.data.resources.categories.matches.category);
                         $scope.categories = res.data.resources.categories.matches.category;
                     }else{
-                        console.log('no matches found');
-                        //$scope.tree = buildCategoryTree(res.data.resources.categories.context.category);
+                        //console.log('no matches found');
                         $scope.categories.length = 0;
                     }
                     productService.setMerchants(res.data.resources.merchants.merchant);
@@ -212,6 +210,7 @@ var beautyApp = angular.module('beautyApp')
                 $scope.setPage(1);
             }
 
+            /*
             function buildCategoryTree(categories,matches){
 
                 _.forEach(categories, function(category) {
@@ -219,6 +218,7 @@ var beautyApp = angular.module('beautyApp')
                     category.pId = category.order;
                     delete category.order;
                 });
+
 
                 _.forEach(categories,function(category){
                     category.nodes = [];
@@ -245,6 +245,7 @@ var beautyApp = angular.module('beautyApp')
 
                 return categories;
             }
+            */
 
             /* Pagination logic */
             $scope.range = function () {
