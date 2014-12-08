@@ -90,6 +90,9 @@ var beautyApp = angular.module('beautyApp')
                     }
                 } else if (filterType == 'merchant') {
                     //check if merchant filter already selected
+                    //remove any existing merchant selections
+                    $scope.clearFilter('merchant');
+
                     idx = $scope.storeSelection.indexOf(filterId);
 
                     if (idx > -1) {
@@ -257,7 +260,7 @@ var beautyApp = angular.module('beautyApp')
                 return categories;
             }
             */
-
+            $scope.isChecked = false;
             /* Pagination logic */
             $scope.range = function () {
                 var rangeSize = 5;

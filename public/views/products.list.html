@@ -56,12 +56,15 @@
                                             <div class="panel-body panel-scroll">
                                                 <div style="margin-bottom: 10px;">
                                                 <div ng-repeat="item in context" ng-style="{'margin-left': 8*$index+'px'}">
+
                                                     <a ng-click="filter(item.id,'category')" style="color: #333333;">{{item.name}}</a>
                                                 </div>
                                                 </div>
                                                 <div ng-repeat="category in categories">
-                                                        <label class="checkbox">
-                                                            <a ng-click="filter(category.id,'category')" style="color: #333333;" ng-class="{true: 'link', false: ''}[category.leaf == true]"><span ng-show="category.leaf != true">&#43; </span><span ng-show="category.leaf == true">&#32;</span>{{category.name}}</a>
+                                                        <label class="checkbox" ng-class="{ checked : isChecked }">
+                                                            <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span>
+                                                            <input type="checkbox" value="{{category.id}}" checked="" ng-model="isChecked" ng-click="filter(category.id,'category')">
+                                                            <a ng-click="filter(category.id,'category')" style="color: #333333;" ng-class="{true: 'link', false: ''}[category.leaf == true]"><!--<span ng-show="category.leaf != true">&#43; </span><span ng-show="category.leaf == true">&#32;</span>-->{{category.name}}</a>
                                                         </label>
                                                 </div>
 
@@ -81,8 +84,10 @@
                                             <div class="panel-body panel-scroll">
                                                 <div ng-repeat="brand in brands | orderBy:'count':true">
                                                     <div ng-hide="brand.name =='Unknown'">
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" value="{{brand.id}}" data-toggle="checkbox" checked="">
+                                                    <label class="checkbox" ng-class="{ checked : isChecked }">
+
+                                                        <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span>
+                                                        <input type="checkbox" value="{{brand.id}}" checked="" ng-model="isChecked" ng-click="filter(brand.id,'brand')">
                                                         <a ng-click="filter(brand.id,'brand')" style="color: #333333;">{{brand.name}} ({{brand.count}})</a>
                                                     </label>
                                                     </div>
@@ -90,7 +95,7 @@
                                             </div>
                                         </div>
                                     </div><!-- end panel -->
-
+                                    <!--
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h6 class="panel-title">
@@ -104,49 +109,18 @@
                                             <div class="panel-body panel-scroll">
                                                 <div ng-repeat="merchant in merchant_arr |orderBy:'count':true">
                                                     <div ng-hide="merchant.name =='Unknown'">
-                                                        <label class="checkbox">
-                                                            <input type="checkbox" value="{{merchant.id}}" data-toggle="checkbox" checked="">
+                                                        <label class="checkbox" ng-class="{ checked : isChecked }">
+                                                            <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span>
+                                                            <input type="checkbox" value="{{merchant.id}}" ng-model="isChecked" ng-click="filter(merchant.id,'merchant')">
                                                             <a ng-click="filter(merchant.id,'merchant')" style="color: #333333;">{{merchant.name}} ({{merchant.count}})</a>
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <!--
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox" checked="">
-                                                    All
-                                                </label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                    Black
-                                                </label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                    Blue
-                                                </label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                    Brown
-                                                </label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                    Gray
-                                                </label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                    Green
-                                                </label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                    Neutrals
-                                                </label>
-                                                <label class="checkbox">
-                                                    <input type="checkbox" value="" data-toggle="checkbox">
-                                                    Purple
-                                                </label>
-                                                -->
                                             </div>
                                         </div>
-                                    </div> <!-- end panel -->
+                                    </div>
+                                    -->
+                                    <!-- end panel -->
 
                                 </div>
                             </div>
@@ -196,7 +170,8 @@
                     </div>
                 </div>
                <pagination page="currentPage" total-items="totalItems" items-per-page="itemsPerPage" on-select-page="setPage(page)" max-size=5 items-per-page=10 boundary-links="true"></pagination>
-                </div>
+
+           </div>
 
         </div>
     </div>
