@@ -64,10 +64,10 @@
                                                 </div>
                                                 </div>
                                                 <div ng-repeat="category in categories">
-                                                        <label style="margin-left:24px;" class="checkbox" ng-class="{ checked : isChecked }">
+                                                        <label style="margin-left:23px;" class="checkbox" ng-class="{ checked : isChecked }">
                                                             <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span>
                                                             <input type="checkbox" value="{{category.id}}" checked="" ng-model="isChecked" ng-click="filter(category.id,'category')">
-                                                            <a ng-click="filter(category.id,'category')" style="color: #333333;" ng-class="{true: 'link', false: ''}[category.leaf == true]"><!--<span ng-show="category.leaf != true">&#43; </span><span ng-show="category.leaf == true">&#32;</span>-->{{category.name}}</a>
+                                                            <a ng-click="filter(category.id,'category')" style="color: #333333;" ng-class="{true: 'link', false: ''}[category.leaf == true]"><!--<span ng-show="category.leaf != true">&#43; </span><span ng-show="category.leaf == true">&#32;</span>-->{{category.name}} ({{category.count}})</a>
                                                         </label>
                                                 </div>
 
