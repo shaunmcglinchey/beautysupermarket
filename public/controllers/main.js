@@ -142,7 +142,7 @@ var beautyApp = angular.module('beautyApp')
             $scope.search = function (q) {
                 console.log('searching for: ' + q);
                 //$analytics.eventTrack('Searched Products',{  query: q });
-                analytics.track('Clicked the expand button');
+               // analytics.track('Clicked the expand button');
                 query.term = q;
                 query.page = 1;
                 query.rpp = 10;
