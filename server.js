@@ -5,10 +5,12 @@ var log = require('npmlog');
 var _ = require('lodash')._;
 var bodyParser = require('body-parser');
 var superagent = require('superagent')
+/*
 var Analytics = require('analytics-node');
 var analytics = new Analytics('k9pY4FSNyL', {
     flushAt: 1
 });
+*/
 
 var account = '5ftkmyi63draxm60tz3rlah2q'
 var catalog = 'byuklpjkivbpyfxcryx05rv0u'
@@ -193,14 +195,16 @@ beauty.post('/api/products', function (req, res, next) {
     console.log('popshops search params:' + JSON.stringify(search_params))
 
     //track the API call - move this later
+    /*
     analytics.track({
-        userId: 'jock',
+        userId: 'ro',
         event: 'invoked the search API',
         properties: {
      revenue: 39.95,
      shippingMethod: '2-day'
  }
     });
+    */
     superagent.post(popShopsUrl)
         .send(search_params)
         .end(function (e, result) {

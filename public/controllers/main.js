@@ -23,6 +23,7 @@ var beautyApp = angular.module('beautyApp')
             //$scope.categorySelection = ['13000'];
             $scope.categorySelection = [];
 
+
             /*
             $scope.incrementStoreLimit = function () {
                 //console.log('incrementing store limit');
@@ -140,6 +141,8 @@ var beautyApp = angular.module('beautyApp')
 
             $scope.search = function (q) {
                 console.log('searching for: ' + q);
+                //$analytics.eventTrack('Searched Products',{  query: q });
+                analytics.track('Clicked the expand button');
                 query.term = q;
                 query.page = 1;
                 query.rpp = 10;
@@ -153,6 +156,7 @@ var beautyApp = angular.module('beautyApp')
             function doSearch(searchQuery) {
                 console.log('hitting productAPI with query:' + JSON.stringify(searchQuery));
                 $scope.startSpin();
+
                 productAPI.fetchProducts(searchQuery).then(function (res) {
                     console.log('productAPI.fetchProducts returned data');
                     //need to check that some results were actually set before passing them to the scope
@@ -330,10 +334,14 @@ var beautyApp = angular.module('beautyApp')
 
             /* End pagination logic */
         }])
-    .controller('ProductDetailController', ['$scope', 'product',
-        function ($scope, product) {
-            console.log('loaded product');
+    .controller('ProductDetailController', ['$scope','product',
+        function ($scope,product) {
             $scope.product_info = product.info();
+           // console.log('loaded product:'+JSON.stringify(product));
+           /*
+            $analytics.eventTrack('Viewed Product Details',{  id: $scope.product_info.product.id, name: $scope.product_info.product.name,
+            description: $scope.product_info.product.description, category: $scope.product_info.product.category,price: $scope.product_info.product.price_min});
+            */
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
             //$scope.context = res.data.resources.categories.context.category;

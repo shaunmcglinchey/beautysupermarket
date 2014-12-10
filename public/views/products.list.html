@@ -98,7 +98,7 @@
                                             </div>
                                         </div>
                                     </div><!-- end panel -->
-                                    <!--
+
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h6 class="panel-title">
@@ -122,7 +122,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    -->
+
                                     <!-- end panel -->
 
                                 </div>
@@ -149,7 +149,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="product in product_arr">
+                            <tr ng-repeat="product in product_arr" ng-show="product.offer_count > 0">
                                 <td>
                                     <div class="img-container">
                                         <a ng-href="#/products/{{product.id}}"><img ng-src="{{product.image_url_large}}"/></a>
