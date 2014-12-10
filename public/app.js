@@ -74,6 +74,41 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                         console.log("enter products.detail");
                     }
                 })
+                .state('deals', {
+                    url: '/deals',
+                    resolve: {
+                        "deals": function($q,$http){
+                            var d = $q.defer();
+
+                            var url = "/api/deals";
+
+                            /* either return the data or reject the promise */
+                            $http.get(url).success(function(data) {
+                                //need to check here whether we did in fact get the data
+                                //current a returned HTML page is being treated as a 'success'...
+                                console.log('retrieved the deals');
+                                d.resolve({
+                                        info: function( ) {
+                                            return data;
+                                        }
+                                    }
+                                );
+                            }).error(function(data, status) {
+                                d.reject(status);
+                            });
+                            return d.promise;
+                        }
+                    },
+                    views: {
+                        'header@deals': { templateUrl: './views/header.html' },
+                        // the main template will be placed here (relatively named)
+                        '': { templateUrl: './views/deals.html' },
+
+                        // the child views will be defined here (absolutely named)
+                        'content@deals': { templateUrl: './views/deallist.html' },
+                        'footer@deals': { templateUrl: './views/footer.html' }
+                    }
+                })
                 .state('products.nothing', {
                     url: '/nothing',
                     views: {
