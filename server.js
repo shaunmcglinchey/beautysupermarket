@@ -7,19 +7,20 @@ var bodyParser = require('body-parser');
 var superagent = require('superagent');
 var productSearch = {};
 var productView = {};
+var visitMerchant = {};
 var category = {};
 var categories = [];
 var catid = {};
+var brand = {};
+var brands = [];
+var event = {};
 
 var Keen = require('keen.io');
 
-// Configure instance. Only projectId and writeKey are required to send data.
 var client = Keen.configure({
     projectId: "5488d6ed96773d653b922424",
     writeKey: "34aeaa50250884f999516760f791dfb51d2bbc188431dcfd1a784747c9872bbca97934ba6f34b8388a55e4992f1a5c3f9316d4181eea2f1942eda5779c0b8326b91c49c51dbd3b84d0f2aed7a5481d0c2780db49d1a87f0109e22227e0f3e43fe0d69678e85c37c897200b1eef5a08cf"
 });
-
-
 
 var account = '5ftkmyi63draxm60tz3rlah2q'
 var catalog = 'byuklpjkivbpyfxcryx05rv0u'
@@ -120,6 +121,33 @@ beauty.get('/api/products/:productId', function(req, res, next){
             });
     }
 });
+
+
+beauty.post('/api/event', function (req, res, next) {
+    if (req.body.event) {
+        console.log('event object found:' + JSON.stringify(req.body.event));
+        event = req.body.event;
+        if (event.eventType) {
+            switch (event.eventType) {
+                case 'facebookLike':
+                    console.log('facebookLike event')
+                    break;
+                case 'favoritedProduct':
+                    console.log('favoritedProduct event')
+                    break;
+                case 'visitMerchant':
+                    console.log('visitMerchant event')
+                    visitMerchant.url = event.url;
+                    client.addEvent("VisitMerchant", visitMerchant, function(err, res) {});
+                    break;
+                default:
+                    console.log('no match found for event type')
+            }
+        }
+    }
+    res.send();
+});
+
 //need to accept a map of filters - in that map we specify brand (single), store (multi), price range selections 
 //and use the map to construct an appropriate popshops API call
 
@@ -239,16 +267,29 @@ beauty.post('/api/products', function (req, res, next) {
                         category =_.find(categories, function(cat) {
                             return cat.id == catid;
                         });
-                        if(category.name){
-                            productSearch.categoryName = category.name;
+                        if(category){
+                            if(category.name){
+                                productSearch.categoryName = category.name;
+                            }
                         }
                     }
                     removeUndesiredCategories(result);
                 }
 
 
-                if(search_params.brand)
+                if(search_params.brand) {
                     productSearch.brand = search_params.brand;
+                    if(result.body.resources.brands){
+                        brands = result.body.resources.brands.brand;
+                        brand = _.find(brands, function(b) {
+                            return b.id == productSearch.brand;
+                        });
+                        if(brand.name){
+                            productSearch.brandName = brand.name;
+                        }
+                    }
+                }
+
                 if(search_params.merchant)
                     productSearch.merchant = search_params.merchant;
 

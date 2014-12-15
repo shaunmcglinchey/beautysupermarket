@@ -128,6 +128,7 @@ var beautyApp = angular.module('beautyApp')
             };
 
 
+
             function doSearch(searchQuery) {
                 console.log('hitting productAPI with query:' + JSON.stringify(searchQuery));
                 $scope.startSpin();
@@ -272,12 +273,46 @@ var beautyApp = angular.module('beautyApp')
 
             /* End pagination logic */
         }])
-    .controller('ProductDetailController', ['$scope','product',
-        function ($scope,product) {
+    .controller('ProductDetailController', ['$scope','$location','product','productAPI',
+        function ($scope,$location,product,productAPI) {
+            var AppEvent = {};
+            var event = {};
+            AppEvent.event = event;
             $scope.product_info = product.info();
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
-            console.log('name:'+$scope.product_info.product.name);
+            //console.log('name:'+$scope.product_info.product.name);
+
+             $scope.event = function(e,params){
+             //console.log('pushing event');
+             if(e){
+             switch (e) {
+             case 'visitMerchant':
+             event.eventType = 'visitMerchant';
+             event.url = params;
+             //event.merchant =
+                 //console.log('visitMerchant event');
+             break;
+             default:
+             //console.log('no match found for event type')
+             }
+             if(event.eventType){
+                 //console.log('pushing event:'+JSON.stringify(AppEvent));
+                 productAPI.pushEvent(AppEvent);
+                 if(e == 'visitMerchant'){
+                     //console.log('redirecting to merchant:'+params);
+                     window.open(params,'_blank');
+                 }
+             }else{
+                 //console.log('no match, event not pushed');
+             }
+             }
+             }
+
+
+
+
+
   }])
     .controller('TermsController', ['$scope', '$routeParams',
   function ($scope, $routeParams) {
