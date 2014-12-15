@@ -6167,3 +6167,9 @@ body {
     list-style-type: none;
 }
 
+#navlist li
+{
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
+}

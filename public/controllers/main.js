@@ -31,9 +31,9 @@ var beautyApp = angular.module('beautyApp')
 
             $scope.clearFilter = function (filterType) {
                 if (filterType == 'merchant') {
-                    console.log('removing merchant filters');
+                    //console.log('removing merchant filters');
                     $scope.storeSelection.length = 0;
-                    console.log('store selection:' + JSON.stringify($scope.storeSelection));
+                    //console.log('store selection:' + JSON.stringify($scope.storeSelection));
                     rebuildFilters();
                     //run new search
                     if ($scope.keyword)
@@ -41,9 +41,9 @@ var beautyApp = angular.module('beautyApp')
                     resetQuery();
                     doSearch(SearchQuery);
                 } else if (filterType == 'brand') {
-                    console.log('removing brand filters');
+                    //console.log('removing brand filters');
                     $scope.brandSelection.length = 0;
-                    console.log('brand selection:' + JSON.stringify($scope.brandSelection));
+                    //console.log('brand selection:' + JSON.stringify($scope.brandSelection));
                     rebuildFilters();
                     //run new search
                     if ($scope.keyword)
@@ -55,7 +55,7 @@ var beautyApp = angular.module('beautyApp')
 
             $scope.filter = function (filterId, filterType) {
 
-                console.log('filter function called');
+                //console.log('filter function called');
                 var idx;
                 if (filterType == 'brand') {
                     //check if brand filter already selected
@@ -90,7 +90,7 @@ var beautyApp = angular.module('beautyApp')
                 $scope.currentPage = 1;
 
                 rebuildFilters();
-                console.log('Filter SearchQuery:' + JSON.stringify(SearchQuery));
+                //console.log('Filter SearchQuery:' + JSON.stringify(SearchQuery));
                 doSearch(SearchQuery);
             }
 
@@ -130,11 +130,11 @@ var beautyApp = angular.module('beautyApp')
 
 
             function doSearch(searchQuery) {
-                console.log('hitting productAPI with query:' + JSON.stringify(searchQuery));
+                //console.log('hitting productAPI with query:' + JSON.stringify(searchQuery));
                 $scope.startSpin();
 
                 productAPI.fetchProducts(searchQuery).then(function (res) {
-                    console.log('productAPI.fetchProducts returned data');
+                    //console.log('productAPI.fetchProducts returned data');
                     //need to check that some results were actually set before passing them to the scope
                     if(res.data.results){
                         $scope.products = res.data.results.products;
@@ -148,7 +148,7 @@ var beautyApp = angular.module('beautyApp')
                         $scope.prices = res.data.filters.filter;
 
 
-                        console.log('merchant arr length:'+ $scope.merchant_arr.length);
+                        //console.log('merchant arr length:'+ $scope.merchant_arr.length);
                         $scope.context = res.data.resources.categories.context.category;
                         $scope.current = _.last($scope.context);
                         if(res.data.resources.categories.matches){
@@ -164,7 +164,7 @@ var beautyApp = angular.module('beautyApp')
                         $scope.stopSpin();
                     }
                 }, function (result){
-                    console.log("The fetchProducts request failed with error " + result);
+                    //console.log("The fetchProducts request failed with error " + result);
                     $scope.stopSpin();
                 });
             }
@@ -173,7 +173,7 @@ var beautyApp = angular.module('beautyApp')
             $scope.selectItem = function (product) {
                 //use the productService to select the item
                 productService.selectProduct(product);
-                console.log('selected item:' + product.name);
+                //console.log('selected item:' + product.name);
                 var url = '/products/' + product.id;
                 $location.path(url);
             }
@@ -192,7 +192,7 @@ var beautyApp = angular.module('beautyApp')
             }
 
             function resetQuery(){
-                console.log('resetting query');
+                //console.log('resetting query');
                 query.term = '';
                 query.page = 1;
                 query.rpp = 10;
@@ -209,9 +209,9 @@ var beautyApp = angular.module('beautyApp')
                 var rangeSize = 5;
                 var ret = [];
                 var start;
-                console.log('page count:' + $scope.pageCount());
+                //console.log('page count:' + $scope.pageCount());
                 start = $scope.currentPage;
-                console.log('start:' + start);
+                //console.log('start:' + start);
                 if (start > $scope.pageCount() - rangeSize) {
                     start = $scope.pageCount() - rangeSize;
                     console.log('start:' + start);
@@ -255,19 +255,19 @@ var beautyApp = angular.module('beautyApp')
             };
 
             $scope.setPage = function (pageNo) {
-                console.log('new page:'+pageNo);
+                //console.log('new page:'+pageNo);
                 $scope.currentPage = pageNo;
             };
 
             $scope.pageChanged = function() {
-                console.log('Page changed to: ' + $scope.currentPage);
+                //console.log('Page changed to: ' + $scope.currentPage);
             };
 
             $scope.$watch("currentPage", function (newValue, oldValue) {
-                console.log('requesting page:' + newValue)
+                //console.log('requesting page:' + newValue)
                 query.page = newValue;
-                console.log('requesting rpp:' + query.rpp)
-                console.log('requesting keyword:' + query.term)
+                //console.log('requesting rpp:' + query.rpp)
+                //console.log('requesting keyword:' + query.term)
                 doSearch(SearchQuery);
             });
 

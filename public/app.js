@@ -23,7 +23,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                         'footer@products': { templateUrl: './views/footer.html' }
                     },
                     onEnter: function(){
-                        console.log("enter products");
+                        //console.log("enter products");
                     }
                 })
                 .state('products.list', {
@@ -42,7 +42,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                         }
                     },
                     onEnter: function(){
-                        console.log("enter products.list");
+                        //console.log("enter products.list");
                     }
                 })
                 .state('products.detail', {
@@ -58,7 +58,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
 
                             /* either return the data or reject the promise */
                             $http.get(url).success(function(data) {
-                                console.log('checking whether we have a valid product record');
+                                //console.log('checking whether we have a valid product record');
                                 d.resolve({
                                         info: function( ) {
                                             return data;
@@ -73,7 +73,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                         }
                     },
                     onEnter: function(){
-                        console.log("enter products.detail");
+                        //console.log("enter products.detail");
                     }
                 })
                 .state('deals', {
@@ -88,7 +88,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                             $http.get(url).success(function(data) {
                                 //need to check here whether we did in fact get the data
                                 //current a returned HTML page is being treated as a 'success'...
-                                console.log('retrieved the deals');
+                                //console.log('retrieved the deals');
                                 d.resolve({
                                         info: function( ) {
                                             return data;
@@ -134,7 +134,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                     url: '/404',
                     templateUrl: './views/404.html',
                     onEnter: function(){
-                        console.log("404 page not found");
+                        //console.log("404 page not found");
                     }
                 })
                 .state('terms', {
@@ -165,7 +165,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
     .run(function($state,$rootScope) {
     $rootScope.$on('$stateChangeError', function(event) {
         event.preventDefault();
-        console.log('caught stateChangeError');
+        //console.log('caught stateChangeError');
         $state.go('404');
     });
 });
