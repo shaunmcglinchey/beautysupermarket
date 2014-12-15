@@ -5,8 +5,6 @@ var beautyApp = angular.module('beautyApp')
             $scope.itemsPerPage = 10;
             $scope.currentPage = 1;
             $scope.maxSize = 5;
-            //$scope.storeLimit = 10;
-            //$scope.brandLimit = 10;
             $scope.brands = [];
             $scope.merchants = [];
             $scope.categories = [];
@@ -20,27 +18,8 @@ var beautyApp = angular.module('beautyApp')
             SearchQuery.query.filters = filters;
             $scope.storeSelection = [];
             $scope.brandSelection = [];
-            //$scope.categorySelection = ['13000'];
             $scope.categorySelection = [];
 
-
-            /*
-            $scope.incrementStoreLimit = function () {
-                //console.log('incrementing store limit');
-                $scope.storeLimit = $scope.merchant_arr.length;
-            };
-            $scope.decrementStoreLimit = function () {
-                //console.log('decrementing store limit');
-                $scope.storeLimit = 10;
-            };
-
-            $scope.incrementBrandLimit = function () {
-                $scope.brandLimit = $scope.brands.length;
-            };
-            $scope.decrementBrandLimit = function () {
-                $scope.brandLimit = 10;
-            };
-            */
 
             $scope.clearFilters = function () {
                 $scope.storeSelection.length = 0;
@@ -60,7 +39,6 @@ var beautyApp = angular.module('beautyApp')
                     if ($scope.keyword)
                         query.term = $scope.keyword;
                     resetQuery();
-                    //$scope.storeLimit = 10;
                     doSearch(SearchQuery);
                 } else if (filterType == 'brand') {
                     console.log('removing brand filters');
@@ -71,7 +49,6 @@ var beautyApp = angular.module('beautyApp')
                     if ($scope.keyword)
                         query.term = $scope.keyword;
                     resetQuery();
-                    //$scope.brandLimit = 10;
                     doSearch(SearchQuery);
                 }
             };
@@ -141,8 +118,6 @@ var beautyApp = angular.module('beautyApp')
 
             $scope.search = function (q) {
                 console.log('searching for: ' + q);
-                //$analytics.eventTrack('Searched Products',{  query: q });
-               // analytics.track('Clicked the expand button');
                 query.term = q;
                 query.page = 1;
                 query.rpp = 10;
@@ -178,7 +153,6 @@ var beautyApp = angular.module('beautyApp')
                         if(res.data.resources.categories.matches){
                             $scope.categories = res.data.resources.categories.matches.category;
                         }else{
-                            //console.log('no matches found');
                             $scope.categories.length = 0;
                         }
                         productService.setMerchants(res.data.resources.merchants.merchant);
@@ -187,7 +161,6 @@ var beautyApp = angular.module('beautyApp')
                         $state.go('products.list');
                     }else{
                         $scope.stopSpin();
-                        //$state.go('404');
                     }
                 }, function (result){
                     console.log("The fetchProducts request failed with error " + result);
@@ -228,42 +201,7 @@ var beautyApp = angular.module('beautyApp')
                 $scope.setPage(1);
             }
 
-            /*
-            function buildCategoryTree(categories,matches){
 
-                _.forEach(categories, function(category) {
-                    category.hId = category.order+1;
-                    category.pId = category.order;
-                    delete category.order;
-                });
-
-
-                _.forEach(categories,function(category){
-                    category.nodes = [];
-                    if(category != _.last(categories)){
-                        category.nodes.push(_.find(categories, { 'pId': category.hId }));
-                    }else{
-                        if (matches != undefined){
-                            category.nodes = matches;
-                        }
-                    }
-                    delete category.pId;
-                    delete category.hId
-                });
-
-                var nodes = [];
-                //push the second element - removing the 'all' category
-                //categories[1].name = 'All';
-                //nodes.push(categories[1]);
-               // nodes.push(categories);
-                //nodes = categories;
-                console.log('category tree:'+JSON.stringify(categories));
-                //console.log('node tree:'+JSON.stringify(nodes));
-                //return nodes;
-
-                return categories;
-            }
-            */
             $scope.isChecked = false;
             /* Pagination logic */
             $scope.range = function () {
@@ -337,14 +275,8 @@ var beautyApp = angular.module('beautyApp')
     .controller('ProductDetailController', ['$scope','product',
         function ($scope,product) {
             $scope.product_info = product.info();
-           // console.log('loaded product:'+JSON.stringify(product));
-           /*
-            $analytics.eventTrack('Viewed Product Details',{  id: $scope.product_info.product.id, name: $scope.product_info.product.name,
-            description: $scope.product_info.product.description, category: $scope.product_info.product.category,price: $scope.product_info.product.price_min});
-            */
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
-            //$scope.context = res.data.resources.categories.context.category;
             console.log('name:'+$scope.product_info.product.name);
   }])
     .controller('TermsController', ['$scope', '$routeParams',
