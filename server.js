@@ -4,13 +4,27 @@ var logger = require('morgan');
 var log = require('npmlog');
 var _ = require('lodash')._;
 var bodyParser = require('body-parser');
-var superagent = require('superagent')
+var superagent = require('superagent');
+var productSearch = {};
+var productView = {};
+var category = {};
+var categories = [];
+var catid = {};
 /*
 var Analytics = require('analytics-node');
 var analytics = new Analytics('k9pY4FSNyL', {
     flushAt: 1
 });
 */
+var Keen = require('keen.io');
+
+// Configure instance. Only projectId and writeKey are required to send data.
+var client = Keen.configure({
+    projectId: "5488d6ed96773d653b922424",
+    writeKey: "34aeaa50250884f999516760f791dfb51d2bbc188431dcfd1a784747c9872bbca97934ba6f34b8388a55e4992f1a5c3f9316d4181eea2f1942eda5779c0b8326b91c49c51dbd3b84d0f2aed7a5481d0c2780db49d1a87f0109e22227e0f3e43fe0d69678e85c37c897200b1eef5a08cf"
+});
+
+
 
 var account = '5ftkmyi63draxm60tz3rlah2q'
 var catalog = 'byuklpjkivbpyfxcryx05rv0u'
@@ -69,6 +83,7 @@ beauty.get('/api/products/:productId', function(req, res, next){
         search_params.product = req.params.productId;
         delete search_params['keyword'];
         console.log('product endpoint search params:'+JSON.stringify(search_params));
+
         superagent.post(popShopsUrl)
             .send(search_params)
             .end(function (result) {
@@ -82,6 +97,28 @@ beauty.get('/api/products/:productId', function(req, res, next){
                         product_info.product = result.body.results.products.product[0];
                         product_info.merchants = result.body.resources.merchants.merchant;
                         product_info.brands = result.body.resources.brands.brand;
+
+                        productView.id = product_info.product.id;
+                        productView.name = product_info.product.name;
+                        productView.category = product_info.product.category;
+                        productView.description = product_info.product.description;
+                        productView.price_min = product_info.product.price_min;
+                        productView.image_url_large = product_info.product.image_url_large;
+                        productView.brand = product_info.product.brand;
+                        productView.brandName = _.find(product_info.brands, { 'id': product_info.product.brand }).name;
+
+                        //find product brand name
+                        //console.log('brand name:'+_.find(product_info.brands, { 'id': product_info.product.brand }).name);
+                        //productView.merchant = product_info.product.merchant;
+
+
+                        client.addEvent("ProductView", productView, function(err, res) {
+                            if (err) {
+                                console.log("Oh no, could not log productView!");
+                            } else {
+                                console.log("productView event logged");
+                            }
+                        });
                     }
                     res.send(product_info)
                 }else{
@@ -194,21 +231,13 @@ beauty.post('/api/products', function (req, res, next) {
     }
     console.log('popshops search params:' + JSON.stringify(search_params))
 
+
+
     //track the API call - move this later
-    /*
-    analytics.track({
-        userId: 'ro',
-        event: 'invoked the search API',
-        properties: {
-     revenue: 39.95,
-     shippingMethod: '2-day'
- }
-    });
-    */
+
     superagent.post(popShopsUrl)
         .send(search_params)
         .end(function (e, result) {
-            console.log('yoyoyoyo');
             if (res.error) {
                 console.log('error:' + result.error.message);
             } else {
@@ -217,9 +246,50 @@ beauty.post('/api/products', function (req, res, next) {
 
             if (result.body.results) {
                 console.log('results returned from popshops')
+
+                productSearch.keyword = search_params.keyword;
+                productSearch.category = search_params.category;
+
                 if(result.body.resources.categories){
+                    //console.log('found categories object');
+                    if(result.body.resources.categories.context){
+                        //console.log('found context object');
+                        //console.log('looking for category:'+productSearch.category);
+                        categories = result.body.resources.categories.context.category;
+                        //category = _.find(categories,{id: productSearch.category});
+                        catid = productSearch.category;
+                        category =_.find(categories, function(cat) {
+                            return cat.id == catid;
+                        });
+                        //console.log('context: '+JSON.stringify(result.body.resources.categories.context.category));
+                        //console.log('Category:'+JSON.stringify(category));
+
+                        if(category.name){
+                            //console.log('setting category name:'+category.name);
+                            productSearch.categoryName = category.name;
+                        }
+                    }
                     removeUndesiredCategories(result);
                 }
+
+
+                if(search_params.brand)
+                    productSearch.brand = search_params.brand;
+                if(search_params.merchant)
+                    productSearch.merchant = search_params.merchant;
+
+                // send single event to Keen IO
+                client.addEvent("ProductSearch", productSearch, function(err, res) {
+                    if (err) {
+                        console.log("Oh no, could not log productSearch!");
+                    } else {
+                        console.log("productSearch event log");
+                    }
+                });
+
+
+
+
             } else {
                 console.log('no results returned from popshops');
                 results = '';
@@ -233,7 +303,7 @@ beauty.post('/api/products', function (req, res, next) {
 
 // handle errors
 beauty.use(function (err, req, res, next) {
-    console.log('testing for 404')
+    console.log('err:' + JSON.stringify(err));
     console.log('err status: ' + err.status)
     console.log('err:' + err.message)
     if (err.status == 404) {
