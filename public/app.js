@@ -14,12 +14,6 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
 
             $stateProvider
                 .state('products', {
-                   /*
-                    resolve: {
-                        // Note that this should be in a resolve block as it return a promise
-                        analytics: segmentio.load('k9pY4FSNyL')
-                    },
-                    */
                     abstract: true,
                     url: '/products',
                     views: {
