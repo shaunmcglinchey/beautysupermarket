@@ -358,8 +358,6 @@ function resetParams(){
         delete search_params.keyword;
     }
 
-
-
     if (search_params.page)
         delete search_params.page;
 
@@ -430,50 +428,3 @@ var enableCORS = function(req, res, next) {
 // enable CORS!
 app.use(enableCORS);
 */
-
-/*
- beauty.get('/api/categories', function (req, res, next) {
- res.set('Content-Type', 'application/json');
- res.send([{name: "All", id: 13000, nodes: [
- {name: "Cosmetics & Makeup", id: 13250, nodes: [
- {name: "Concealers", id: 13276},
- {name: "Cosmetic & Makeup Sets", id: 13251},
- {name: "Cosmetic Mirrors", id: 13261},
- {name: "Exfoliants", id: 13281},
- {name: "Eyebrow", id: 32536},
- {name: "EyeLash/Mascara", id: 13461},
- {name: "Eye Liner", id: 13471},
- {name: "Eye Shadow", id: 13471},
- {name: "Facial Care Blush", id: 13271},
- {name: "Facial Cleansers", id: 13318},
- {name: "Facial Masks", id: 13296},
- {name: "Facial Treatments", id: 13324},
- {name: "Lip Liners", id: 13678},
- {name: "Lipsticks & Gloss", id: 13698},
- {name: "Makeup Remover", id: 13291},
- {name: "Makeup Brushes & Applicators", id: 13256},
- {name: "Makeup Foundations & Primers", id: 13286},
- {name: "Other Cosmetics & Makeup", id: 13301},
- {name: "Powders", id: 13306},
- {name: "Skin Moisturisers", id: 13331},
- {name: "Toners", id: 13311}
- ]},
- {name: "Fragrances", id: 13001, nodes: [
- {name: "Fragrance Gift Sets", id: 13012},
- {name: "Men's Fragrances", id: 13022},
- {name: "Other Fragrances", id: 13002},
- {name: "Unisex Fragrances", id: 13042},
- {name: "Women's Fragrances", id: 13032}
- ]},
- {name: "Hair Care", id: 13050, nodes: [
- {name: "Coloring", id: 32551},
- {name: "Hair & Scalp Treatment", id: 32553},
- {name: "Hair Care Accessories", id: 32556},
- {name: "Hair Dryers, Stylers & Barber Tools", id: 32555},
- {name: "Hair Removal", id: 32554},
- {name: "Shampoos & Conditioners", id: 32557},
- {name: "Styling", id: 32558}
- ]},
- ]}]);
- });
- */
