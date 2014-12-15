@@ -10,12 +10,7 @@ var productView = {};
 var category = {};
 var categories = [];
 var catid = {};
-/*
-var Analytics = require('analytics-node');
-var analytics = new Analytics('k9pY4FSNyL', {
-    flushAt: 1
-});
-*/
+
 var Keen = require('keen.io');
 
 // Configure instance. Only projectId and writeKey are required to send data.
@@ -68,30 +63,29 @@ var beauty = express.Router()
 
 beauty.get('/api/products/:productId', function(req, res, next){
     res.set('Content-Type', 'application/json');
-    console.log('Looking for product:'+req.params.productId);
+    //console.log('Looking for product:'+req.params.productId);
 
     resetParams();
 
     //TODO validate product id
     if(isNaN(req.params.productId)){
-        console.log('supplied product ID is not a valid number:'+req.params.productId);
+        //console.log('supplied product ID is not a valid number:'+req.params.productId);
         var notFound = new Error('Product Not Found');
         notFound.status = 404;
         return next(notFound);
     }else{
-        console.log('supplied product ID is a valid number');
+        //console.log('supplied product ID is a valid number');
         search_params.product = req.params.productId;
         delete search_params['keyword'];
-        console.log('product endpoint search params:'+JSON.stringify(search_params));
+        //console.log('product endpoint search params:'+JSON.stringify(search_params));
 
         superagent.post(popShopsUrl)
             .send(search_params)
             .end(function (result) {
                 if(result.ok){
                     if (result.body.results) {
-                        console.log('found product');
-                        console.log('results returned from popshops')
-                        //console.log('response:' + JSON.stringify(res.body));
+                        //console.log('found product');
+                        //console.log('results returned from popshops')
 
                         replaceMerchants(result);
                         product_info.product = result.body.results.products.product[0];
@@ -107,23 +101,18 @@ beauty.get('/api/products/:productId', function(req, res, next){
                         productView.brand = product_info.product.brand;
                         productView.brandName = _.find(product_info.brands, { 'id': product_info.product.brand }).name;
 
-                        //find product brand name
-                        //console.log('brand name:'+_.find(product_info.brands, { 'id': product_info.product.brand }).name);
-                        //productView.merchant = product_info.product.merchant;
-
-
                         client.addEvent("ProductView", productView, function(err, res) {
                             if (err) {
-                                console.log("Oh no, could not log productView!");
+                                //console.log("Oh no, could not log productView!");
                             } else {
-                                console.log("productView event logged");
+                                //console.log("productView event logged");
                             }
                         });
                     }
                     res.send(product_info)
                 }else{
-                    console.log('error occurred:'+result.text);
-                    console.log('no results returned from popshops');
+                    //console.log('error occurred:'+result.text);
+                    //console.log('no results returned from popshops');
                     var notFound = new Error('Product Not Found');
                     notFound.status = 404;
                     return next(notFound);
@@ -136,21 +125,19 @@ beauty.get('/api/products/:productId', function(req, res, next){
 
 //how to post a map to node.js express 4
 beauty.post('/api/products', function (req, res, next) {
-    console.log('running product endpoint');
     merchants.length = 0;
     brands.length = 0;
     categories.length = 0;
 
     resetParams();
 
-    console.log('checking for filter params');
+    //console.log('checking for filter params');
 
     if (req.body.query) {
 
         console.log('query object found:' + JSON.stringify(req.body.query));
 
         if (req.body.query.term) {
-            //console.log('query object term found:' + JSON.stringify(req.body.query.term))
             search_params.keyword = req.body.query.term;
         } else {
             console.log('query object term not found');
@@ -159,7 +146,6 @@ beauty.post('/api/products', function (req, res, next) {
         }
 
         if (req.body.query.page) {
-            //console.log('query object page found:' + req.body.query.page)
             search_params.page = req.body.query.page;
         } else {
             //console.log('query object page not found')
@@ -183,20 +169,20 @@ beauty.post('/api/products', function (req, res, next) {
         if (req.body.query.filters) {
 
             _.each(req.body.query.filters, function (f) {
-                console.log('filter val: ' + f.filter);
-                console.log('filter type: ' + f.filterType);
+                //console.log('filter val: ' + f.filter);
+                //console.log('filter type: ' + f.filterType);
                 //TODO build filters up here
                 switch (f.filterType) {
                 case 'merchant':
-                    console.log('merchant filter found')
+                    //console.log('merchant filter found')
                     merchants.push(f.filter);
                     break;
                 case 'brand':
-                    console.log('brand filter found')
+                    //console.log('brand filter found')
                     brands.push(f.filter);
                     break;
                 case 'category':
-                    console.log('category filter found')
+                    //console.log('category filter found')
                     categories.push(f.filter);
                     break;
                 default:
@@ -205,26 +191,22 @@ beauty.post('/api/products', function (req, res, next) {
             });
             if (merchants.length > 0) {
                 search_params.merchant = merchants.join();
-                console.log('merchants:' + search_params.merchant);
+                //console.log('merchants:' + search_params.merchant);
             }
             if (brands.length > 0) {
                 search_params.brand = brands.join();
-                console.log('brands:' + search_params.brand);
+                //console.log('brands:' + search_params.brand);
             }
             if (categories.length > 0) {
                 search_params.category = categories.join();
-                console.log('category:' + search_params.category);
-            }else{
-                //if no category is set we specify the default category (Health & Beauty)
-               //search_params.category = 13000; //all beauty products, including hierarchy
-               //search_params.category = 13250; //cosmetics and makeup category
+                //console.log('category:' + search_params.category);
             }
 
         } else {
-            console.log('query object filter map not found')
+            //console.log('query object filter map not found')
         }
     } else {
-        console.log('no query object found')
+        //console.log('no query object found')
     }
     if (categories.length < 1) {
         search_params.category = 13250;
@@ -245,27 +227,19 @@ beauty.post('/api/products', function (req, res, next) {
             }
 
             if (result.body.results) {
-                console.log('results returned from popshops')
+                //console.log('results returned from popshops')
 
                 productSearch.keyword = search_params.keyword;
                 productSearch.category = search_params.category;
 
                 if(result.body.resources.categories){
-                    //console.log('found categories object');
                     if(result.body.resources.categories.context){
-                        //console.log('found context object');
-                        //console.log('looking for category:'+productSearch.category);
                         categories = result.body.resources.categories.context.category;
-                        //category = _.find(categories,{id: productSearch.category});
                         catid = productSearch.category;
                         category =_.find(categories, function(cat) {
                             return cat.id == catid;
                         });
-                        //console.log('context: '+JSON.stringify(result.body.resources.categories.context.category));
-                        //console.log('Category:'+JSON.stringify(category));
-
                         if(category.name){
-                            //console.log('setting category name:'+category.name);
                             productSearch.categoryName = category.name;
                         }
                     }
@@ -286,10 +260,6 @@ beauty.post('/api/products', function (req, res, next) {
                         console.log("productSearch event log");
                     }
                 });
-
-
-
-
             } else {
                 console.log('no results returned from popshops');
                 results = '';
@@ -359,7 +329,7 @@ function removeUndesiredCategories(result){
 }
 
 function replaceMerchants(result){
-    console.log('looking up merchants');
+    //console.log('looking up merchants');
     //loop over the offers for a given product and replace the merchant ID with a merchant object composed of ID, name, logo_url, and url
     _(result.body.results.products.product[0].offers.offer).forEach(function(offer)
         {
