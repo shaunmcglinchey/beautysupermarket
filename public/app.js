@@ -78,6 +78,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                 })
                 .state('deals', {
                     url: '/deals',
+                    controller: 'DealsController',
                     resolve: {
                         "deals": function($q,$http){
                             var d = $q.defer();
@@ -88,7 +89,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                             $http.get(url).success(function(data) {
                                 //need to check here whether we did in fact get the data
                                 //current a returned HTML page is being treated as a 'success'...
-                                //console.log('retrieved the deals');
+                                console.log('retrieved the deals');
                                 d.resolve({
                                         info: function( ) {
                                             return data;
@@ -109,6 +110,9 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                         // the child views will be defined here (absolutely named)
                         'content@deals': { templateUrl: './views/deallist.html' },
                         'footer@deals': { templateUrl: './views/footer.html' }
+                    },
+                    onEnter: function(){
+                        console.log("entered deals state");
                     }
                 })
                 .state('products.nothing', {
@@ -147,6 +151,9 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                         // the child views will be defined here (absolutely named)
                         'content@terms': { templateUrl: './views/terms.html' },
                         'footer@terms': { templateUrl: './views/footer.html' }
+                    },
+                    controller: function($scope) {
+                        console.log('terms');
                     }
                 })
                 .state('privacy', {

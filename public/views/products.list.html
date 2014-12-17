@@ -85,6 +85,9 @@
                                         </div>
                                         <div id="refineBrand" class="panel-collapse collapse in">
                                             <div class="panel-body panel-scroll">
+                                                <div ng-show="brandSelection.length > 0" style="padding-bottom:15px; margin-left:5px;">
+                                                    <a ng-click="clearFilter('brand')">&laquo; Any brand</a>
+                                                </div>
                                                 <div ng-repeat="brand in brands | orderBy:'count':true">
                                                     <div ng-hide="brand.name =='Unknown'">
                                                     <label style="margin-left:24px;" class="checkbox" ng-class="{ checked : isChecked }">
@@ -110,6 +113,9 @@
                                         </div>
                                         <div id="refineMerchant" class="panel-collapse collapse">
                                             <div class="panel-body panel-scroll">
+                                                <div ng-show="storeSelection.length > 0" style="padding-bottom:15px; margin-left:5px;">
+                                                    <a ng-click="clearFilter('merchant')">&laquo; Any store</a>
+                                                </div>
                                                 <div ng-repeat="merchant in merchant_arr |orderBy:'count':true">
                                                     <div ng-hide="merchant.name =='Unknown'">
                                                         <label class="checkbox" ng-class="{ checked : isChecked }">

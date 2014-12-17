@@ -25,6 +25,7 @@ var client = Keen.configure({
 var account = '5ftkmyi63draxm60tz3rlah2q'
 var catalog = 'byuklpjkivbpyfxcryx05rv0u'
 var popShopsUrl = 'http://popshops.com/v3/products.json'
+var dealsUrl = 'http://popshops.com/v3/deals.json'
 var results;
 var search_params = {};
 var product_info = {};
@@ -114,7 +115,7 @@ beauty.get('/api/products/:productId', function(req, res, next){
                 }else{
                     //console.log('error occurred:'+result.text);
                     //console.log('no results returned from popshops');
-                    var notFound = new Error('Product Not Found');
+                    var notFound = new Error('Deals Not Found');
                     notFound.status = 404;
                     return next(notFound);
                 }
@@ -122,6 +123,27 @@ beauty.get('/api/products/:productId', function(req, res, next){
     }
 });
 
+beauty.get('/api/deals', function (req, res, next) {
+    search_params.deal_type = '11,3';
+    superagent.post(dealsUrl)
+        .send(search_params)
+        .end(function (result) {
+            if (result.ok) {
+                if (result.body.results) {
+                    console.log('retrieved deals');
+                }else{
+                    console.log('could not retrieve deals');
+                }
+                res.send(result.body)
+            }else{
+                //console.log('error occurred:'+result.text);
+                //console.log('no results returned from popshops');
+                var notFound = new Error('Product Not Found');
+                notFound.status = 404;
+                return next(notFound);
+            }
+        });
+});
 
 beauty.post('/api/event', function (req, res, next) {
     if (req.body.event) {

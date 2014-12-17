@@ -314,6 +314,14 @@ var beautyApp = angular.module('beautyApp')
 
 
   }])
+    .controller('DealsController', ['$scope','deals',
+  function ($scope,deals) {
+      console.log('yup;');
+        console.log('deals:'+JSON.stringify(deals));
+        $scope.deals = deals.results.deals.deal;
+
+
+  }])
     .controller('TermsController', ['$scope', '$routeParams',
   function ($scope, $routeParams) {
 

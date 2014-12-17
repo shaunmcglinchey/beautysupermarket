@@ -55,6 +55,16 @@ angular.module("beautyApp")
                     data: $params
                 });
             },
+            getDeals: function ($params) {
+                return $http({
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    url: base_url+'deals',
+                    method: "POST",
+                    data: $params
+                });
+            },
             fetchProduct: function (){
                 console.log('fetching product:');
                 return $http({
