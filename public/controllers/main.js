@@ -150,6 +150,10 @@ var beautyApp = angular.module('beautyApp')
 
                         //console.log('merchant arr length:'+ $scope.merchant_arr.length);
                         $scope.context = res.data.resources.categories.context.category;
+                        _.remove($scope.context, function(item) {
+                            return item.id == 1
+                        });
+
                         $scope.current = _.last($scope.context);
                         if(res.data.resources.categories.matches){
                             $scope.categories = res.data.resources.categories.matches.category;
