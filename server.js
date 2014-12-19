@@ -306,9 +306,12 @@ beauty.post('/api/products', function (req, res, next) {
                         brand = _.find(brands, function(b) {
                             return b.id == productSearch.brand;
                         });
-                        if(brand.name){
-                            productSearch.brandName = brand.name;
+                        if(brand){
+                            if(brand.name){
+                                productSearch.brandName = brand.name;
+                            }
                         }
+
                     }
                 }
 
@@ -384,7 +387,7 @@ function removeUndesiredCategories(result){
         _.remove(result.body.resources.categories.matches.category, function(category) {
             return category.id == 14090 || category.id == 14029 || category.id == 32538 || category.id == 14091 || category.id == 1 || category.id == 31000
                  || category.id == 27000 || category.id == 23000 || category.id == 21000 || category.id == 12000 || category.id == 16000 || category.id == 32194
-                || category.id == 7000 || category.id == 15000 || category.id == 3000 || category.id == 10000 || category.id == 32346 || category.id == 13175;
+                || category.id == 7000 || category.id == 15000 || category.id == 3000 || category.id == 10000 || category.id == 32346 || category.id == 9000;
         });
     }
 

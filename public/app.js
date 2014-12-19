@@ -78,7 +78,7 @@ var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessag
                 })
                 .state('deals', {
                     url: '/deals',
-                    controller: 'DealsController',
+                    controller: 'JockController',
                     resolve: {
                         "deals": function($q,$http){
                             var d = $q.defer();

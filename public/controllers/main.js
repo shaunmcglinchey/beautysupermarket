@@ -281,7 +281,7 @@ var beautyApp = angular.module('beautyApp')
             $scope.product_info = product.info();
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
-            //console.log('name:'+$scope.product_info.product.name);
+            console.log('name:'+$scope.product_info.product.name);
 
              $scope.event = function(e,params){
              //console.log('pushing event');
@@ -314,9 +314,9 @@ var beautyApp = angular.module('beautyApp')
 
 
   }])
-    .controller('DealsController', ['$scope','deals',
-  function ($scope,deals) {
-      console.log('yup;');
+    .controller('JockController', ['$scope','$location','deals','productAPI',
+        function ($scope,$location,deals,productAPI) {
+        console.log('ro');
         console.log('deals:'+JSON.stringify(deals));
         $scope.deals = deals.results.deals.deal;
 

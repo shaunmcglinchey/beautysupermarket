@@ -90,7 +90,7 @@
                                                 </div>
                                                 <div ng-repeat="brand in brands | orderBy:'count':true">
                                                     <div ng-hide="brand.name =='Unknown'">
-                                                    <label style="margin-left:24px;" class="checkbox" ng-class="{ checked : isChecked }">
+                                                    <label style="margin-left:24px;" class="checkbox" ng-class="{ checked : isChecked }"/>
 
                                                         <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span>
                                                         <input type="checkbox" value="{{brand.id}}" checked="" ng-model="isChecked" ng-click="filter(brand.id,'brand')">
