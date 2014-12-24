@@ -572,26 +572,33 @@ input.ct-red + span + label + span.switch-right {
 
 .form-control::-moz-placeholder {
   color: #555555;
+  /*
   opacity: 0.7;
   filter: alpha(opacity=100);
+  */
 }
 
 .form-control:-moz-placeholder {
   color: #555555;
+  /*
   opacity: 0.7;
   filter: alpha(opacity=100);
+  */
 }
 
 .form-control::-webkit-input-placeholder {
   color: #555555;
+  /*
   opacity: 0.7;
   filter: alpha(opacity=100);
+  */
 }
 
 .form-control:-ms-input-placeholder {
   color: #555555;
-  opacity: 0.7;
+  /*opacity: 0.7;
   filter: alpha(opacity=100);
+  */
 }
 
 .form-control {
