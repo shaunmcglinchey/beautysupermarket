@@ -165,6 +165,8 @@ var beautyApp = angular.module('beautyApp')
                         $scope.stopSpin();
                         $state.go('products.list');
                     }else{
+                        $scope.product_arr.length = 0;
+                        $scope.totalItems = 0;
                         $scope.stopSpin();
                     }
                 }, function (result){

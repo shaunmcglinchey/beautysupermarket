@@ -1,9 +1,11 @@
 <div class="main">
 
     <div class="container tim-container">
+        <div ng-hide="totalItems == 0">
         <div class="tim-title">
             <h3>{{current.name}}</h3>
         </div>
+
         <div class="row">
             <div class="col-md-3">
 
@@ -153,6 +155,7 @@
                 </div>
             </div>
            <div class="col-md-9">
+
                <pagination page="currentPage" total-items="totalItems" items-per-page="itemsPerPage" on-select-page="setPage(page)" max-size=5 items-per-page=10 boundary-links="true"></pagination>
                 <div class="panel panel-default">
 
@@ -192,12 +195,24 @@
                             </tbody>
                         </table>
                     </div>
+
+
+
                 </div>
                <pagination page="currentPage" total-items="totalItems" items-per-page="itemsPerPage" on-select-page="setPage(page)" max-size=5 items-per-page=10 boundary-links="true"></pagination>
+
 
            </div>
 
         </div>
+        </div>
+        <div ng-hide="product_arr.length">
+            <div class="col-md-offset-1" style="margin-top:40px;">
+                <p>Boooo! Your search did not return any results. Perhaps try another search term or browse products using the filters. <a ng-click="reset()">Try again</a></p>
+            </div>
+
+        </div>
+
     </div>
 </div>
 <script type="text/ng-template"  id="tree_item_renderer.html">

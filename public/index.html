@@ -60,6 +60,22 @@
         padding-right: 20px;
         padding-left:0px;
     }
+    html {
+        position: relative;
+        min-height: 100%;
+    }
+    body {
+        margin: 0 0 291px; /* bottom = footer height */
+    }
+    footer {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 291px;
+        width: 100%;
+    }
+
+
     </style>
 
 
@@ -77,6 +93,83 @@
 <!-- end fb code -->
 <div id="fb-root"></div>
 <div ui-view></div>
+<!-- footer -->
+
+<!--
+<div class="space-50"></div>
+
+<footer class="footer footer-big footer-black">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-3 col-md-offset-1">
+                <h5 class="title">Company</h5>
+                <nav>
+                    <ul>
+                        <li>
+                            <a ng-href="/">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                About Us
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-3">
+                <h5 class="title"> Help and Support</h5>
+                <nav>
+                    <ul>
+
+                        <li>
+                            <a ng-href="/terms">
+                                Terms & Conditions
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-href="/privacy">
+                                Privacy Policy
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-3">
+                <h5 class="title">Follow us on</h5>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="#" class="btn btn-social btn-facebook btn-simple">
+                                <i class="fa fa-facebook-square"></i> Facebook
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn btn-social btn-twitter btn-simple">
+                                <i class="fa fa-twitter"></i> Twitter
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn btn-social btn-reddit btn-simple">
+                                <i class="fa fa-google-plus-square"></i> Google+
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <hr />
+        <div class="copyright">
+            &copy; 2014 BeautySupermarket
+        </div>
+    </div>
+</footer>
+-->
+<!-- end footer -->
 </body>
 
 
