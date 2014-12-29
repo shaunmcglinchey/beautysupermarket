@@ -390,7 +390,7 @@ function removeUndesiredCategories(result){
                  || category.id == 27000 || category.id == 23000 || category.id == 21000 || category.id == 12000 || category.id == 16000 || category.id == 32194
                 || category.id == 7000 || category.id == 15000 || category.id == 3000 || category.id == 10000 || category.id == 32346 || category.id == 9000 || category.id == 2000
                 || category.id == 5000 || category.id == 9000 || category.id == 11000 || category.id == 22000 || category.id == 9001 || category.id == 9100
-                || category.id == 8400 || category.id == 24000 || category.id == 25000;
+                || category.id == 8400 || category.id == 24000 || category.id == 25000 || category.id == 13000;
         });
     }
 
