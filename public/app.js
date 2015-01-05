@@ -1,7 +1,8 @@
-var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable']);
+var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable','djds4rce.angular-socialshare']);
 
-
-    beautyApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
+    beautyApp.run(function($FB){
+        $FB.init('386469651480295');
+    }).config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
             $locationProvider.html5Mode(true);

@@ -7,6 +7,7 @@
     <link href="stylesheets/demo.css" rel="stylesheet">
     <link href="stylesheets/beauty.css" rel="stylesheet">
     <link href="stylesheets/pe-icon-7-stroke.css" rel="stylesheet">
+    <link href="stylesheets/social.css" rel="stylesheet">
     <!--<link href="stylesheets/font-awesome.css" rel="stylesheet">-->
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -30,28 +31,15 @@
     <script src="vendor/ng-table.min.js"></script>
     <script src="vendor/spin.js"></script>
     <script src="vendor/angular-spinner.js"></script>
+    <script src='http://djds4rce.github.io/angular-socialshare.min.js'></script>
+    <script src="http://platform.twitter.com/widgets.js"></script>
 
-    <!--
-    <script type="text/javascript">
-        !function(){var analytics=window.analytics=window.analytics||[];if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.0";
-            analytics.load("k9pY4FSNyL");
-            analytics.page()
-        }}();
-    </script>
-    -->
-    <!--
-    <script src="vendor/angulartics-segmentio.min.js"></script>
-    -->
     <script src="app.js"></script>
     <script src="controllers/main.js"></script>
     <script src="services/show.js"></script>
+    <style rel='stylesheet' type='text/css' href="bower_components/angular-socialshare/angular-socialshare.min.css"></style>
     <style>
-    .discount {text-decoration:line-through;}
-    .link {
-      /*
-      text-decoration:underline;
-      */
-    }
+
 
     #navlist li
     {
@@ -75,10 +63,7 @@
         width: 100%;
     }
 
-    .share_buttons > div {
-        float:right;
-        margin:0 0 0 20px;
-    }
+
 
 
     </style>
@@ -91,6 +76,7 @@
 <!-- social code -->
 
 <!-- ======> (Start of Facebook button code after  body tag, no body tag in code)  -->
+<!--
 <div id="fb-root">
     &nbsp;</div>
 <script>(function(d, s, id) {
@@ -100,6 +86,7 @@
     js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+-->
 
 <!-- end social code -->
 
@@ -186,27 +173,8 @@
 </body>
 
 
-<!-- todo
-add jquery, jquery-ui, bootstrap.js, and then gsdk.checkbox, and a ready function ('initialise jquery')?
-
--->
-
 <script src="vendor/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 <script src="vendor/bootstrap.js"></script>
 
-
-<!--  Plugins -->
-<!--
-<script src="js/gsdk-checkbox.js"></script>
-
-
-<script src="js/gsdk-morphing.js"></script>
-<script src="js/gsdk-radio.js"></script>
-<script src="js/gsdk-bootstrapswitch.js"></script>
-<script src="js/bootstrap-select.js"></script>
-
-
-<script src="js/get-shit-done.js"></script>
--->
 </html>
