@@ -289,6 +289,13 @@ var beautyApp = angular.module('beautyApp')
             var AppEvent = {};
             var event = {};
             AppEvent.event = event;
+
+            $scope.myModel = {
+                Name: "BeautySupermarket", // text for tweet and pinIt buttons
+                FbLikeUrl: "http://www.beautysupermarket.co.uk"
+                /*ImageUrl: 'http://www.jasonwatmore.com/pics/jason-watmore.jpg'*/// image url for pinIt button
+            };
+
             $scope.product_info = product.info();
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
