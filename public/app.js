@@ -1,4 +1,4 @@
-var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable','djds4rce.angular-socialshare']);
+var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable','djds4rce.angular-socialshare','ngTextTruncate']);
 
     beautyApp.run(function($FB){
         $FB.init('386469651480295');

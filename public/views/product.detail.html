@@ -31,8 +31,12 @@
                 <h4 class="title" style="margin-top: 10px;color: #ff6799;"><a><span style="color: #ff6799;">&pound;{{product.price_min | number:2}}</span></a></h4>
                 <div class="tab-content">
                     <div class="tab-pane active" id="info">
+                        <!--
                         <p>{{product.description | characters:400}}</p>
+                        -->
                        <!-- <p>{{product.description}}</p> -->
+                        <p ng-text-truncate="product.description"
+                           ng-tt-words-threshold="90"></p>
                     </div>
                 </div>
             </div>
