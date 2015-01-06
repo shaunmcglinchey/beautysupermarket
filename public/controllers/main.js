@@ -20,6 +20,11 @@ var beautyApp = angular.module('beautyApp')
             $scope.brandSelection = [];
             $scope.categorySelection = [];
 
+            $scope.myModel = {
+                Name: "BeautySupermarket", // text for tweet and pinIt buttons
+                FbLikeUrl: "http://www.beautysupermarket.co.uk"
+                /*ImageUrl: 'http://www.jasonwatmore.com/pics/jason-watmore.jpg'*/// image url for pinIt button
+            };
 
             $scope.clearFilters = function () {
                 $scope.storeSelection.length = 0;
