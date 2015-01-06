@@ -1,7 +1,7 @@
 var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable','djds4rce.angular-socialshare','ngTextTruncate']);
 
     beautyApp.run(function($FB){
-        $FB.init('386469651480295');
+        $FB.init('1554459874801972');
     }).config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         function ($stateProvider, $urlRouterProvider, $locationProvider) {
 

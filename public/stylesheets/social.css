@@ -161,12 +161,12 @@
 
 /* added css */
 .social{
-    float:right;
+    /*float:right;*/
     margin-top: 25px;
 }
 .fb, .twit, .share, .gplus{
     float:left;
-    /*width:85px;*/
+    width:85px;
     /*height:100px;*/
     overflow:hidden;
     margin-right:1px;
