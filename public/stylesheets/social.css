@@ -162,17 +162,24 @@
 /* added css */
 .social{
     /*float:right;*/
-    margin-top: 25px;
+    margin-top: 10px;
 }
 .fb, .twit, .share, .gplus{
     float:left;
-    width:120px;
     /*height:100px;*/
     overflow:hidden;
-    margin-right:10px;
+    margin-right:0px;
 }
 
 .fb {
-    margin-top: -3px;
+    margin-top: -2px;
+    width:140px;
 }
 
+.twit {
+    width:90px;
+}
+
+.gplus {
+    width: 100px;
+}

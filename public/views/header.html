@@ -9,16 +9,25 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-
+        <div class="row">
+            <div class="col-md-12">
+                <div class="social" style="float: right !important;">
+                    <div class="fb">
+                        <div fb-like="myModel.FbLikeUrl"></div>
+                    </div>
+                    <div class="twit">
+                        <div tweet="myModel.Name"></div>
+                    </div>
+                    <div class="gplus">
+                        <div google-plus></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3">
                 <a ng-click="reset()">
                     <img ng-src="img/bslogo.png" style="margin-top:25px;"/>
-                <!--
-                    <h1 class="logo cursive" style="font-family: 'Grand Hotel',cursive;font-size: 44px;">
-                    <span style="color:#ff6799; font-size:44px;">Beauty</span><span style="color:#fff;font-size:44px;">Supermarket</span>
-                </h1>
-                -->
                     </a>
             </div>
 
@@ -26,16 +35,14 @@
 
                 <form ng-submit="search(searchTerm)">
                 <div class="input-group" style="margin-left:45px;">
-                    <!-- 	   Since the css properties cannot check the previous sibling of an element and for the design consistency we recommend to use the "input-group-addon" after the "form-control" like in this example -->
                     <input type="text" value="" placeholder="I'm looking for ..." class="form-control input-lg" ng-model="searchTerm">
                     <span class="input-group-addon"><a href="#"><i class="fa fa-search" style="font-size: 20px;"></i></a></span>
                 </div>
                 </form>
             </div>
+            <!--
             <div class="col-md-3">
                <div class="social">
-
-                    <!-- temp -->
                    <div class="fb">
                         <div fb-like="myModel.FbLikeUrl"></div>
                    </div>
@@ -45,14 +52,9 @@
                    <div class="gplus">
                        <div google-plus></div>
                    </div>
-
-                    <!--
-                    <div class="fb"><div facebook class="facebookShare" data-url='http://beautysupermarket.co.uk' data-shares='shares'>{{ shares }}</div></div>
-                    <div class="twit"><a twitter  data-lang="en" data-count='horizontal' data-url='http://beautysupermarket.co.uk' data-via='beautysupermkt' data-size="medium" data-text='For the best prices on cosmetics, skincare, hair, and fragrances go to '></a></div>
-                    <div class="gplus"><div gplus class="g-plus" data-size="tall" data-annotation="bubble" data-href='http://beautysupermarket.co.uk' data-action='share'></div></div>
-                    -->
                 </div>
             </div>
+            -->
 
         </div>
         <div style="margin-top:15px;"></div>
@@ -104,16 +106,3 @@
             </div>
         </div>
     </div>
-
-        <!--
-<div class="separator" style="background-color:#FFE4B5; font-size:14px; padding:0px; padding-top:4px;color:#FFF;">
-    <div class="container">
-        <ul id="navlist">
-            <li><a ng-click="filter('13050','category')" id="current" style="color:#333;"><b>Hair</b></a></li>
-            <li><a ng-click="filter('13330','category')" style="color:#333;"><b>Body</b></a></li>
-            <li><a ng-click="filter('13728','category')" style="color:#333;"><b>Nails</b></a></li>
-            <li><a ng-click="filter('13667','category')" style="color:#333;"><b>Lips</b></a></li>
-        </ul>
-    </div>
-</div>
-        -->

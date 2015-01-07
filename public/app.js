@@ -1,13 +1,9 @@
-var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable','djds4rce.angular-socialshare','ngTextTruncate','angulike']);
+var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable','ngTextTruncate','angulike']);
 beautyApp.run([
     '$rootScope', function ($rootScope) {
         $rootScope.facebookAppId = '1554459874801972'; // set your facebook app id here
     }
 ]);
-/*
-    beautyApp.run(function($FB){
-        $FB.init('1554459874801972');
-    })*/
 
         beautyApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         function ($stateProvider, $urlRouterProvider, $locationProvider) {
