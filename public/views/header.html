@@ -9,52 +9,55 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="social" style="float: right !important;">
-                    <div class="fb">
-                        <div fb-like="myModel.FbLikeUrl"></div>
-                    </div>
-                    <div class="twit">
-                        <div tweet="myModel.Name"></div>
-                    </div>
-                    <div class="gplus">
-                        <div google-plus></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <a ng-click="reset()">
-                    <img ng-src="img/bslogo.png" style="margin-top:25px;"/>
-                    </a>
-            </div>
+        <!--
+      <div class="row">
 
-            <div class="col-md-6" style="margin-top:27px;">
+          <div class="col-md-12">
+              <div class="social" style="float: right !important;">
+                  <div class="fb">
+                      <div fb-like="myModel.FbLikeUrl"></div>
+                  </div>
+                  <div class="twit">
+                      <div tweet="myModel.Name"></div>
+                  </div>
+                  <div class="gplus">
+                      <div google-plus></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      -->
+      <div class="row">
+          <div class="col-md-3">
+              <a ng-click="reset()">
+                  <img ng-src="img/bslogo.png" style="margin-top:25px;"/>
+                  </a>
+          </div>
 
-                <form ng-submit="search(searchTerm)">
-                <div class="input-group" style="margin-left:45px;">
-                    <input type="text" value="" placeholder="I'm looking for ..." class="form-control input-lg" ng-model="searchTerm">
-                    <span class="input-group-addon"><a href="#"><i class="fa fa-search" style="font-size: 20px;"></i></a></span>
-                </div>
-                </form>
-            </div>
-            <!--
-            <div class="col-md-3">
-               <div class="social">
-                   <div class="fb">
-                        <div fb-like="myModel.FbLikeUrl"></div>
-                   </div>
-                   <div class="twit">
-                        <div tweet="myModel.Name"></div>
-                   </div>
-                   <div class="gplus">
-                       <div google-plus></div>
-                   </div>
-                </div>
-            </div>
-            -->
+          <div class="col-md-6" style="margin-top:27px;">
+
+              <form ng-submit="search(searchTerm)">
+              <div class="input-group" style="margin-left:45px;">
+                  <input type="text" value="" placeholder="I'm looking for ..." class="form-control input-lg" ng-model="searchTerm">
+                  <span class="input-group-addon"><a href="#"><i class="fa fa-search" style="font-size: 20px;"></i></a></span>
+              </div>
+              </form>
+          </div>
+          <!--
+          <div class="col-md-3">
+             <div class="social">
+                 <div class="fb">
+                      <div fb-like="myModel.FbLikeUrl"></div>
+                 </div>
+                 <div class="twit">
+                      <div tweet="myModel.Name"></div>
+                 </div>
+                 <div class="gplus">
+                     <div google-plus></div>
+                 </div>
+              </div>
+          </div>
+          -->
 
         </div>
         <div style="margin-top:15px;"></div>

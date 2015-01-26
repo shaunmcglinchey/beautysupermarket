@@ -5,6 +5,7 @@ var log = require('npmlog');
 var _ = require('lodash')._;
 var bodyParser = require('body-parser');
 var superagent = require('superagent');
+var useragent = require('useragent');
 var productSearch = {};
 var productView = {};
 var visitMerchant = {};
@@ -175,6 +176,10 @@ beauty.post('/api/event', function (req, res, next) {
 
 //how to post a map to node.js express 4
 beauty.post('/api/products', function (req, res, next) {
+    //log the user agent type accessing the app
+    var agent = useragent.parse(req.headers['user-agent']);
+
+
     merchants.length = 0;
     brands.length = 0;
     categories.length = 0;
@@ -282,6 +287,8 @@ beauty.post('/api/products', function (req, res, next) {
 
                 productSearch.keyword = search_params.keyword;
                 productSearch.category = search_params.category;
+                productSearch.agent = agent.family;
+                productSearch.device = agent.device.toString();
 
                 if(result.body.resources.categories){
                     if(result.body.resources.categories.context){
@@ -318,6 +325,7 @@ beauty.post('/api/products', function (req, res, next) {
 
                 if(search_params.merchant)
                     productSearch.merchant = search_params.merchant;
+
 
                 // send single event to Keen IO
                 client.addEvent("ProductSearch", productSearch, function(err, res) {
