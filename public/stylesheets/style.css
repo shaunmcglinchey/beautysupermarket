@@ -6173,3 +6173,10 @@ body {
     list-style-type: none;
     padding-right: 20px;
 }
+
+.dailydeals {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 23px;
+    font-weight: bold;
+    color: #336699;
+}

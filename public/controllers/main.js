@@ -326,18 +326,45 @@ var beautyApp = angular.module('beautyApp')
              }
              }
              }
-
-
-
-
-
   }])
-    .controller('JockController', ['$scope','$location','deals','productAPI',
-        function ($scope,$location,deals,productAPI) {
-        console.log('ro');
-        console.log('deals:'+JSON.stringify(deals));
-        $scope.deals = deals.results.deals.deal;
+    .controller('DealsController', ['$scope', '$state','$location', 'productAPI','usSpinnerService','sale_deals','percent_off_deals','free_gift_deals',
+        function ($scope, $state, $location, productAPI, usSpinnerService, sale_deals, percent_off_deals, free_gift_deals) {
+            //console.log('deals:'+JSON.stringify(sale_deals));
+            var merchants;
+            $scope.sale_deals = sale_deals.results.deals.deal;
+            $scope.sale_deals_count = sale_deals.results.deals.count;
+            $scope.sale_deal_merchants = sale_deals.resources.merchants.merchant;
 
+            $scope.percent_deals = percent_off_deals.results.deals.deal;
+            $scope.percent_deals_count =  percent_off_deals.results.deals.count;
+            $scope.percent_merchants = percent_off_deals.resources.merchants.merchant;
+
+            $scope.gift_deals = free_gift_deals.results.deals.deal;
+            $scope.gift_deals_count =  free_gift_deals.results.deals.count;
+            $scope.gift_deal_merchants = free_gift_deals.resources.merchants.merchant;
+            //$scope.num_deals = deals.results.deals.count;
+            //$scope.deals = deals.results.deals.deal;
+            //$scope.merchants = deals.resources.merchants.merchant;
+            merchants = _.union($scope.sale_deal_merchants,$scope.percent_merchants, $scope.gift_deal_merchants);
+            //console.log(JSON.stringify(merchants));
+
+            $scope.getMerchantLogo = function(merchant_id) {
+
+                var merchant_logo_url = _.result(_.findWhere(merchants, { 'id': merchant_id }), 'logo_url');
+
+                if (merchant_logo_url.length)
+                    return merchant_logo_url;
+                return '';
+            }
+
+            $scope.getMerchantName = function(merchant_id) {
+
+                var merchant_name = _.result(_.findWhere(merchants, { 'id': merchant_id }), 'name');
+
+                if (merchant_name.length)
+                    return merchant_name;
+                return '';
+            }
 
   }])
     .controller('TermsController', ['$scope', '$routeParams',

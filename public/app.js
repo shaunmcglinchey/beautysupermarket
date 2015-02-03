@@ -1,4 +1,4 @@
-var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable','ngTextTruncate','angulike']);
+var beautyApp = angular.module('beautyApp', ['ngCookies', 'ngResource','ngMessages','ui.router', 'truncate','ui.bootstrap','angularSpinner','ngTable','ngTextTruncate','angulike','ngSanitize']);
 beautyApp.run([
     '$rootScope', function ($rootScope) {
         $rootScope.facebookAppId = '1554459874801972'; // set your facebook app id here
@@ -80,45 +80,6 @@ beautyApp.run([
                         //console.log("enter products.detail");
                     }
                 })
-                .state('deals', {
-                    url: '/deals',
-                    controller: 'JockController',
-                    resolve: {
-                        "deals": function($q,$http){
-                            var d = $q.defer();
-
-                            var url = "/api/deals";
-
-                            /* either return the data or reject the promise */
-                            $http.get(url).success(function(data) {
-                                //need to check here whether we did in fact get the data
-                                //current a returned HTML page is being treated as a 'success'...
-                                console.log('retrieved the deals');
-                                d.resolve({
-                                        info: function( ) {
-                                            return data;
-                                        }
-                                    }
-                                );
-                            }).error(function(data, status) {
-                                d.reject(status);
-                            });
-                            return d.promise;
-                        }
-                    },
-                    views: {
-                        'header@deals': { templateUrl: './views/header.html' },
-                        // the main template will be placed here (relatively named)
-                        '': { templateUrl: './views/deals.html' },
-
-                        // the child views will be defined here (absolutely named)
-                        'content@deals': { templateUrl: './views/deallist.html' },
-                        'footer@deals': { templateUrl: './views/footer.html' }
-                    },
-                    onEnter: function(){
-                        console.log("entered deals state");
-                    }
-                })
                 .state('products.nothing', {
                     url: '/nothing',
                     views: {
@@ -143,6 +104,62 @@ beautyApp.run([
                     templateUrl: './views/404.html',
                     onEnter: function(){
                         //console.log("404 page not found");
+                    }
+                })
+                .state('deals', {
+                    url: '/deals',
+                    views: {
+                        'header@deals': { templateUrl: './views/header.html' },
+                        // the main template will be placed here (relatively named)
+                        '': { templateUrl: './views/deals.html' },
+
+                        // the child views will be defined here (absolutely named)
+                        'content@deals': { templateUrl: './views/deallist.html',  controller: 'DealsController' },
+                        'footer@deals': { templateUrl: './views/footer.html'}
+                    },
+                    resolve: {
+                        "sale_deals": function($q,$http){
+                            var d = $q.defer();
+                            var url = "/api/deals/4";
+
+                            // either return the data or reject the promise
+                            $http.get(url).success(function(data) {
+                                d.resolve(data);
+                            }).error(function(data, status) {
+                                d.reject(status);
+                            });
+                            return d.promise;
+                        },
+                        "percent_off_deals": function($q,$http){
+                            var d = $q.defer();
+                            var url = "/api/deals/5";
+
+                            // either return the data or reject the promise
+                            $http.get(url).success(function(data) {
+                                d.resolve(data);
+                            }).error(function(data, status) {
+                                d.reject(status);
+                            });
+                            return d.promise;
+                        },
+                        "free_gift_deals": function($q,$http){
+                            var d = $q.defer();
+                            var url = "/api/deals/3";
+
+                            // either return the data or reject the promise
+                            $http.get(url).success(function(data) {
+                                d.resolve(data);
+                            }).error(function(data, status) {
+                                d.reject(status);
+                            });
+                            return d.promise;
+                        }
+                    },
+                    onEnter: function(){
+                        console.log("entered deals state");
+                    },
+                    onExit: function(){
+                        console.log("exiting deals state");
                     }
                 })
                 .state('terms', {

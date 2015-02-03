@@ -1,0 +1,26 @@
+{
+  "name": "ng-segmentio",
+  "version": "1.5.0",
+  "main": "build/ng-segmentio.min.js",
+  "dependencies": {
+    "angular": "~1.2.16"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.16"
+  },
+  "ignore": [
+    "test/",
+    "config/"
+  ],
+  "homepage": "https://github.com/jacopotarantino/ng-segmentio",
+  "_release": "1.5.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.5.0",
+    "commit": "dad9d75839dfae1010218ead64d71f0849e3b554"
+  },
+  "_source": "git://github.com/jacopotarantino/ng-segmentio.git",
+  "_target": "~1.5.0",
+  "_originalSource": "ng-segmentio",
+  "_direct": true
+}

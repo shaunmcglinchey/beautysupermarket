@@ -1,0 +1,81 @@
+<h4>Sale Deals ({{sale_deals_count}})</h4>
+
+<div ng-repeat="d in sale_deals" style="margin-bottom: 15px;" class="col-md-6">
+    <!-- start card -->
+    <a class="card-link" href="{{d.url}}">
+        <div class="card">
+            <div class="content">
+                <div class="pull-right"><img ng-src="{{ getMerchantLogo(d.merchant) }}"/></div>
+                <h4 class="title">Shop: <b>{{ getMerchantName(d.merchant) }}</b></h4>
+                <div class="title" style="font-size:18px;" ng-bind-html="d.name">
+                </div>
+                <div class="footer">
+                    <div class="author">
+                        <span>Offer Starts: </span><span class="price price-new">{{d.start_on}}</span>
+                        <br/>
+                        <span>Expires: </span><span class="price price-new">{{d.end_on}}</span>
+                        <br/>
+                        <span>Site Wide: </span><span class="price price-new">{{d.site_wide}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    <!-- end card -->
+</div>
+
+
+<h4>Percent-Off Deals ({{percent_deals_count}})</h4>
+
+<div ng-repeat="d in percent_deals" style="margin-bottom: 15px;" class="col-md-6">
+    <!-- start card -->
+    <a class="card-link" href="{{d.url}}">
+        <div class="card">
+            <div class="content">
+                <div class="pull-right"><img ng-src="{{ getMerchantLogo(d.merchant) }}"/></div>
+                <h4 class="title">Shop: <b>{{ getMerchantName(d.merchant) }}</b></h4>
+
+                <div class="title" style="font-size:18px;" ng-bind-html="d.name">
+                </div>
+                <div class="footer">
+                    <div class="author">
+                        <span>Offer Starts: </span><span class="price price-new">{{d.start_on}}</span>
+                        <br/>
+                        <span>Expires: </span><span class="price price-new">{{d.end_on}}</span>
+                        <br/>
+                        <span>Site Wide: </span><span class="price price-new">{{d.site_wide}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    <!-- end card -->
+</div>
+
+<h4>Gift Deals ({{gift_deals_count}})</h4>
+
+<div ng-repeat="d in gift_deals" style="margin-bottom: 15px;" class="col-md-6">
+    <a class="card-link" href="{{d.url}}">
+        <div class="card">
+            <div class="content">
+                <div class="pull-right"><img ng-src="{{ getMerchantLogo(d.merchant) }}"/></div>
+                <h4 class="title">Shop: <b>{{ getMerchantName(d.merchant) }}</b></h4>
+                <div class="title" style="font-size:18px;" ng-bind-html="d.name">
+                </div>
+
+                <div class="footer">
+                    <div class="author">
+                        <span>Offer Starts: </span><span class="price price-new">{{d.start_on}}</span>
+                        <br/>
+                        <span>Expires: </span><span class="price price-new">{{d.end_on}}</span>
+                        <br/>
+                        <span>Site Wide: </span><span class="price price-new">{{d.site_wide}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+

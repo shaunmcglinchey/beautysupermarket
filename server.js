@@ -3,6 +3,7 @@ var path = require('path');
 var logger = require('morgan');
 var log = require('npmlog');
 var _ = require('lodash')._;
+var url = require('url');
 var bodyParser = require('body-parser');
 var superagent = require('superagent');
 var useragent = require('useragent');
@@ -15,6 +16,7 @@ var catid = {};
 var brand = {};
 var brands = [];
 var event = {};
+var deal_types = new Array(1,2,3,4,5);
 
 var Keen = require('keen.io');
 
@@ -48,6 +50,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 // get an instance of router
 var beauty = express.Router()
@@ -124,28 +128,6 @@ beauty.get('/api/products/:productId', function(req, res, next){
     }
 });
 
-beauty.get('/api/deals', function (req, res, next) {
-    search_params.deal_type = '11,3';
-    superagent.post(dealsUrl)
-        .send(search_params)
-        .end(function (result) {
-            if (result.ok) {
-                if (result.body.results) {
-                    console.log('retrieved deals');
-                }else{
-                    console.log('could not retrieve deals');
-                }
-                res.send(result.body)
-            }else{
-                //console.log('error occurred:'+result.text);
-                //console.log('no results returned from popshops');
-                var notFound = new Error('Product Not Found');
-                notFound.status = 404;
-                return next(notFound);
-            }
-        });
-});
-
 beauty.post('/api/event', function (req, res, next) {
     if (req.body.event) {
         console.log('event object found:' + JSON.stringify(req.body.event));
@@ -171,11 +153,42 @@ beauty.post('/api/event', function (req, res, next) {
     res.send();
 });
 
+
+beauty.param('deal_type', function(req,res,next,deal_type){
+    if(deal_type == 1 || deal_type == 2 || deal_type == 3 || deal_type == 4 ||
+        deal_type == 5){
+        console.log('validating deal type');
+        req.body.deal_type = deal_type;
+        next();
+    }else{
+        return next(new Error('Invalid deal type'));
+    }
+});
+
+
+beauty.get('/api/deals/:deal_type', function (req, res) {
+    console.log('reached deal endpoint');
+    if(req.body.deal_type)
+        search_params.deal_type = req.body.deal_type;
+    search_params.results_per_page = 100;
+
+    superagent.post(dealsUrl)
+        .send(search_params)
+        .end(function (e, result) {
+            if (!result.body.results)
+                console.log('no results returned from popshops');
+            result = removeCredentials(result);
+            res.send(result.body)
+        });
+});
+
+
+
 //need to accept a map of filters - in that map we specify brand (single), store (multi), price range selections 
 //and use the map to construct an appropriate popshops API call
 
 //how to post a map to node.js express 4
-beauty.post('/api/products', function (req, res, next) {
+beauty.post('/api/products', function (req, res) {
     //log the user agent type accessing the app
     var agent = useragent.parse(req.headers['user-agent']);
 
@@ -257,11 +270,7 @@ beauty.post('/api/products', function (req, res, next) {
                 //console.log('category:' + search_params.category);
             }
 
-        } else {
-            //console.log('query object filter map not found')
         }
-    } else {
-        //console.log('no query object found')
     }
     if (categories.length < 1) {
         search_params.category = 13250;
@@ -371,7 +380,6 @@ app.use('/', beauty)
 
 // listen for requests to our routes
 app.listen(app.get('port'), function () {
-    //log.info('yo','Express server listening on port ' + app.get('port'));
     console.log('Express server listening on port ' + app.get('port'))
 })
 
