@@ -2,7 +2,7 @@
 
 <div ng-repeat="d in sale_deals" style="margin-bottom: 15px;" class="col-md-6">
     <!-- start card -->
-    <a class="card-link" href="{{d.url}}">
+    <a class="card-link" href="{{d.url}}" target="_blank">
         <div class="card">
             <div class="content">
                 <div class="pull-right"><img ng-src="{{ getMerchantLogo(d.merchant) }}"/></div>
@@ -29,7 +29,7 @@
 
 <div ng-repeat="d in percent_deals" style="margin-bottom: 15px;" class="col-md-6">
     <!-- start card -->
-    <a class="card-link" href="{{d.url}}">
+    <a class="card-link" href="{{d.url}}" target="_blank">
         <div class="card">
             <div class="content">
                 <div class="pull-right"><img ng-src="{{ getMerchantLogo(d.merchant) }}"/></div>
@@ -55,7 +55,7 @@
 <h4>Gift Deals ({{gift_deals_count}})</h4>
 
 <div ng-repeat="d in gift_deals" style="margin-bottom: 15px;" class="col-md-6">
-    <a class="card-link" href="{{d.url}}">
+    <a class="card-link" href="{{d.url}}" target="_blank">
         <div class="card">
             <div class="content">
                 <div class="pull-right"><img ng-src="{{ getMerchantLogo(d.merchant) }}"/></div>
