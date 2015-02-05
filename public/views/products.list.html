@@ -154,7 +154,7 @@
                     </div>
                 </div>
             </div>
-           <div class="col-md-9">
+           <div class="col-md-8">
 
                <pagination page="currentPage" total-items="totalItems" items-per-page="itemsPerPage" on-select-page="setPage(page)" max-size=5 items-per-page=10 boundary-links="true"></pagination>
                 <div class="panel panel-default">
@@ -167,8 +167,6 @@
                             <tr>
                                 <th class="text-center"></th>
                                 <th >Product</th>
-
-                                <th class="text-right">Best Price</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -180,15 +178,11 @@
                                     </div>
                                 </td>
                                 <td class="td-name">
-                                    <a style="color:#333;" ng-href="#/products/{{product.id}}">{{product.name}}</a><br><span style="color:#000;font-size:18px;">Sold by {{product.offer_count}} seller<span ng-show="product.offer_count > 1">s</span></span>
+                                    <a style="color:#333;" ng-href="#/products/{{product.id}}">{{product.name}}</a><br><span style="color:#000;font-size:18px; font-style: italic">Sold by {{product.offer_count}} seller<span ng-show="product.offer_count > 1">s</span></span>
                                 </td>
-
-                                <td class="td-number">
-                                    <small>&pound;</small>{{product.price_min | number:2}}
-                                </td>
-
                                 <td class="td-actions">
                                    <!-- <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-success btn-buy" style="color: #00A8FB; border-color: #00A8FB; margin-bottom: 6px;">View Offers</button></a>-->
+                                    <span>as low as <small>&pound;</small>{{product.price_min | number:2}}</span>
                                     <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-success btn-fill" style="margin-bottom: 6px;"><span ng-show="product.offer_count > 1">Compare Now</span><span ng-show="product.offer_count <= 1">See It</span></button></a>
                                     <!--<a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-info">{{product.offer_count}} Offer<span ng-show="product.offer_count > 1">s</span></button></a></td>-->
                                 </td>
