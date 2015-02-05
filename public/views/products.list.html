@@ -178,11 +178,11 @@
                                     </div>
                                 </td>
                                 <td class="td-name">
-                                    <a style="color:#333;" ng-href="#/products/{{product.id}}">{{product.name}}</a><br><span style="color:#000;font-size:18px; font-style: italic">Sold by {{product.offer_count}} seller<span ng-show="product.offer_count > 1">s</span></span>
+                                    <a style="color:#333;" ng-href="#/products/{{product.id}}">{{product.name}}</a><br><span style="color:#000;font-size:18px; font-style: italic">Sold by <span style="font-weight: 600;">{{product.offer_count}} seller<span ng-show="product.offer_count > 1">s</span></span></span>
                                 </td>
                                 <td class="td-actions">
                                    <!-- <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-success btn-buy" style="color: #00A8FB; border-color: #00A8FB; margin-bottom: 6px;">View Offers</button></a>-->
-                                    <span>as low as <small>&pound;</small>{{product.price_min | number:2}}</span>
+                                    <span>as low as <span style="font-weight: 600;"><small>&pound;</small>{{product.price_min | number:2}}</span></span>
                                     <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-success btn-fill" style="margin-bottom: 6px;"><span ng-show="product.offer_count > 1">Compare Now</span><span ng-show="product.offer_count <= 1">See It</span></button></a>
                                     <!--<a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-info">{{product.offer_count}} Offer<span ng-show="product.offer_count > 1">s</span></button></a></td>-->
                                 </td>
