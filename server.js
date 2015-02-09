@@ -335,15 +335,18 @@ beauty.post('/api/products', function (req, res) {
                 if(search_params.merchant)
                     productSearch.merchant = search_params.merchant;
 
+                //check if we're on the localhost - development or not, otherwise send the event
+                if(req.host!='localhost'){
+                    // send single event to Keen IO
+                    client.addEvent("ProductSearch", productSearch, function(err, res) {
+                        if (err) {
+                            console.log("Oh no, could not log productSearch!");
+                        } else {
+                            console.log("productSearch event log");
+                        }
+                    });
+                }
 
-                // send single event to Keen IO
-                client.addEvent("ProductSearch", productSearch, function(err, res) {
-                    if (err) {
-                        console.log("Oh no, could not log productSearch!");
-                    } else {
-                        console.log("productSearch event log");
-                    }
-                });
             } else {
                 console.log('no results returned from popshops');
                 results = '';

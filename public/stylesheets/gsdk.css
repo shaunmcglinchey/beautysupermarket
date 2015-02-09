@@ -3020,8 +3020,7 @@ input.ct-red + span + label + span.switch-right {
 }
 
 .pagination > li.active > a, .pagination > li.active > span, .pagination > li.active > a:hover, .pagination > li.active > span:hover, .pagination > li.active > a:focus, .pagination > li.active > span:focus {
-  /*background-color: #2ca8ff;*/
-    background-color: #F36A99;
+  background-color: #2ca8ff;
   border: 0;
   color: #FFFFFF;
   padding: 7px 13px;
