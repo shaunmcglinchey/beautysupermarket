@@ -179,6 +179,8 @@
                                 </td>
                                 <td class="td-name">
                                     <a style="color:#333;" ng-href="#/products/{{product.id}}">{{product.name}}</a><br><span style="color:#000;font-size:18px; font-style: italic">Sold by <span style="font-weight: 600;">{{product.offer_count}} seller<span ng-show="product.offer_count > 1">s</span></span></span>
+                                    <br/>
+                                    <div style="color:#000;font-size:16px;" ng-show="product.offers.offer[0].percent_off >= 10">{{product.offers.offer[0].percent_off | number : 0}}% off</div>
                                 </td>
                                 <td class="td-actions">
                                    <!-- <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-success btn-buy" style="color: #00A8FB; border-color: #00A8FB; margin-bottom: 6px;">View Offers</button></a>-->

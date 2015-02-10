@@ -281,6 +281,7 @@ beauty.post('/api/products', function (req, res) {
 
 
     //track the API call - move this later
+    search_params.include_discounts = true;
 
     superagent.post(popShopsUrl)
         .send(search_params)
