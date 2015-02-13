@@ -71,6 +71,7 @@ var beauty = express.Router()
 beauty.get('/api/products/:productId', function(req, res, next){
     res.set('Content-Type', 'application/json');
     //console.log('Looking for product:'+req.params.productId);
+    var agent = useragent.parse(req.headers['user-agent']);
 
     resetParams();
 
@@ -107,14 +108,18 @@ beauty.get('/api/products/:productId', function(req, res, next){
                         productView.image_url_large = product_info.product.image_url_large;
                         productView.brand = product_info.product.brand;
                         productView.brandName = _.find(product_info.brands, { 'id': product_info.product.brand }).name;
+                        productView.agent = agent.family;
+                        productView.device = agent.device.toString();
 
-                        client.addEvent("ProductView", productView, function(err, res) {
-                            if (err) {
-                                //console.log("Oh no, could not log productView!");
-                            } else {
-                                //console.log("productView event logged");
-                            }
-                        });
+                        if(req.host!='localhost') {
+                            client.addEvent("ProductView", productView, function (err, res) {
+                                if (err) {
+                                    //console.log("Oh no, could not log productView!");
+                                } else {
+                                    //console.log("productView event logged");
+                                }
+                            });
+                        }
                     }
                     res.send(product_info)
                 }else{
