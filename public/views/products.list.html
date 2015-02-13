@@ -186,7 +186,7 @@
                                    <!-- <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-success btn-buy" style="color: #00A8FB; border-color: #00A8FB; margin-bottom: 6px;">View Offers</button></a>-->
                                     <span><span ng-show="product.price_min < product.price_max" style="text-decoration: line-through;"><small>&pound;</small>{{product.price_max | number:2}}</span> as low as <span style="font-weight: 600;"><small>&pound;</small>{{product.price_min | number:2}}</span></span>
                                     <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-success btn-fill" style="margin-bottom: 6px;"><span ng-show="product.offer_count > 1">Compare Now</span><span ng-show="product.offer_count <= 1">See It</span></button></a>
-                                    <!--<a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-info">{{product.offer_count}} Offer<span ng-show="product.offer_count > 1">s</span></button></a></td>-->
+
                                 </td>
                             </tr>
                             </tbody>
