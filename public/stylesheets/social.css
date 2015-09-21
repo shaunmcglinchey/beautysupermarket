@@ -159,14 +159,11 @@
     }
 }
 
-/* added css */
 .social{
-    /*float:right;*/
     margin-top: 10px;
 }
 .fb, .twit, .share, .gplus{
     float:left;
-    /*height:100px;*/
     overflow:hidden;
     margin-right:0px;
 }

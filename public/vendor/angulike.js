@@ -42,7 +42,7 @@
 								  }
                                   
                               });
-                              return;
+
                           } else {
                               element.html('<div class="fb-like"' + (!!scope.fbLike ? ' data-href="' + scope.fbLike + '"' : '') + ' data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>');
                               $window.FB.XFBML.parse(element.parent()[0]);
@@ -106,7 +106,7 @@
 								      unbindWatch();
 								  }
                               });
-                              return;
+
                           } else {
                               element.html('<a href="https://twitter.com/share" class="twitter-share-button" data-text="' + scope.tweet + '">Tweet</a>');
                               $window.twttr.widgets.load(element.parent()[0]);
@@ -161,7 +161,7 @@
 									  unbindWatch();
 								  }
                               });
-                              return;
+
                           } else {
                               scope.pinItUrl = $location.absUrl();
                               element.html('<a href="//www.pinterest.com/pin/create/button/?url=' + scope.pinItUrl + '&media=' + scope.pinItImage + '&description=' + scope.pinIt + '" data-pin-do="buttonPin" data-pin-config="beside"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a>');

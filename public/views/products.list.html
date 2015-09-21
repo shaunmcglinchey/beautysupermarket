@@ -2,222 +2,229 @@
 
     <div class="container tim-container">
         <div ng-hide="totalItems == 0">
-        <div class="tim-title">
-            <h3>{{current.name}}</h3>
-        </div>
+            <div class="tim-title">
+                <h3>{{current.name}}</h3>
+            </div>
 
-        <div class="row">
-            <div class="col-md-3">
-
-                <!-- start filters -->
-
-                <div class="row" id="product-cards">
-                    <div class="col-md-12">
-                        <div class="card card-refine">
-                            <div class="header">
-                                <h4 class="title">Refine
-                                    <button ng-click="reset()" class="btn btn-default btn-xs btn pull-right btn-simple" rel="tooltip" title="Reset Filter">
-                                        Reset <i class="fa fa-refresh"></i>
-                                    </button>
-                                </h4>
-                            </div>
-                            <div class="content">
-                                <div class="panel-group" id="accordion">
-
-                                   <!--
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h6 class="panel-title">
-                                                <a data-toggle="collapse" ng-href="refinePrice">
-                                                    Price Range
-                                                    <i class="fa fa-caret-up pull-right"></i>
-                                                </a>
-                                            </h6>
-                                        </div>
-                                        <div id="refinePrice" class="panel-collapse collapse in">
-                                            <div class="panel-body">
-                                                <span class="price price-left">&pound; 5</span>
-                                                <span class="price price-right">&pound; 110</span>
-                                                <div class="clearfix"></div>
-                                                <div id="refine-price-range" class="slider slider-info"></div>
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- start filters -->
+                    <div class="row" id="product-cards">
+                        <div class="col-md-12">
+                            <div class="card card-refine">
+                                <div class="header">
+                                    <h4 class="title">Refine
+                                        <button ng-click="reset()"
+                                                class="btn btn-default btn-xs btn pull-right btn-simple" rel="tooltip"
+                                                title="Reset Filter">
+                                            Reset <i class="fa fa-refresh"></i>
+                                        </button>
+                                    </h4>
+                                </div>
+                                <div class="content">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">
+                                                    <a data-toggle="collapse" href="##refineCategory">
+                                                        Category
+                                                        <i class="fa fa-caret-up pull-right"></i>
+                                                    </a>
+                                                </h6>
                                             </div>
-                                        </div>
-                                    </div>
-                                    -->
-
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h6 class="panel-title">
-                                                <a data-toggle="collapse" href="##refineCategory">
-                                                    Category
-                                                    <i class="fa fa-caret-up pull-right"></i>
-                                                </a>
-                                            </h6>
-                                        </div>
-                                        <div id="refineCategory" class="panel-collapse collapse in">
-                                            <div class="panel-body panel-scroll">
-                                                <div style="margin-bottom: 10px;">
-                                                <div ng-repeat="item in context" ng-style="{'margin-left': 8*$index+'px'}">
-                                                    <label class="checkbox" ng-class="{ checked : isChecked }">
-                                                        <span class="icons"><span class="first-icon fa fa-check-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span>
-                                                        <input type="checkbox" value="{{item.id}}" checked="" ng-model="isChecked" ng-click="filter(item.id,'category')">
-                                                        <a ng-click="filter(item.id,'category')" style="color: #333333;">{{item.name}}</a>
-                                                    </label>
-                                                </div>
-                                                </div>
-                                                <div ng-repeat="category in categories">
-                                                        <label style="margin-left:23px;" class="checkbox" ng-class="{ checked : isChecked }">
-                                                            <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span>
-                                                            <input type="checkbox" value="{{category.id}}" checked="" ng-model="isChecked" ng-click="filter(category.id,'category')">
-                                                            <a ng-click="filter(category.id,'category')" style="color: #333333;" ng-class="{true: 'link', false: ''}[category.leaf == true]"><!--<span ng-show="category.leaf != true">&#43; </span><span ng-show="category.leaf == true">&#32;</span>-->{{category.name}} ({{category.count}})</a>
+                                            <div id="refineCategory" class="panel-collapse collapse in">
+                                                <div class="panel-body panel-scroll">
+                                                    <div style="margin-bottom: 10px;">
+                                                        <div ng-repeat="item in context"
+                                                             ng-style="{'margin-left': 8*$index+'px'}">
+                                                            <label class="checkbox" ng-class="{ checked : isChecked }">
+                                                                <span class="icons"><span
+                                                                        class="first-icon fa fa-check-square-o"></span><span
+                                                                        class="second-icon fa fa-check-square-o"></span></span>
+                                                                <input type="checkbox" value="{{item.id}}" checked=""
+                                                                       ng-model="isChecked"
+                                                                       ng-click="filter(item.id,'category')">
+                                                                <a ng-click="filter(item.id,'category')"
+                                                                   style="color: #333333;">{{item.name}}</a>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div ng-repeat="category in categories">
+                                                        <label style="margin-left:23px;" class="checkbox"
+                                                               ng-class="{ checked : isChecked }">
+                                                            <span class="icons"><span
+                                                                    class="first-icon fa fa-square-o"></span><span
+                                                                    class="second-icon fa fa-check-square-o"></span></span>
+                                                            <input type="checkbox" value="{{category.id}}" checked=""
+                                                                   ng-model="isChecked"
+                                                                   ng-click="filter(category.id,'category')">
+                                                            <a ng-click="filter(category.id,'category')"
+                                                               style="color: #333333;"
+                                                               ng-class="{true: 'link', false: ''}[category.leaf == true]">
+                                                                {{category.name}} ({{category.count}})</a>
                                                         </label>
-                                                </div>
+                                                    </div>
 
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h6 class="panel-title">
-                                                <a data-toggle="collapse" href="##refineBrand" class="collapsed">
-                                                    Brand
-                                                    <i class="fa fa-caret-up pull-right"></i>
-                                                </a>
-                                            </h6>
-                                        </div>
-                                        <div id="refineBrand" class="panel-collapse collapse in">
-                                            <div class="panel-body panel-scroll">
-                                                <div ng-show="brandSelection.length > 0" style="padding-bottom:15px; margin-left:5px;">
-                                                    <a ng-click="clearFilter('brand')">&laquo; Any brand</a>
-                                                </div>
-                                                <div ng-repeat="brand in brands | orderBy:'count':true">
-                                                    <div ng-hide="brand.name =='Unknown'">
-                                                    <label style="margin-left:24px;" class="checkbox" ng-class="{ checked : isChecked }"/>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">
+                                                    <a data-toggle="collapse" href="##refineBrand" class="collapsed">
+                                                        Brand
+                                                        <i class="fa fa-caret-up pull-right"></i>
+                                                    </a>
+                                                </h6>
+                                            </div>
+                                            <div id="refineBrand" class="panel-collapse collapse in">
+                                                <div class="panel-body panel-scroll">
+                                                    <div ng-show="brandSelection.length > 0"
+                                                         style="padding-bottom:15px; margin-left:5px;">
+                                                        <a ng-click="clearFilter('brand')">&laquo; Any brand</a>
+                                                    </div>
+                                                    <div ng-repeat="brand in brands | orderBy:'count':true">
+                                                        <div ng-hide="brand.name =='Unknown'">
+                                                            <label style="margin-left:24px;" class="checkbox"
+                                                                   ng-class="{ checked : isChecked }"/>
 
-                                                        <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span>
-                                                        <input type="checkbox" value="{{brand.id}}" checked="" ng-model="isChecked" ng-click="filter(brand.id,'brand')">
-                                                        <a ng-click="filter(brand.id,'brand')" style="color: #333333;">{{brand.name}} ({{brand.count}})</a>
-                                                    </label>
+                                                            <span class="icons"><span
+                                                                    class="first-icon fa fa-square-o"></span><span
+                                                                    class="second-icon fa fa-check-square-o"></span></span>
+                                                            <input type="checkbox" value="{{brand.id}}" checked=""
+                                                                   ng-model="isChecked"
+                                                                   ng-click="filter(brand.id,'brand')">
+                                                            <a ng-click="filter(brand.id,'brand')"
+                                                               style="color: #333333;">{{brand.name}}
+                                                                ({{brand.count}})</a>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div><!-- end panel -->
+                                        <!-- end panel -->
 
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h6 class="panel-title">
-                                                <a data-toggle="collapse" href="##refineMerchant" class="collapsed">
-                                                    Store
-                                                    <i class="fa fa-caret-up pull-right"></i>
-                                                </a>
-                                            </h6>
-                                        </div>
-                                        <div id="refineMerchant" class="panel-collapse collapse">
-                                            <div class="panel-body panel-scroll">
-                                                <div ng-show="storeSelection.length > 0" style="padding-bottom:15px; margin-left:5px;">
-                                                    <a ng-click="clearFilter('merchant')">&laquo; Any store</a>
-                                                </div>
-                                                <div ng-repeat="merchant in merchant_arr |orderBy:'count':true">
-                                                    <div ng-hide="merchant.name =='Unknown'">
-                                                        <label class="checkbox" ng-class="{ checked : isChecked }">
-                                                            <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span>
-                                                            <input type="checkbox" value="{{merchant.id}}" ng-model="isChecked" ng-click="filter(merchant.id,'merchant')">
-                                                            <a ng-click="filter(merchant.id,'merchant')" style="color: #333333;">{{merchant.name}} ({{merchant.count}})</a>
-                                                        </label>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h6 class="panel-title">
+                                                    <a data-toggle="collapse" href="##refineMerchant" class="collapsed">
+                                                        Store
+                                                        <i class="fa fa-caret-up pull-right"></i>
+                                                    </a>
+                                                </h6>
+                                            </div>
+                                            <div id="refineMerchant" class="panel-collapse collapse">
+                                                <div class="panel-body panel-scroll">
+                                                    <div ng-show="storeSelection.length > 0"
+                                                         style="padding-bottom:15px; margin-left:5px;">
+                                                        <a ng-click="clearFilter('merchant')">&laquo; Any store</a>
+                                                    </div>
+                                                    <div ng-repeat="merchant in merchant_arr |orderBy:'count':true">
+                                                        <div ng-hide="merchant.name =='Unknown'">
+                                                            <label class="checkbox" ng-class="{ checked : isChecked }">
+                                                                <span class="icons"><span
+                                                                        class="first-icon fa fa-square-o"></span><span
+                                                                        class="second-icon fa fa-check-square-o"></span></span>
+                                                                <input type="checkbox" value="{{merchant.id}}"
+                                                                       ng-model="isChecked"
+                                                                       ng-click="filter(merchant.id,'merchant')">
+                                                                <a ng-click="filter(merchant.id,'merchant')"
+                                                                   style="color: #333333;">{{merchant.name}}
+                                                                    ({{merchant.count}})</a>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- end panel -->
                                     </div>
-
-                                    <!-- end panel -->
-
-                                    <!-- coupon panel -->
-                                    <!-- temp hide deals panel -->
-                                    <!--
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h6 class="panel-title">
-                                                <a ng-href="/deals">
-                                                    Deals
-                                                 </a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    -->
-                                    <!-- end coupon panel -->
-
                                 </div>
                             </div>
-                        </div> <!-- end card -->
+                            <!-- end card -->
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-8">
+
+                    <pagination page="currentPage" total-items="totalItems" items-per-page="itemsPerPage"
+                                on-select-page="setPage(page)" max-size=5 items-per-page=10
+                                boundary-links="true"></pagination>
+                    <div class="panel panel-default">
+
+
+                        <div class="table-responsive">
+
+                            <table class="table table-shopping">
+                                <thead>
+                                <tr>
+                                    <th class="text-center"></th>
+                                    <th>Product</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="product in product_arr" ng-show="product.offer_count > 0">
+                                    <td>
+                                        <div class="img-container">
+                                            <a ng-href="#/products/{{product.id}}"><img
+                                                    ng-src="{{product.image_url_large}}"/></a>
+                                        </div>
+                                    </td>
+                                    <td class="td-name">
+                                        <a style="color:#333;"
+                                           ng-href="#/products/{{product.id}}">{{product.name}}</a><br><span
+                                            style="color:#000;font-size:18px; font-style: italic">Sold by <span
+                                            style="font-weight: 600;">{{product.offer_count}} seller<span
+                                            ng-show="product.offer_count > 1">s</span></span></span>
+                                        <br/>
+
+                                        <div style="color:#000;font-size:16px;"
+                                             ng-show="product.offers.offer[0].percent_off >= 10">
+                                            {{product.offers.offer[0].percent_off | number : 0}}% off
+                                        </div>
+                                    </td>
+                                    <td class="td-actions">
+                                        <span><span ng-show="product.price_min < product.price_max"
+                                                    style="text-decoration: line-through;"><small>&pound;</small>{{product.price_max | number:2}}</span> as low as <span
+                                                style="font-weight: 600;"><small>&pound;</small>{{product.price_min | number:2}}</span></span>
+                                        <a ng-href="#/products/{{product.id}}">
+                                            <button href="#fakelink"
+                                                    class="btn btn-block btn-default btn-success btn-fill"
+                                                    style="margin-bottom: 6px;"><span ng-show="product.offer_count > 1">Compare Now</span><span
+                                                    ng-show="product.offer_count <= 1">See It</span></button>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <pagination page="currentPage" total-items="totalItems" items-per-page="itemsPerPage"
+                                on-select-page="setPage(page)" max-size=5 items-per-page=10
+                                boundary-links="true"></pagination>
+                </div>
+
             </div>
-           <div class="col-md-8">
-
-               <pagination page="currentPage" total-items="totalItems" items-per-page="itemsPerPage" on-select-page="setPage(page)" max-size=5 items-per-page=10 boundary-links="true"></pagination>
-                <div class="panel panel-default">
-
-
-                    <div class="table-responsive">
-
-                        <table class="table table-shopping">
-                            <thead>
-                            <tr>
-                                <th class="text-center"></th>
-                                <th >Product</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="product in product_arr" ng-show="product.offer_count > 0">
-                                <td>
-                                    <div class="img-container">
-                                        <a ng-href="#/products/{{product.id}}"><img ng-src="{{product.image_url_large}}"/></a>
-                                    </div>
-                                </td>
-                                <td class="td-name">
-                                    <a style="color:#333;" ng-href="#/products/{{product.id}}">{{product.name}}</a><br><span style="color:#000;font-size:18px; font-style: italic">Sold by <span style="font-weight: 600;">{{product.offer_count}} seller<span ng-show="product.offer_count > 1">s</span></span></span>
-                                    <br/>
-                                    <div style="color:#000;font-size:16px;" ng-show="product.offers.offer[0].percent_off >= 10">{{product.offers.offer[0].percent_off | number : 0}}% off</div>
-                                </td>
-                                <td class="td-actions">
-                                   <!-- <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-success btn-buy" style="color: #00A8FB; border-color: #00A8FB; margin-bottom: 6px;">View Offers</button></a>-->
-                                    <span><span ng-show="product.price_min < product.price_max" style="text-decoration: line-through;"><small>&pound;</small>{{product.price_max | number:2}}</span> as low as <span style="font-weight: 600;"><small>&pound;</small>{{product.price_min | number:2}}</span></span>
-                                    <a ng-href="#/products/{{product.id}}"><button href="#fakelink" class="btn btn-block btn-default btn-success btn-fill" style="margin-bottom: 6px;"><span ng-show="product.offer_count > 1">Compare Now</span><span ng-show="product.offer_count <= 1">See It</span></button></a>
-
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-
-
-                </div>
-               <pagination page="currentPage" total-items="totalItems" items-per-page="itemsPerPage" on-select-page="setPage(page)" max-size=5 items-per-page=10 boundary-links="true"></pagination>
-
-
-           </div>
-
-        </div>
         </div>
         <div ng-hide="product_arr.length">
             <div class="col-md-offset-1" style="margin-top:40px;">
-                <p>Boooo! Your search did not return any results. Perhaps try another search term or browse products using the filters. <a ng-click="reset()">Try again</a></p>
+                <p>Boooo! Your search did not return any results. Perhaps try another search term or browse products
+                    using the filters. <a ng-click="reset()">Try again</a></p>
             </div>
-
         </div>
-
     </div>
 </div>
-<script type="text/ng-template"  id="tree_item_renderer.html">
+<script type="text/ng-template" id="tree_item_renderer.html">
 
     <div class="categories">
         <a ng-click="filter(data.id,'category')">{{data.name}}</a>
-        <ul><li style="list-style-type: none;" ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
+        <ul>
+            <li style="list-style-type: none;" ng-repeat="data in data.nodes"
+                ng-include="'tree_item_renderer.html'"></li>
         </ul>
     </div>
-
 </script>

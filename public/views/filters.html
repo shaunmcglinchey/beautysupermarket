@@ -44,7 +44,6 @@
             <a ng-click="filter(merchant.id,'merchant')"><span class="filter filter-links">{{merchant.name}} ({{merchant.count}})</span></a>
         </div>
                 <span class="label">
-                   <!-- <div ng-show="!storeFullyExpanded()"> -->
                    <div ng-show="merchant_arr.length > storeLimit">
                         <a href style="text-decoration:none;" ng-click="incrementStoreLimit()">+ See more</a>
                     </div>
@@ -62,5 +61,4 @@
         <ul><li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
         </ul>
     </div>
-
 </script>

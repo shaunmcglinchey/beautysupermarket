@@ -1,5 +1,5 @@
 var beautyApp = angular.module('beautyApp')
-    .controller('ProductListController', ['$scope', '$state','$location', 'productAPI', 'productService','usSpinnerService',
+    .controller('ProductListController', ['$scope', '$state', '$location', 'productAPI', 'productService', 'usSpinnerService',
         function ($scope, $state, $location, productAPI, productService, usSpinnerService) {
 
             $scope.itemsPerPage = 10;
@@ -31,25 +31,21 @@ var beautyApp = angular.module('beautyApp')
                 $scope.categorySelection.length = 0;
                 $scope.categorySelection.push('13000');
                 filters.length = 0;
-            }
+            };
 
             $scope.clearFilter = function (filterType) {
                 if (filterType == 'merchant') {
-                    //console.log('removing merchant filters');
                     $scope.storeSelection.length = 0;
-                    //console.log('store selection:' + JSON.stringify($scope.storeSelection));
                     rebuildFilters();
-                    //run new search
+                    // run new search
                     if ($scope.keyword)
                         query.term = $scope.keyword;
                     resetQuery();
                     doSearch(SearchQuery);
                 } else if (filterType == 'brand') {
-                    //console.log('removing brand filters');
                     $scope.brandSelection.length = 0;
-                    //console.log('brand selection:' + JSON.stringify($scope.brandSelection));
                     rebuildFilters();
-                    //run new search
+                    // run new search
                     if ($scope.keyword)
                         query.term = $scope.keyword;
                     resetQuery();
@@ -58,11 +54,9 @@ var beautyApp = angular.module('beautyApp')
             };
 
             $scope.filter = function (filterId, filterType) {
-
-                //console.log('filter function called');
                 var idx;
                 if (filterType == 'brand') {
-                    //check if brand filter already selected
+                    // check if brand filter already selected
                     idx = $scope.brandSelection.indexOf(filterId);
 
                     if (idx > -1) {
@@ -71,12 +65,9 @@ var beautyApp = angular.module('beautyApp')
                         $scope.brandSelection.push(filterId);
                     }
                 } else if (filterType == 'merchant') {
-                    //check if merchant filter already selected
-                    //remove any existing merchant selections
+                    // check if a merchant filter is already selected, if so remove it
                     $scope.clearFilter('merchant');
-
                     idx = $scope.storeSelection.indexOf(filterId);
-
                     if (idx > -1) {
                         $scope.storeSelection.splice(idx, 1);
                     } else { // else is not selected so select it
@@ -94,9 +85,8 @@ var beautyApp = angular.module('beautyApp')
                 $scope.currentPage = 1;
 
                 rebuildFilters();
-                //console.log('Filter SearchQuery:' + JSON.stringify(SearchQuery));
                 doSearch(SearchQuery);
-            }
+            };
 
             function rebuildFilters() {
                 filters.length = 0;
@@ -132,15 +122,13 @@ var beautyApp = angular.module('beautyApp')
             };
 
 
-
             function doSearch(searchQuery) {
-                //console.log('hitting productAPI with query:' + JSON.stringify(searchQuery));
                 $scope.startSpin();
 
                 productAPI.fetchProducts(searchQuery).then(function (res) {
-                    //console.log('productAPI.fetchProducts returned data');
-                    //need to check that some results were actually set before passing them to the scope
-                    if(res.data.results){
+                    // need to check that some results were actually set before passing them to the scope
+                    if (res.data.results) {
+
                         $scope.products = res.data.results.products;
                         $scope.product_arr = res.data.results.products.product;
                         $scope.num_merchants = res.data.resources.merchants.count;
@@ -150,59 +138,56 @@ var beautyApp = angular.module('beautyApp')
                         $scope.merchant_arr = res.data.resources.merchants.merchant;
                         $scope.brands = res.data.resources.brands.brand;
                         $scope.prices = res.data.filters.filter;
-
-
-                        //console.log('merchant arr length:'+ $scope.merchant_arr.length);
                         $scope.context = res.data.resources.categories.context.category;
-                        _.remove($scope.context, function(item) {
+
+                        _.remove($scope.context, function (item) {
                             return item.id == 1 || item.id == 13000
                         });
 
                         $scope.current = _.last($scope.context);
-                        if(res.data.resources.categories.matches){
+
+                        if (res.data.resources.categories.matches) {
                             $scope.categories = res.data.resources.categories.matches.category;
-                        }else{
+                        } else {
                             $scope.categories.length = 0;
                         }
                         productService.setMerchants(res.data.resources.merchants.merchant);
 
                         $scope.stopSpin();
                         $state.go('products.list');
-                    }else{
+                    } else {
                         $scope.product_arr.length = 0;
                         $scope.totalItems = 0;
                         $scope.stopSpin();
                     }
-                }, function (result){
-                    //console.log("The fetchProducts request failed with error " + result);
+                }, function (result) {
                     $scope.stopSpin();
                 });
             }
 
 
             $scope.selectItem = function (product) {
-                //use the productService to select the item
+                // use the productService to select the item
                 productService.selectProduct(product);
-                //console.log('selected item:' + product.name);
                 var url = '/products/' + product.id;
                 $location.path(url);
-            }
+            };
 
             $scope.reset = function () {
                 resetQuery();
                 $scope.clearFilters();
                 doSearch(SearchQuery);
-            }
+            };
 
-            $scope.startSpin = function(){
+            $scope.startSpin = function () {
                 usSpinnerService.spin('spinner-1');
-            }
-            $scope.stopSpin = function(){
-                usSpinnerService.stop('spinner-1');
-            }
+            };
 
-            function resetQuery(){
-                //console.log('resetting query');
+            $scope.stopSpin = function () {
+                usSpinnerService.stop('spinner-1');
+            };
+
+            function resetQuery() {
                 query.term = '';
                 query.page = 1;
                 query.rpp = 10;
@@ -214,14 +199,13 @@ var beautyApp = angular.module('beautyApp')
 
 
             $scope.isChecked = false;
+
             /* Pagination logic */
             $scope.range = function () {
                 var rangeSize = 5;
                 var ret = [];
                 var start;
-                //console.log('page count:' + $scope.pageCount());
                 start = $scope.currentPage;
-                //console.log('start:' + start);
                 if (start > $scope.pageCount() - rangeSize) {
                     start = $scope.pageCount() - rangeSize;
                     console.log('start:' + start);
@@ -265,26 +249,21 @@ var beautyApp = angular.module('beautyApp')
             };
 
             $scope.setPage = function (pageNo) {
-                //console.log('new page:'+pageNo);
                 $scope.currentPage = pageNo;
             };
 
-            $scope.pageChanged = function() {
-                //console.log('Page changed to: ' + $scope.currentPage);
+            $scope.pageChanged = function () {
             };
 
             $scope.$watch("currentPage", function (newValue, oldValue) {
-                //console.log('requesting page:' + newValue)
                 query.page = newValue;
-                //console.log('requesting rpp:' + query.rpp)
-                //console.log('requesting keyword:' + query.term)
                 doSearch(SearchQuery);
             });
 
             /* End pagination logic */
         }])
-    .controller('ProductDetailController', ['$scope','$location','product','productAPI',
-        function ($scope,$location,product,productAPI) {
+    .controller('ProductDetailController', ['$scope', '$location', 'product', 'productAPI',
+        function ($scope, $location, product, productAPI) {
             var AppEvent = {};
             var event = {};
             AppEvent.event = event;
@@ -292,98 +271,84 @@ var beautyApp = angular.module('beautyApp')
             $scope.myModel = {
                 Name: "BeautySupermarket", // text for tweet and pinIt buttons
                 FbLikeUrl: "http://www.beautysupermarket.co.uk"
-                /*ImageUrl: 'http://www.jasonwatmore.com/pics/jason-watmore.jpg'*/// image url for pinIt button
             };
 
             $scope.product_info = product.info();
             $scope.product = $scope.product_info.product;
             $scope.merchants = $scope.product_info.merchants;
-            console.log('name:'+$scope.product_info.product.name);
+            console.log('name:' + $scope.product_info.product.name);
 
-             $scope.event = function(e,params){
-             //console.log('pushing event');
-             if(e){
-             switch (e) {
-             case 'visitMerchant':
-             event.eventType = 'visitMerchant';
-             event.url = params;
-             //event.merchant =
-                 //console.log('visitMerchant event');
-             break;
-             default:
-             //console.log('no match found for event type')
-             }
-             if(event.eventType){
-                 //console.log('pushing event:'+JSON.stringify(AppEvent));
-                 productAPI.pushEvent(AppEvent);
-                 if(e == 'visitMerchant'){
-                     //console.log('redirecting to merchant:'+params);
-                     window.open(params,'_blank');
-                 }
-             }else{
-                 //console.log('no match, event not pushed');
-             }
-             }
-             }
-  }])
-    .controller('DealsController', ['$scope', '$state','$location', 'productAPI','usSpinnerService','sale_deals','percent_off_deals','free_gift_deals',
+            $scope.event = function (e, params) {
+                if (e) {
+                    switch (e) {
+                        case 'visitMerchant':
+                            event.eventType = 'visitMerchant';
+                            event.url = params;
+                            break;
+                    }
+                    if (event.eventType) {
+                        productAPI.pushEvent(AppEvent);
+                        if (e == 'visitMerchant') {
+                            window.open(params, '_blank');
+                        }
+                    }
+                }
+            }
+        }])
+    .controller('DealsController', ['$scope', '$state', '$location', 'productAPI', 'usSpinnerService', 'sale_deals', 'percent_off_deals', 'free_gift_deals',
         function ($scope, $state, $location, productAPI, usSpinnerService, sale_deals, percent_off_deals, free_gift_deals) {
-            //console.log('deals:'+JSON.stringify(sale_deals));
+
             var merchants;
+
             $scope.sale_deals = sale_deals.results.deals.deal;
             $scope.sale_deals_count = sale_deals.results.deals.count;
             $scope.sale_deal_merchants = sale_deals.resources.merchants.merchant;
 
             $scope.percent_deals = percent_off_deals.results.deals.deal;
-            $scope.percent_deals_count =  percent_off_deals.results.deals.count;
+            $scope.percent_deals_count = percent_off_deals.results.deals.count;
             $scope.percent_merchants = percent_off_deals.resources.merchants.merchant;
 
             $scope.gift_deals = free_gift_deals.results.deals.deal;
-            $scope.gift_deals_count =  free_gift_deals.results.deals.count;
+            $scope.gift_deals_count = free_gift_deals.results.deals.count;
             $scope.gift_deal_merchants = free_gift_deals.resources.merchants.merchant;
-            //$scope.num_deals = deals.results.deals.count;
-            //$scope.deals = deals.results.deals.deal;
-            //$scope.merchants = deals.resources.merchants.merchant;
-            merchants = _.union($scope.sale_deal_merchants,$scope.percent_merchants, $scope.gift_deal_merchants);
-            //console.log(JSON.stringify(merchants));
 
-            $scope.getMerchantLogo = function(merchant_id) {
+            merchants = _.union($scope.sale_deal_merchants, $scope.percent_merchants, $scope.gift_deal_merchants);
 
-                var merchant_logo_url = _.result(_.findWhere(merchants, { 'id': merchant_id }), 'logo_url');
+            $scope.getMerchantLogo = function (merchant_id) {
+
+                var merchant_logo_url = _.result(_.findWhere(merchants, {'id': merchant_id}), 'logo_url');
 
                 if (merchant_logo_url.length)
                     return merchant_logo_url;
                 return '';
-            }
+            };
 
-            $scope.getMerchantName = function(merchant_id) {
+            $scope.getMerchantName = function (merchant_id) {
 
-                var merchant_name = _.result(_.findWhere(merchants, { 'id': merchant_id }), 'name');
+                var merchant_name = _.result(_.findWhere(merchants, {'id': merchant_id}), 'name');
 
                 if (merchant_name.length)
                     return merchant_name;
                 return '';
             }
-
-  }])
+        }])
     .controller('TermsController', ['$scope', '$routeParams',
-  function ($scope, $routeParams) {
+        function ($scope, $routeParams) {
 
-  }])
+        }])
     .controller('AboutController', ['$scope', '$routeParams',
-  function ($scope, $routeParams) {
+        function ($scope, $routeParams) {
 
-  }])
+        }])
     .controller('PrivacyController', ['$scope', '$routeParams',
-  function ($scope, $routeParams) {
+        function ($scope, $routeParams) {
 
-  }])
+        }])
     .controller('CookiesController', ['$scope', '$routeParams',
-  function ($scope, $routeParams) {
+        function ($scope, $routeParams) {
 
-  }])
+        }])
     .controller('ContactController', ['$scope', '$routeParams',
-  function ($scope, $routeParams) {
+        function ($scope, $routeParams) {
 
-  }]);
-
+        }]);

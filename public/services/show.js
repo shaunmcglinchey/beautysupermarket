@@ -1,13 +1,11 @@
 angular.module("beautyApp")
     .service('productService', function () {
         var selectedProduct;
-        //var brands = new Array();
-        //var merchants = new Array();
         var merchants = [];
 
         var selectProduct = function (newObj) {
             selectedProduct = newObj;
-        }
+        };
 
         var getSelectedProduct = function () {
             return selectedProduct;

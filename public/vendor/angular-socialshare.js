@@ -157,7 +157,7 @@ angular.module('djds4rce.angular-socialshare', [])
       }
       $timeout(function(){
         element.bind('click',function(){
-          var url = encodeURIComponent(attr.url).replace(/'/g,"%27").replace(/"/g,"%22")
+          var url = encodeURIComponent(attr.url).replace(/'/g,"%27").replace(/"/g,"%22");
           $window.open("//www.linkedin.com/shareArticle?mini=true&url="+url+"&title="+attr.title+"&summary="+attr.summary);
         });
       });
